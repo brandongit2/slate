@@ -1,7 +1,8 @@
+import { motion } from 'framer-motion';
 import Head from 'next/head';
 import { useEffect, useReducer, useState } from 'react';
 
-import { apiLocation } from './config.json';
+import { apiLocation } from '../config.json';
 
 interface Subject {
     name: string;
