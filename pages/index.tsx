@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+// @ts-ignore
+import Hyphenopoly from 'hyphenopoly';
 import Head from 'next/head';
 import { useEffect, useReducer, useState } from 'react';
 
@@ -183,9 +185,20 @@ export default function Index({ subjects }: { subjects: Subject[] }) {
 }
 
 export async function getStaticProps() {
+    let hyphenate = await Hyphenopoly.config({
+        require: ['en-us']
+    });
+
+    let subjects = await (await fetch(apiLocation + '/list-subjects')).json();
+    subjects = subjects.map((subject: Subject) => ({
+        ...subject,
+        name: hyphenate(subject.name),
+        description: hyphenate(subject.description)
+    }));
+
     return {
         props: {
-            subjects: await (await fetch(apiLocation + '/list-subjects')).json()
+            subjects
         }
     };
 }
