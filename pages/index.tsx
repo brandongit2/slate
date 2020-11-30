@@ -1,66 +1,31 @@
-import { motion } from 'framer-motion';
-// @ts-ignore
-import Hyphenopoly from 'hyphenopoly';
+// import { motion } from 'framer-motion';
+import { useAuth0 } from '@auth0/auth0-react';
 import Head from 'next/head';
-import { useEffect, useReducer, useState } from 'react';
+import Link from 'next/Link';
+import LogInButton from '../components/LogInButton';
+import LogOutButton from '../components/LogOutButton';
+import SubjectCard from '../components/SubjectCard';
 
 import { apiLocation } from '../config.json';
-
-interface Subject {
-    name: string;
-    description: string;
-    color: string;
-}
+import { Subject } from '../misc/defs';
 
 export default function Index({ subjects }: { subjects: Subject[] }) {
-    // Set an individual hover state for each subject card.
-    const [hovered, toggleHovered] = useReducer(
-        (state: boolean[], i: number) => state.splice(i, 1, !state[i]),
-        subjects.map(() => false)
-    );
-
-    // Break subject header into multiple lines if necessary.
-    const [subjectsBroken, setSubjectsBroken] = useState(
-        subjects.map((s) => [s.name, ''])
-    );
-    useEffect(() => {
-        setSubjectsBroken(
-            subjects.map(({ name }, i) => {
-                let el = document.createElement('p');
-                el.style.fontSize = '200%';
-                el.style.fontWeight = '800';
-                el.style.position = 'fixed';
-                document.body.appendChild(el);
-
-                let broken = name.split(String.fromCharCode(0xad));
-                let str = '';
-                let len = 0;
-                for (let frag of broken) {
-                    str += frag;
-                    el.innerHTML = str;
-                    if (el.clientWidth > 180) {
-                        // If the second line would be awkwardly short
-                        if (name.length - len < 3) len = str.length;
-
-                        str = str.slice(0, str.length - frag.length);
-                        break;
-                    }
-                    len = str.length;
-                }
-
-                el.remove();
-
-                name = name.replace(String.fromCharCode(0xad), '');
-                return [name.slice(0, len), name.slice(len)];
-            })
-        );
-    }, []);
+    const { isAuthenticated, user } = useAuth0();
 
     return (
         <div>
             <Head>
                 <title>Slate: Learn by doing.</title>
             </Head>
+            <div style={{ position: 'fixed', top: '0px', right: '0px' }}>
+                <LogInButton />
+                <LogOutButton />
+                <p>
+                    {isAuthenticated
+                        ? `Hello, ${user.name}.`
+                        : 'You are logged out.'}
+                </p>
+            </div>
             <main
                 style={{
                     position: 'absolute',
@@ -96,86 +61,21 @@ export default function Index({ subjects }: { subjects: Subject[] }) {
                         }}
                     >
                         {subjects.map((subject, i) => (
-                            <div
+                            <Link
+                                href={`/subject/${subject.name.replace(
+                                    /\u00AD/g,
+                                    ''
+                                )}`}
                                 key={subject.name}
-                                style={{ display: 'contents' }}
-                                onMouseEnter={() => {
-                                    toggleHovered(i);
-                                }}
-                                onMouseLeave={() => {
-                                    toggleHovered(i);
-                                }}
                             >
-                                <div
-                                    style={{
-                                        position: 'relative',
-                                        width: '20rem',
-                                        height: '25rem',
-                                        background: 'var(--color-2)',
-                                        filter: hovered[i]
-                                            ? 'saturate(100%)'
-                                            : 'saturate(0%)',
-                                        transition: 'filter 0.2s'
-                                    }}
-                                >
-                                    {/* TODO: Put an animation here which runs only when `hovered[i]` is true */}
-                                    <span
-                                        style={{
-                                            position: 'absolute',
-                                            top: '50%',
-                                            left: '50%',
-                                            transform: 'translate(-50%, -50%)'
-                                        }}
-                                    >
-                                        [PLACEHOLDER]
-                                    </span>
+                                <div style={{ display: 'contents' }}>
+                                    <SubjectCard
+                                        name={subject.name}
+                                        description={subject.description}
+                                        color={subject.color}
+                                    />
                                 </div>
-                                <div
-                                    style={{
-                                        width: '18rem',
-                                        background: 'var(--color-1)',
-                                        padding: '1rem'
-                                    }}
-                                >
-                                    <p
-                                        style={{
-                                            textAlign: 'justify',
-                                            fontWeight: 600,
-                                            color: `#${subject.color}`
-                                        }}
-                                    >
-                                        <span
-                                            style={{
-                                                float: 'left',
-                                                marginRight: '0.3rem',
-                                                fontWeight: 800,
-                                                fontSize: '200%',
-                                                color: 'var(--color-1)',
-                                                background: `#${subject.color}`
-                                            }}
-                                        >
-                                            {subjectsBroken[i][0]}
-                                            {subjectsBroken[i][1] === ''
-                                                ? ''
-                                                : '-'}
-                                        </span>
-                                        <span
-                                            style={{
-                                                float: 'left',
-                                                clear: 'left',
-                                                marginRight: '0.3rem',
-                                                fontWeight: 800,
-                                                fontSize: '200%',
-                                                color: 'var(--color-1)',
-                                                background: `#${subject.color}`
-                                            }}
-                                        >
-                                            {subjectsBroken[i][1]}
-                                        </span>
-                                        {subject.description}
-                                    </p>
-                                </div>
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 </div>
@@ -185,20 +85,13 @@ export default function Index({ subjects }: { subjects: Subject[] }) {
 }
 
 export async function getStaticProps() {
-    let hyphenate = await Hyphenopoly.config({
-        require: ['en-us']
-    });
-
-    let subjects = await (await fetch(apiLocation + '/list-subjects')).json();
-    subjects = subjects.map((subject: Subject) => ({
-        ...subject,
-        name: hyphenate(subject.name),
-        description: hyphenate(subject.description)
-    }));
-
     return {
         props: {
-            subjects
+            subjects: await (
+                await fetch(
+                    `${apiLocation}/content/all-subjects?hyphenate={"name":1,"description":1}`
+                )
+            ).json()
         }
     };
 }
