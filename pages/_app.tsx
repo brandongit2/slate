@@ -8,7 +8,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <Auth0Provider
             domain="slatecx.us.auth0.com"
             clientId="tONHrmRIYIBemzYdqoqZKX4TRIaeML5h"
-            redirectUri="http://localhost:3000"
+            redirectUri="http://localhost:3000/logged-in"
             audience="https://api.slate.cx"
             scope="post:content"
         >

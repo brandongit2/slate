@@ -11,7 +11,15 @@ export default class MyDocument extends Document {
         return (
             <Html lang="en">
                 <Head>
-                    <link rel="shortcut icon" href="/icon-dark.png" />
+                    <link
+                        rel="shortcut icon"
+                        type="image/svg+xml"
+                        href="/favicon.svg"
+                    />
+                    <link
+                        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+                        rel="stylesheet"
+                    />
                 </Head>
                 <body>
                     <Main />

@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 
 import { apiLocation } from '../../config.json';
-import { Subject, SubjectWithChildren } from '../../misc/defs';
+import { Subject, SubjectWithChildren } from '../../defs/global';
 
 function Folder({ name }: { name: string }) {
     return <p>{name}</p>;

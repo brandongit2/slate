@@ -7,7 +7,7 @@ import LogOutButton from '../components/LogOutButton';
 import SubjectCard from '../components/SubjectCard';
 
 import { apiLocation } from '../config.json';
-import { Subject } from '../misc/defs';
+import { Subject } from '../defs/global';
 
 export default function Index({ subjects }: { subjects: Subject[] }) {
     const { isAuthenticated, user } = useAuth0();
@@ -36,7 +36,7 @@ export default function Index({ subjects }: { subjects: Subject[] }) {
                     rowGap: '2rem'
                 }}
             >
-                <img src="logotype-dark.png" style={{ height: '2rem' }} />
+                <img src="logotype-dark.svg" style={{ height: '2rem' }} />
                 <div>
                     <p
                         style={{

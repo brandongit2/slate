@@ -6,7 +6,7 @@
 
 html {
     --color-4: #f0ebe6;
-    --color-3: #92918e;
+    --color-3: #c9c7c2;
     --color-2: #313332;
     --color-1: #212423;
     --color-0: #0e0e0e;
@@ -20,10 +20,26 @@ body {
 }
 
 p,
+a,
 i,
-span {
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
     margin: 0px;
     hyphens: manual;
+}
+
+a {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+h1 {
+    font-weight: 800;
 }
