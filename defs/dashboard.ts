@@ -20,7 +20,7 @@ export interface ActionAdd {
 export interface ActionRemove {
     uuid: string;
     type: Actions.REMOVE;
-    object: string; // Name of object to remove
+    object: Subject | Folder | Article;
     from: Directory;
 }
 

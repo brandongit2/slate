@@ -1,0 +1,40 @@
+.log-in-out {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+}
+
+.main {
+    position: absolute;
+    top: 50%;
+    transform: translate(0px, -50%);
+    margin-left: 4rem;
+    display: grid;
+    row-gap: 2rem;
+
+    &__logo {
+        height: 2rem;
+    }
+}
+
+.hero {
+    &--text {
+        font-size: 32px;
+        font-weight: 800;
+    }
+
+    &--subtext {
+        font-size: 18px;
+    }
+}
+
+.subjects {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: auto auto;
+    column-gap: 0.5rem;
+}
+
+.subject {
+    display: contents;
+}

@@ -1,7 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import { useReducer, useState } from 'react';
+import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import ContentManager from '../components/dashboard/ContentManager';
 
@@ -31,21 +31,27 @@ export default function Dashboard({
     } = useAuth0();
 
     const [contents, setContents] = useState(subjects);
-    const [actions, newAction] = useReducer(
-        (actions: Action[], action: Action) => {
-            console.log(action);
-            actions.push(action);
-            return actions;
-        },
-        []
-    );
+    const [actions, setActions] = useState([]);
+
+    function addAction(action: Action) {
+        let actionsCopy = actions.slice(); // Clone array
+        actionsCopy.push(action);
+        setActions(actionsCopy);
+    }
+
+    function removeAction(action: Action) {
+        let idx = actions.findIndex((testAction) => testAction === action);
+        let actionsCopy = actions.slice(); // Clone array
+        actionsCopy.splice(idx, 1);
+        setActions(actionsCopy);
+    }
 
     let subjectsCopy = JSON.parse(JSON.stringify(contents)) as Array<
         Subject | SubjectWithChildren
     >;
 
     function addObject(object: Subject | Folder | Article, to: Directory) {
-        newAction({ uuid: uuidv4(), type: Actions.ADD, object, to });
+        addAction({ uuid: uuidv4(), type: Actions.ADD, object, to });
 
         // i.e., to === ['root']
         if (to.length === 1) {
@@ -72,6 +78,8 @@ export default function Dashboard({
                 `Subject ${subject.name} has not yet loaded its children.`
             );
         let subjectWithChildren = subject as SubjectWithChildren;
+
+        // Iterate `to` until we've found the specified parent object, then push the new child to that object.
         let parent: Folder | FolderWithChildren;
         let parentWithChildren: FolderWithChildren;
         for (let folder of to.slice(1)) {
@@ -82,11 +90,50 @@ export default function Dashboard({
                 throw new Error(
                     `Folder ${parent.name} has not yet loaded its children.`
                 );
+
             parentWithChildren = parent as FolderWithChildren;
         }
         parentWithChildren.children.push(objectNotSubject);
 
         setContents(subjectsCopy);
+    }
+
+    function removeObject(object: Subject | Folder | Article, from: Directory) {
+        if (from.length === 1) {
+            console.log(`removing ${object}`);
+            let idx = subjectsCopy.findIndex(
+                ({ name }) =>
+                    name ===
+                    (object.type === 'article' ? object.title : object.name)
+            );
+            if (idx === -1)
+                throw new Error(`No subject exists with name ${object}`);
+
+            if (subjectsCopy[idx].hasOwnProperty('_id')) {
+                addAction({
+                    uuid: uuidv4(),
+                    type: Actions.REMOVE,
+                    object,
+                    from
+                });
+            } else {
+                removeAction(
+                    actions.find(
+                        (action) =>
+                            action.type === Actions.ADD &&
+                            (action.object.type === 'article'
+                                ? action.object.title
+                                : action.object.name) ===
+                                (object.type === 'article'
+                                    ? object.title
+                                    : object.name)
+                    )
+                );
+            }
+            subjectsCopy.splice(idx, 1);
+
+            setContents(subjectsCopy);
+        }
     }
 
     if (isLoading) {
@@ -126,6 +173,7 @@ export default function Dashboard({
                         <ContentManager
                             contents={contents}
                             addObject={addObject}
+                            removeObject={removeObject}
                         />
                     </div>
                     <div className={styles['action-list']}>
@@ -171,7 +219,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         props: {
             subjects: await (
                 await fetch(
-                    `${apiLocation}/content/all-subjects?hyphenate={"name":1,"description":1}`
+                    `${apiLocation}/content/all-subjects?hyphenate={"description":1}`
                 )
             ).json()
         }

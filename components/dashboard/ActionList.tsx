@@ -23,6 +23,22 @@ export default function ActionList({ actions }: { actions: Action[] }) {
                             </p>
                         );
                     }
+                    case Actions.REMOVE: {
+                        return (
+                            <p
+                                key={action.uuid}
+                                className={styles['action-list__entry']}
+                            >
+                                <b style={{ color: '#aa0301' }}>remove</b>{' '}
+                                {action.object.type}{' '}
+                                <u>
+                                    {action.object.type === 'article'
+                                        ? action.object.title
+                                        : action.object.name}
+                                </u>
+                            </p>
+                        );
+                    }
                     default: {
                         return <p key={action.uuid}>unknown action</p>;
                     }

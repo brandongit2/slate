@@ -6,6 +6,7 @@ import LogInButton from '../components/LogInButton';
 import LogOutButton from '../components/LogOutButton';
 import SubjectCard from '../components/SubjectCard';
 
+import styles from './index.module.scss';
 import { apiLocation } from '../config.json';
 import { Subject } from '../defs/global';
 
@@ -17,7 +18,7 @@ export default function Index({ subjects }: { subjects: Subject[] }) {
             <Head>
                 <title>Slate: Learn by doing.</title>
             </Head>
-            <div style={{ position: 'fixed', top: '0px', right: '0px' }}>
+            <div className={styles['log-in-out']}>
                 <LogInButton />
                 <LogOutButton />
                 <p>
@@ -26,40 +27,17 @@ export default function Index({ subjects }: { subjects: Subject[] }) {
                         : 'You are logged out.'}
                 </p>
             </div>
-            <main
-                style={{
-                    position: 'absolute',
-                    top: '50%',
-                    transform: 'translate(0px, -50%)',
-                    marginLeft: '4rem',
-                    display: 'grid',
-                    rowGap: '2rem'
-                }}
-            >
-                <img src="logotype-dark.svg" style={{ height: '2rem' }} />
-                <div>
-                    <p
-                        style={{
-                            fontSize: '32px',
-                            fontWeight: 800
-                        }}
-                    >
-                        learn by doing.
-                    </p>
-                    <p style={{ fontSize: '18px' }}>
+            <div className={styles.main}>
+                <img src="logotype-dark.svg" className={styles['main__logo']} />
+                <div className={styles.hero}>
+                    <p className={styles['hero--text']}>learn by doing.</p>
+                    <p className={styles['hero--subtext']}>
                         mathematics, science, and more with interactive demos
                         and virtual labs.
                     </p>
                 </div>
                 <div>
-                    <div
-                        style={{
-                            display: 'grid',
-                            gridAutoFlow: 'column',
-                            gridTemplateRows: 'auto auto',
-                            columnGap: '0.5rem'
-                        }}
-                    >
+                    <div className={styles.subjects}>
                         {subjects.map((subject, i) => (
                             <Link
                                 href={`/subject/${subject.name.replace(
@@ -68,7 +46,7 @@ export default function Index({ subjects }: { subjects: Subject[] }) {
                                 )}`}
                                 key={subject.name}
                             >
-                                <div style={{ display: 'contents' }}>
+                                <div className={styles.subject}>
                                     <SubjectCard
                                         name={subject.name}
                                         description={subject.description}
@@ -79,7 +57,7 @@ export default function Index({ subjects }: { subjects: Subject[] }) {
                         ))}
                     </div>
                 </div>
-            </main>
+            </div>
         </div>
     );
 }

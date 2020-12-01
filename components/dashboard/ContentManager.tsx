@@ -11,10 +11,12 @@ import { Directory } from '../../defs/dashboard';
 
 export default function ContentManager({
     contents,
-    addObject
+    addObject,
+    removeObject
 }: {
     contents: Array<Subject | SubjectWithChildren>;
     addObject: (object: Subject | Folder | Article, to: Directory) => void;
+    removeObject: (object: Subject | Folder | Article, from: Directory) => void;
 }) {
     return (
         <div className={styles['content-manager']}>
@@ -22,45 +24,43 @@ export default function ContentManager({
             {contents.map((subject) => (
                 <div
                     key={subject.name}
-                    className={styles['content-manager__subject']}
+                    className={styles.subject}
                     style={{
                         color: `#${subject.color}`
                     }}
                 >
                     <span className="material-icons">chevron_right</span>
-                    <p className={styles['content-manager__subject__info']}>
+                    <p className={styles['subject__info']}>
                         <span
-                            className={
-                                styles['content-manager__subject__info__title']
-                            }
+                            className={styles['subject__info--title']}
                             style={{
                                 background: `#${subject.color}`
                             }}
                         >
                             {subject.name}
                         </span>
-                        <div
-                            className={
-                                styles[
-                                    'content-manager__subject__info__description'
-                                ]
-                            }
-                        />
+                        <div className={styles['subject__info--description']} />
                         {subject.description}
                     </p>
                     <span className="material-icons">create</span>
+                    <span
+                        className="material-icons"
+                        onClick={() => removeObject(subject, ['root'])}
+                    >
+                        delete
+                    </span>
                     <span className="material-icons">reorder</span>
                 </div>
             ))}
-            <div
-                className={`${styles['content-manager__subject']} ${styles['content-manager__add-subject']}`}
+            <button
+                className={`${styles['subject']} ${styles['subject--add-subject']}`}
                 onClick={() => {
                     addObject(
                         {
                             type: 'subject',
                             name: uuidv4(),
                             description: 'test',
-                            color: '000000'
+                            color: 'ffffff'
                         },
                         ['root']
                     );
@@ -68,7 +68,7 @@ export default function ContentManager({
             >
                 <span className="material-icons">add</span>
                 <p style={{ justifySelf: 'start' }}>add a new subject</p>
-            </div>
+            </button>
             <div style={{ height: '3rem' }} />
         </div>
     );

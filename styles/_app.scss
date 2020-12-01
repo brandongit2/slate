@@ -28,7 +28,8 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+button {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
     margin: 0px;
@@ -42,4 +43,8 @@ a {
 
 h1 {
     font-weight: 800;
+}
+
+button {
+    font-size: inherit;
 }
