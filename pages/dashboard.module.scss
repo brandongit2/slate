@@ -32,12 +32,17 @@
     left: 0px;
     bottom: 0px;
     margin: 2rem;
-    padding: 0.5rem;
+    padding: 0.5rem 1rem;
     border: 2px solid var(--color-1);
-    background: var(--color-4);
+    background: var(--color-5);
 
     .control-panel__button {
         background: transparent;
         border: none;
+        padding: 6px;
+
+        &:hover {
+            background: var(--color-4);
+        }
     }
 }

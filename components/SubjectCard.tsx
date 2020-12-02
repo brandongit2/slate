@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+
+import styles from './SubjectCard.module.scss';
 import { convertRemToPixels } from '../misc/util';
 
 const width = 20;
@@ -47,12 +49,9 @@ export default function SubjectDescription({
     return (
         <>
             <div
+                className={styles.animation}
                 style={{
-                    position: 'relative',
-                    width: `${width}rem`,
-                    height: '25rem',
-                    background: 'var(--color-2)',
-                    transition: 'filter 0.2s'
+                    width: `${width}rem`
                 }}
             >
                 <span
@@ -67,39 +66,29 @@ export default function SubjectDescription({
                 </span>
             </div>
             <div
+                className={styles.info}
                 style={{
-                    width: `${width - 2}rem`,
-                    background: 'var(--color-1)',
-                    padding: '1rem'
+                    width: `${width - 2}rem`
                 }}
             >
                 <p
+                    className={styles['info--description']}
                     style={{
-                        textAlign: 'justify',
-                        fontWeight: 600,
                         color: `#${color}`
                     }}
                 >
                     <span
+                        className={styles['info--title']}
                         style={{
-                            float: 'left',
-                            marginRight: '0.4rem',
-                            fontWeight: 800,
-                            fontSize: '200%',
-                            color: 'var(--color-1)',
                             background: `#${color}`
                         }}
                     >
                         {nameBroken[0] + (nameBroken[1] === '' ? '' : '-')}
                     </span>
                     <span
+                        className={styles['info--title']}
                         style={{
-                            float: 'left',
                             clear: 'left',
-                            marginRight: '0.4rem',
-                            fontWeight: 800,
-                            fontSize: '200%',
-                            color: 'var(--color-1)',
                             background: `#${color}`
                         }}
                     >

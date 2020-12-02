@@ -1,4 +1,4 @@
-import { Folder, Subject, Article } from '../defs/global';
+import { Content } from '../defs/global';
 
 export enum Actions {
     ADD,
@@ -7,34 +7,31 @@ export enum Actions {
     REORDER
 }
 
-// Starting from subject name, list folder names until we reach the desired object.
-export type Directory = ['root', ...string[]];
-
 export interface ActionAdd {
     uuid: string;
     type: Actions.ADD;
-    object: Subject | Folder | Article;
-    to: Directory;
+    object: Content;
+    to: string;
 }
 
 export interface ActionRemove {
     uuid: string;
     type: Actions.REMOVE;
-    object: Subject | Folder | Article;
-    from: Directory;
+    object: Content;
+    from: string;
 }
 
 export interface ActionChange {
     uuid: string;
     type: Actions.CHANGE;
-    object: Directory;
+    object: string;
     changedFields: { [key: string]: any };
 }
 
 export interface ActionReorder {
     uuid: string;
     type: Actions.REORDER;
-    parent: Directory;
+    parent: string;
     newOrder: string[]; // The new list of ObjectIDs for parent.children
 }
 

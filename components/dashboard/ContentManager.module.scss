@@ -6,36 +6,13 @@
     row-gap: 1rem;
 }
 
-.subject {
+.add-subject {
     display: grid;
-    grid-template-columns: 2rem 1fr 2rem 2rem 2rem;
+    grid-template-columns: 2rem 1fr;
     align-items: center;
     justify-items: center;
     column-gap: 0.5rem;
     width: 100%;
-    padding: 1rem;
-    background: var(--color-1);
-    box-sizing: border-box;
-
-    &__info {
-        justify-self: start;
-
-        &--title {
-            color: var(--color-1);
-            font-size: 120%;
-            font-weight: 800;
-        }
-
-        &--description {
-            width: 0.5rem;
-            display: inline-block;
-        }
-    }
-
-    &--add-subject {
-        grid-template-columns: 2rem 1fr;
-        padding: calc(1rem - 2px);
-        border: 2px solid var(--color-1);
-        background: transparent;
-    }
+    padding: calc(1rem - 2px);
+    border: 2px solid var(--color-1);
 }

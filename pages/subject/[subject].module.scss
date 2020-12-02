@@ -1,0 +1,14 @@
+.root {
+    width: calc(100vw - 8rem);
+    height: calc(100vh - 8rem);
+    background: var(--color-1);
+    color: var(--color-5);
+    padding: 4rem;
+}
+
+.header {
+    &--title {
+        font-weight: 800;
+        font-size: 30px;
+    }
+}

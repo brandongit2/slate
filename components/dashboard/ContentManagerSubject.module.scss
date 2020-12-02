@@ -1,0 +1,37 @@
+.subject {
+    display: grid;
+    grid-template-columns: 2rem 1fr 2rem 2rem 2rem;
+    align-items: center;
+    justify-items: center;
+    column-gap: 0.5rem;
+    row-gap: 1rem;
+    width: 100%;
+    padding: 1rem;
+    background: var(--color-1);
+    box-sizing: border-box;
+    color: var(--color-4);
+
+    &--expand-button.open {
+        transform: rotate(90deg);
+    }
+
+    &__info {
+        justify-self: start;
+
+        &--title {
+            color: var(--color-1);
+            font-size: 120%;
+            font-weight: 800;
+        }
+    }
+
+    &__children {
+        grid-column: 2 / 6;
+        justify-self: stretch;
+
+        &.collapsed {
+            position: fixed;
+            display: none;
+        }
+    }
+}

@@ -7,21 +7,11 @@ import ContentManager from '../components/dashboard/ContentManager';
 
 import styles from './dashboard.module.scss';
 import { apiLocation } from '../config.json';
-import {
-    Folder,
-    Subject,
-    Article,
-    SubjectWithChildren,
-    FolderWithChildren
-} from '../defs/global';
-import { Action, Actions, Directory } from '../defs/dashboard';
+import { Subject, Content } from '../defs/global';
+import { Action, Actions } from '../defs/dashboard';
 import ActionList from '../components/dashboard/ActionList';
 
-export default function Dashboard({
-    subjects
-}: {
-    subjects: Array<Subject | SubjectWithChildren>;
-}) {
+export default function Dashboard({ subjects }: { subjects: Subject[] }) {
     const {
         isAuthenticated,
         isLoading,
@@ -30,7 +20,7 @@ export default function Dashboard({
         user
     } = useAuth0();
 
-    const [contents, setContents] = useState(subjects);
+    const [loadedContent, setLoadedContent] = useState(subjects as Content[]);
     const [actions, setActions] = useState([]);
 
     function addAction(action: Action) {
@@ -46,94 +36,51 @@ export default function Dashboard({
         setActions(actionsCopy);
     }
 
-    let subjectsCopy = JSON.parse(JSON.stringify(contents)) as Array<
-        Subject | SubjectWithChildren
-    >;
-
-    function addObject(object: Subject | Folder | Article, to: Directory) {
+    function addObject(object: Content, to: string) {
         addAction({ uuid: uuidv4(), type: Actions.ADD, object, to });
 
-        // i.e., to === ['root']
-        if (to.length === 1) {
-            if (object.type === 'subject') {
-                if (subjectsCopy.find(({ name }) => object.name === name))
-                    throw new Error(
-                        `A subject already exists with name ${object.name}.`
-                    );
+        let loadedContentCopy = loadedContent.slice();
+        loadedContentCopy.push(object);
 
-                subjectsCopy.push(object);
-
-                setContents(subjectsCopy);
-                return;
-            } else {
-                throw new Error('Can only add subjects to root.');
-            }
-        }
-
-        let objectNotSubject = object as Folder | Article;
-
-        let subject = subjectsCopy.find(({ name }) => to[1] === name);
-        if (!subject.hasOwnProperty('children'))
-            throw new Error(
-                `Subject ${subject.name} has not yet loaded its children.`
+        if (to !== 'root') {
+            let parent = loadedContentCopy.find(
+                (content) => content.uuid === to
             );
-        let subjectWithChildren = subject as SubjectWithChildren;
-
-        // Iterate `to` until we've found the specified parent object, then push the new child to that object.
-        let parent: Folder | FolderWithChildren;
-        let parentWithChildren: FolderWithChildren;
-        for (let folder of to.slice(1)) {
-            parent = subjectWithChildren.children.find(
-                (child) => child.type === 'folder' && child.name === folder
-            ) as Folder | FolderWithChildren;
-            if (!parent.hasOwnProperty('children'))
-                throw new Error(
-                    `Folder ${parent.name} has not yet loaded its children.`
-                );
-
-            parentWithChildren = parent as FolderWithChildren;
+            if (parent.type === 'article')
+                throw new Error('Articles cannot have children.');
+            parent.children.push(object.uuid);
         }
-        parentWithChildren.children.push(objectNotSubject);
 
-        setContents(subjectsCopy);
+        setLoadedContent(loadedContentCopy);
     }
 
-    function removeObject(object: Subject | Folder | Article, from: Directory) {
-        if (from.length === 1) {
-            console.log(`removing ${object}`);
-            let idx = subjectsCopy.findIndex(
-                ({ name }) =>
-                    name ===
-                    (object.type === 'article' ? object.title : object.name)
+    function removeObject(object: Content, from: string) {
+        addAction({ uuid: uuidv4(), type: Actions.REMOVE, object, from });
+
+        let loadedContentCopy = loadedContent.slice();
+        let idx = loadedContentCopy.findIndex(
+            (content) => content.uuid === object.uuid
+        );
+        loadedContentCopy.splice(idx, 1);
+
+        if (from !== 'root') {
+            let parent = loadedContentCopy.find(
+                (content) => content.uuid === from
             );
-            if (idx === -1)
-                throw new Error(`No subject exists with name ${object}`);
-
-            if (subjectsCopy[idx].hasOwnProperty('_id')) {
-                addAction({
-                    uuid: uuidv4(),
-                    type: Actions.REMOVE,
-                    object,
-                    from
-                });
-            } else {
-                removeAction(
-                    actions.find(
-                        (action) =>
-                            action.type === Actions.ADD &&
-                            (action.object.type === 'article'
-                                ? action.object.title
-                                : action.object.name) ===
-                                (object.type === 'article'
-                                    ? object.title
-                                    : object.name)
-                    )
-                );
-            }
-            subjectsCopy.splice(idx, 1);
-
-            setContents(subjectsCopy);
+            if (parent.type === 'article') throw new Error('Invalid parent.');
+            idx = parent.children.findIndex((uuid) => uuid === object.uuid);
+            parent.children.splice(idx, 1);
         }
+
+        setLoadedContent(loadedContentCopy);
+    }
+
+    async function loadContent(uuid: string) {
+        let loadedContentCopy = loadedContent.slice();
+        loadedContentCopy.push(
+            await (await fetch(`${apiLocation}/content/data/${uuid}`)).json()
+        );
+        setLoadedContent(loadedContentCopy);
     }
 
     if (isLoading) {
@@ -171,9 +118,10 @@ export default function Dashboard({
                     </header>
                     <div className={styles['content-manager']}>
                         <ContentManager
-                            contents={contents}
+                            contents={loadedContent}
                             addObject={addObject}
                             removeObject={removeObject}
+                            loadContent={loadContent}
                         />
                     </div>
                     <div className={styles['action-list']}>

@@ -1,0 +1,14 @@
+.article {
+    display: grid;
+    grid-template-columns: 2rem auto;
+    padding: 6px 0px;
+
+    &:hover {
+        background: var(--color-2);
+    }
+
+    &--author {
+        color: var(--color-3);
+        font-size: 80%;
+    }
+}

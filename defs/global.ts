@@ -1,28 +1,28 @@
 export interface Subject {
     _id?: string;
+    uuid: string;
     type: 'subject';
     name: string;
     description: string;
     color: string;
+    children: string[];
 }
 
 export interface Folder {
     _id?: string;
+    uuid: string;
     type: 'folder';
     name: string;
+    children: string[];
 }
 
 export interface Article {
     _id?: string;
+    uuid: string;
     type: 'article';
-    title: string;
+    name: string;
+    author: string;
     content: string;
 }
 
-export interface SubjectWithChildren extends Subject {
-    children: Array<Folder | FolderWithChildren | Article>;
-}
-
-export interface FolderWithChildren extends Folder {
-    children: Array<Folder | FolderWithChildren | Article>;
-}
+export type Content = Subject | Folder | Article;

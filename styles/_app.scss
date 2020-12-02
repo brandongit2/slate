@@ -5,13 +5,13 @@
 }
 
 html {
-    --color-4: #f0ebe6;
-    --color-3: #c9c7c2;
-    --color-2: #313332;
+    --color-5: #f0ebe6;
+    --color-4: #d9d5d0;
+    --color-3: #888784;
+    --color-2: #464847;
     --color-1: #212423;
-    --color-0: #0e0e0e;
 
-    background: var(--color-4);
+    background: var(--color-5);
     color: var(--color-1);
 }
 
@@ -29,7 +29,8 @@ h3,
 h4,
 h5,
 h6,
-button {
+button,
+div {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
     margin: 0px;
@@ -47,4 +48,12 @@ h1 {
 
 button {
     font-size: inherit;
+    cursor: pointer;
+    background: transparent;
+    outline: none;
+    border: none;
+    color: inherit;
+    padding: 0px;
+    line-height: 0;
+    border-radius: 0px;
 }

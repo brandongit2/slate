@@ -1,0 +1,40 @@
+.folder {
+    display: grid;
+    grid-template-columns: 2rem auto;
+    align-items: center;
+
+    &--label {
+        display: contents;
+
+        & > div {
+            padding: 6px 0px;
+        }
+
+        &:hover > div {
+            background: var(--color-2);
+        }
+    }
+
+    &--expand-button {
+        font-size: 100%;
+
+        &.open {
+            transform: rotate(90deg);
+        }
+    }
+
+    &--rule {
+        place-self: stretch center;
+        width: 2px;
+        padding: 4px 0px;
+        background: var(--color-2);
+    }
+}
+
+.folder.collapsed {
+    .folder--rule,
+    .folder__children {
+        position: fixed;
+        display: none;
+    }
+}
