@@ -36,6 +36,17 @@ export default function ContentManagerFolder({
                     </button>
                 </div>
                 <div>{folder.name}</div>
+                <div className={styles['folder__controls']}>
+                    <button>
+                        <span className="material-icons">create</span>
+                    </button>
+                    <button>
+                        <span className="material-icons">delete</span>
+                    </button>
+                    <button>
+                        <span className="material-icons">reorder</span>
+                    </button>
+                </div>
             </div>
             <div className={styles['folder--rule']} />
             <div className={styles['folder__children']}>

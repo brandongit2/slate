@@ -1,6 +1,6 @@
 .folder {
     display: grid;
-    grid-template-columns: 2rem auto;
+    grid-template-columns: 2rem 1fr auto;
     align-items: center;
 
     &--label {
@@ -10,8 +10,28 @@
             padding: 6px 0px;
         }
 
-        &:hover > div {
-            background: var(--color-2);
+        &:hover {
+            & > div {
+                background: var(--color-2);
+            }
+
+            .folder__controls {
+                opacity: 1;
+            }
+        }
+    }
+
+    &__controls {
+        place-self: stretch;
+
+        display: grid;
+        grid-template-columns: repeat(3, 2rem);
+        column-gap: 0.5rem;
+        place-items: center;
+        opacity: 0;
+
+        span {
+            font-size: 100%;
         }
     }
 
@@ -28,6 +48,10 @@
         width: 2px;
         padding: 4px 0px;
         background: var(--color-2);
+    }
+
+    &__children {
+        grid-column: 2 / 4;
     }
 }
 

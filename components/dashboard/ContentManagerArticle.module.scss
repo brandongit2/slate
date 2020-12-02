@@ -1,14 +1,40 @@
 .article {
     display: grid;
-    grid-template-columns: 2rem auto;
+    grid-template-columns: 2rem 1fr auto;
+    grid-template-areas: '. a b';
     padding: 6px 0px;
 
     &:hover {
         background: var(--color-2);
+
+        .article__controls {
+            opacity: 1;
+        }
     }
 
-    &--author {
-        color: var(--color-3);
-        font-size: 80%;
+    &__label {
+        grid-area: a;
+
+        .label--name {
+            font-weight: 600;
+        }
+
+        .label--author {
+            color: var(--color-3);
+            font-size: 80%;
+        }
+    }
+
+    &__controls {
+        grid-area: b;
+        opacity: 0;
+
+        display: grid;
+        grid-template-columns: repeat(3, 2rem);
+        column-gap: 0.5rem;
+
+        span {
+            font-size: 100%;
+        }
     }
 }
