@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef } from 'react';
+import { useEffect, useLayoutEffect, useReducer, useRef } from 'react';
 
 import styles from './ContentManagerSubject.module.scss';
 import ContentManagerArticle from './ContentManagerArticle';
@@ -10,13 +10,15 @@ export default function ContentManagerSubject({
     subject,
     removeObject,
     modifyObject,
-    loadContent
+    loadContent,
+    reportYCoords
 }: {
     contents: Array<Content>;
     subject: Subject;
     removeObject: (object: Content, from: string) => void;
     modifyObject: <T extends Content>(from: T, to: T) => void;
     loadContent: (uuid: string) => void;
+    reportYCoords: (uuid: string, top: number, bottom: number) => void;
 }) {
     const [isOpen, toggleIsOpen] = useReducer((state) => !state, false);
     const subjectEl = useRef(null);
@@ -27,6 +29,8 @@ export default function ContentManagerSubject({
             `#${subject.color}`
         );
     }, []);
+
+    useLayoutEffect(() => {});
 
     return (
         <div key={subject.name} className={styles.subject} ref={subjectEl}>

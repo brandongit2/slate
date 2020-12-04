@@ -1,8 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import styles from './ContentManager.module.scss';
-import { Content, IncompleteContent, Root, Subject } from '../../defs/global';
 import ContentManagerSubject from './ContentManagerSubject';
+import { Content, IncompleteContent, Root, Subject } from '../../defs/global';
+import { sortedIndex } from '../../misc/util';
+
+let yCoords = [] as number[];
 
 export default function ContentManager({
     contents,
@@ -17,6 +20,11 @@ export default function ContentManager({
     modifyObject: <T extends Content>(from: T, to: T) => void;
     loadContent: (uuid: string) => void;
 }) {
+    function reportYCoords(uuid: string, top: number, bottom: number) {
+        yCoords.splice(sortedIndex(yCoords, top), 0, top);
+        yCoords.splice(sortedIndex(yCoords, bottom), 0, bottom);
+    }
+
     let root = contents.find(({ type }) => type === 'root') as Root;
 
     return (
@@ -33,6 +41,7 @@ export default function ContentManager({
                     removeObject={removeObject}
                     modifyObject={modifyObject}
                     loadContent={loadContent}
+                    reportYCoords={reportYCoords}
                 />
             ))}
             <button

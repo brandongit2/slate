@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import next, { GetStaticProps } from 'next';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
