@@ -1,8 +1,12 @@
 import styles from './ActionList.module.scss';
 import ActionListModify from './ActionListModify';
-import { Action, Actions } from '../../defs/dashboard';
+import { ContentManagerContext } from '../../contexts/contentManager';
+import { Actions } from '../../defs/contentManager';
+import { useContext } from 'react';
 
-export default function ActionList({ actions }: { actions: Action[] }) {
+export default function ActionList() {
+    const { actions } = useContext(ContentManagerContext);
+
     return (
         <div className={styles['action-list']}>
             <h1 style={{ marginBottom: '1rem' }}>queued actions</h1>

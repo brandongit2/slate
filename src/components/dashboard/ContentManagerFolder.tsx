@@ -1,24 +1,24 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useContext, useEffect, useReducer, useState } from 'react';
 
 import ContentManagerArticle from './ContentManagerArticle';
 import styles from './ContentManagerFolder.module.scss';
-import { Content, Folder } from '../../defs/global';
+import { ContentManagerContext } from '../../contexts/contentManager';
+import { Folder } from '../../defs/global';
 
 export default function ContentManagerFolder({
-    contents,
     folder,
-    removeObject,
-    modifyObject,
-    loadContent,
     editMode
 }: {
-    contents: Content[];
     folder: Folder;
-    removeObject: (object: Content, from: string) => void;
-    modifyObject: <T extends Content>(from: T, to: T) => void;
-    loadContent: (uuid: string) => void;
     editMode?: boolean;
 }) {
+    const {
+        loadedContent,
+        removeObject,
+        modifyObject,
+        loadContent
+    } = useContext(ContentManagerContext);
+
     const [isOpen, toggleIsOpen] = useReducer((state) => !state, false);
     const [editing, toggleEditing] = useReducer((state) => !state, editMode);
 
@@ -102,27 +102,19 @@ export default function ContentManagerFolder({
             <div className={styles['folder--rule']} />
             <div className={styles['folder__children']}>
                 {folder.children.map((uuid) => {
-                    let content = contents.find((c) => c.uuid === uuid);
+                    let content = loadedContent.find((c) => c.uuid === uuid);
                     if (typeof content === 'undefined') {
                         if (isOpen) loadContent(uuid);
                         return null;
                     } else if (content.type === 'folder') {
                         return (
-                            <ContentManagerFolder
-                                key={uuid}
-                                contents={contents}
-                                folder={content}
-                                removeObject={removeObject}
-                                modifyObject={modifyObject}
-                                loadContent={loadContent}
-                            />
+                            <ContentManagerFolder key={uuid} folder={content} />
                         );
                     } else if (content.type === 'article') {
                         return (
                             <ContentManagerArticle
                                 key={uuid}
                                 article={content}
-                                removeObject={removeObject}
                             />
                         );
                     }

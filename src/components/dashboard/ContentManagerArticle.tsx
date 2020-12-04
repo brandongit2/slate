@@ -1,13 +1,16 @@
+import { useContext } from 'react';
+
 import styles from './ContentManagerArticle.module.scss';
-import { Content, Article } from '../../defs/global';
+import { ContentManagerContext } from '../../contexts/contentManager';
+import { Article } from '../../defs/global';
 
 export default function ContentManagerArticle({
-    article,
-    removeObject
+    article
 }: {
     article: Article;
-    removeObject: (object: Content, from: string) => void;
 }) {
+    const { removeObject } = useContext(ContentManagerContext);
+
     function removeSelf() {
         removeObject(article, article.parent);
     }

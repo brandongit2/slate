@@ -45,4 +45,4 @@ export type IncompleteContent =
     | IncompleteSubject
     | IncompleteFolder
     | IncompleteArticle;
-export type Content = Root | Subject | Folder | Article;
+export type Content = Subject | Folder | Article;

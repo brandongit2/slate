@@ -2,45 +2,34 @@ import { v4 as uuidv4 } from 'uuid';
 
 import styles from './ContentManager.module.scss';
 import ContentManagerSubject from './ContentManagerSubject';
-import { Content, IncompleteContent, Root, Subject } from '../../defs/global';
+import { ContentManagerContext } from '../../contexts/contentManager';
+import { Root, Subject } from '../../defs/global';
 import { sortedIndex } from '../../misc/util';
+import { useContext } from 'react';
 
 let yCoords = [] as number[];
 
-export default function ContentManager({
-    contents,
-    addObject,
-    removeObject,
-    modifyObject,
-    loadContent
-}: {
-    contents: Array<Content>;
-    addObject: (object: IncompleteContent, to: string, after: string) => void;
-    removeObject: (object: Content, from: string) => void;
-    modifyObject: <T extends Content>(from: T, to: T) => void;
-    loadContent: (uuid: string) => void;
-}) {
+export default function ContentManager() {
+    const { loadedContent, addObject } = useContext(ContentManagerContext);
+
     function reportYCoords(uuid: string, top: number, bottom: number) {
         yCoords.splice(sortedIndex(yCoords, top), 0, top);
         yCoords.splice(sortedIndex(yCoords, bottom), 0, bottom);
     }
 
-    let root = contents.find(({ type }) => type === 'root') as Root;
+    let root = loadedContent.find(({ type }) => type === 'root') as Root;
 
     return (
         <div className={styles['content-manager']}>
             <h1>content management</h1>
             {root.children.map((uuid) => (
                 <ContentManagerSubject
-                    contents={contents}
+                    key={uuid}
                     subject={
-                        contents.find(
+                        loadedContent.find(
                             ({ uuid: testUuid }) => testUuid === uuid
                         ) as Subject
                     }
-                    removeObject={removeObject}
-                    modifyObject={modifyObject}
-                    loadContent={loadContent}
                     reportYCoords={reportYCoords}
                 />
             ))}

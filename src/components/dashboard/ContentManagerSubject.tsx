@@ -1,25 +1,28 @@
-import { useEffect, useLayoutEffect, useReducer, useRef } from 'react';
+import {
+    useContext,
+    useEffect,
+    useLayoutEffect,
+    useReducer,
+    useRef
+} from 'react';
 
 import styles from './ContentManagerSubject.module.scss';
 import ContentManagerArticle from './ContentManagerArticle';
 import ContentManagerFolder from './ContentManagerFolder';
-import { Content, Subject } from '../../defs/global';
+import { ContentManagerContext } from '../../contexts/contentManager';
+import { Subject } from '../../defs/global';
 
 export default function ContentManagerSubject({
-    contents,
     subject,
-    removeObject,
-    modifyObject,
-    loadContent,
     reportYCoords
 }: {
-    contents: Array<Content>;
     subject: Subject;
-    removeObject: (object: Content, from: string) => void;
-    modifyObject: <T extends Content>(from: T, to: T) => void;
-    loadContent: (uuid: string) => void;
     reportYCoords: (uuid: string, top: number, bottom: number) => void;
 }) {
+    const { loadedContent, removeObject, loadContent } = useContext(
+        ContentManagerContext
+    );
+
     const [isOpen, toggleIsOpen] = useReducer((state) => !state, false);
     const subjectEl = useRef(null);
 
@@ -74,7 +77,8 @@ export default function ContentManagerSubject({
                     onClick={() =>
                         removeObject(
                             subject,
-                            contents.find(({ type }) => type === 'root').uuid
+                            loadedContent.find(({ type }) => type === 'root')
+                                .uuid
                         )
                     }
                 >
@@ -100,7 +104,9 @@ export default function ContentManagerSubject({
                 </div>
                 <div className={styles.children}>
                     {subject.children.map((uuid) => {
-                        let content = contents.find((c) => c.uuid === uuid);
+                        let content = loadedContent.find(
+                            (c) => c.uuid === uuid
+                        );
                         if (typeof content === 'undefined') {
                             if (isOpen) loadContent(uuid);
                             return null;
@@ -108,11 +114,7 @@ export default function ContentManagerSubject({
                             return (
                                 <ContentManagerFolder
                                     key={uuid}
-                                    contents={contents}
                                     folder={content}
-                                    removeObject={removeObject}
-                                    modifyObject={modifyObject}
-                                    loadContent={loadContent}
                                 />
                             );
                         } else if (content.type === 'article') {
@@ -120,7 +122,6 @@ export default function ContentManagerSubject({
                                 <ContentManagerArticle
                                     key={uuid}
                                     article={content}
-                                    removeObject={removeObject}
                                 />
                             );
                         }
