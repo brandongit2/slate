@@ -3,7 +3,7 @@ import { Content } from '../defs/global';
 export enum Actions {
     ADD,
     REMOVE,
-    CHANGE,
+    MODIFY,
     REORDER
 }
 
@@ -12,6 +12,7 @@ export interface ActionAdd {
     type: Actions.ADD;
     object: Content;
     to: string;
+    after: string;
 }
 
 export interface ActionRemove {
@@ -21,11 +22,11 @@ export interface ActionRemove {
     from: string;
 }
 
-export interface ActionChange {
+export interface ActionModify<T extends Content> {
     uuid: string;
-    type: Actions.CHANGE;
-    object: string;
-    changedFields: { [key: string]: any };
+    type: Actions.MODIFY;
+    from: T;
+    to: T;
 }
 
 export interface ActionReorder {
@@ -35,4 +36,8 @@ export interface ActionReorder {
     newOrder: string[]; // The new list of ObjectIDs for parent.children
 }
 
-export type Action = ActionAdd | ActionRemove | ActionChange | ActionReorder;
+export type Action =
+    | ActionAdd
+    | ActionRemove
+    | ActionModify<Content>
+    | ActionReorder;

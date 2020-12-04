@@ -1,4 +1,5 @@
 import styles from './ActionList.module.scss';
+import ActionListModify from './ActionListModify';
 import { Action, Actions } from '../../defs/dashboard';
 
 export default function ActionList({ actions }: { actions: Action[] }) {
@@ -14,7 +15,7 @@ export default function ActionList({ actions }: { actions: Action[] }) {
                                 className={styles['action-list__entry']}
                             >
                                 <b style={{ color: '#117b00' }}>add</b>{' '}
-                                {action.object.type} <u>{action.object.name}</u>
+                                {action.object.type} <b>{action.object.name}</b>
                             </p>
                         );
                     }
@@ -25,8 +26,16 @@ export default function ActionList({ actions }: { actions: Action[] }) {
                                 className={styles['action-list__entry']}
                             >
                                 <b style={{ color: '#aa0301' }}>remove</b>{' '}
-                                {action.object.type} <u>{action.object.name}</u>
+                                {action.object.type} <b>{action.object.name}</b>
                             </p>
+                        );
+                    }
+                    case Actions.MODIFY: {
+                        return (
+                            <ActionListModify
+                                key={action.uuid}
+                                action={action}
+                            />
                         );
                     }
                     default: {

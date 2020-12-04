@@ -1,17 +1,25 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { GetStaticProps } from 'next';
+import next, { GetStaticProps } from 'next';
 import Head from 'next/head';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import ContentManager from '../components/dashboard/ContentManager';
 
 import styles from './dashboard.module.scss';
 import { apiLocation } from '../config.json';
-import { Subject, Content } from '../defs/global';
+import {
+    Root,
+    Subject,
+    Folder,
+    Content,
+    IncompleteContent
+} from '../defs/global';
 import { Action, Actions } from '../defs/dashboard';
 import ActionList from '../components/dashboard/ActionList';
 
-export default function Dashboard({ subjects }: { subjects: Subject[] }) {
+let undoStack = [] as Action[];
+
+export default function Dashboard({ root }: { root: Root }) {
     const {
         isAuthenticated,
         isLoading,
@@ -20,42 +28,145 @@ export default function Dashboard({ subjects }: { subjects: Subject[] }) {
         user
     } = useAuth0();
 
-    const [loadedContent, setLoadedContent] = useState(subjects as Content[]);
+    const [loadedContent, setLoadedContent] = useState([root] as Content[]);
     const [actions, setActions] = useState([]);
 
-    function addAction(action: Action) {
+    useEffect(() => {
+        for (let subject of root.children) {
+            loadContent(subject);
+        }
+    }, []);
+
+    function addAction(action: Action, clearUndoStack: boolean) {
         let actionsCopy = actions.slice(); // Clone array
         actionsCopy.push(action);
         setActions(actionsCopy);
+
+        if (clearUndoStack) undoStack = [];
     }
 
-    function removeAction(action: Action) {
-        let idx = actions.findIndex((testAction) => testAction === action);
+    function removeAction(idx: number) {
         let actionsCopy = actions.slice(); // Clone array
         actionsCopy.splice(idx, 1);
         setActions(actionsCopy);
     }
 
-    function addObject(object: Content, to: string) {
-        addAction({ uuid: uuidv4(), type: Actions.ADD, object, to });
+    function undo() {
+        let action = actions[actions.length - 1];
+
+        switch (action.type) {
+            case Actions.ADD: {
+                removeObject(action.object, action.to, false);
+                break;
+            }
+            case Actions.REMOVE: {
+                addObject(
+                    action.object,
+                    action.from,
+                    action.object.prevSibling,
+                    false
+                );
+                break;
+            }
+            case Actions.MODIFY: {
+                modifyObject(action.to, action.from, false);
+                break;
+            }
+        }
+
+        removeAction(actions.length - 1);
+
+        undoStack.push(actions[actions.length - 1]);
+        removeAction(actions.length - 1);
+    }
+
+    function redo() {
+        let action = undoStack.pop();
+
+        switch (action.type) {
+            case Actions.ADD: {
+                addObject(action.object, action.to, action.after, false);
+                break;
+            }
+            case Actions.REMOVE: {
+                removeObject(action.object, action.from, false);
+                break;
+            }
+            case Actions.MODIFY: {
+                modifyObject(action.from, action.to, false);
+                break;
+            }
+        }
+    }
+
+    function addObject(
+        object: IncompleteContent | Content,
+        to: string,
+        after: string,
+        clearUndoStack = true
+    ) {
+        let completeObject: Content;
+        if ('prevSibling' in object) {
+            completeObject = object;
+        } else {
+            let prevSibling = after;
+            let nextSibling = loadedContent.find(({ uuid }) => uuid === after)
+                ?.nextSibling;
+            if (typeof nextSibling === 'undefined') nextSibling = '0';
+            let parent = to;
+            completeObject = { ...object, prevSibling, nextSibling, parent };
+        }
+
+        addAction(
+            {
+                uuid: uuidv4(),
+                type: Actions.ADD,
+                object: completeObject,
+                to,
+                after
+            },
+            clearUndoStack
+        );
 
         let loadedContentCopy = loadedContent.slice();
-        loadedContentCopy.push(object);
+        loadedContentCopy.push(completeObject);
 
-        if (to !== 'root') {
-            let parent = loadedContentCopy.find(
-                (content) => content.uuid === to
-            );
-            if (parent.type === 'article')
-                throw new Error('Articles cannot have children.');
-            parent.children.push(object.uuid);
+        let parent = loadedContentCopy.find(
+            (content) => content.uuid === to
+        ) as Root | Subject | Folder;
+
+        if (completeObject.prevSibling !== '0') {
+            loadedContentCopy.find(
+                ({ uuid }) => uuid === completeObject.prevSibling
+            ).nextSibling = object.uuid;
         }
+        if (completeObject.nextSibling !== '0') {
+            loadedContentCopy.find(
+                ({ uuid }) => uuid === completeObject.nextSibling
+            ).prevSibling = object.uuid;
+        }
+
+        let idx: number;
+        if (after === '0') {
+            idx = 0;
+        } else {
+            idx = parent.children.findIndex((uuid) => uuid === after) + 1;
+        }
+
+        parent.children.splice(idx, 0, object.uuid);
 
         setLoadedContent(loadedContentCopy);
     }
 
-    function removeObject(object: Content, from: string) {
-        addAction({ uuid: uuidv4(), type: Actions.REMOVE, object, from });
+    function removeObject(
+        object: Content,
+        from: string,
+        clearUndoStack = true
+    ) {
+        addAction(
+            { uuid: uuidv4(), type: Actions.REMOVE, object, from },
+            clearUndoStack
+        );
 
         let loadedContentCopy = loadedContent.slice();
         let idx = loadedContentCopy.findIndex(
@@ -63,22 +174,63 @@ export default function Dashboard({ subjects }: { subjects: Subject[] }) {
         );
         loadedContentCopy.splice(idx, 1);
 
-        if (from !== 'root') {
-            let parent = loadedContentCopy.find(
-                (content) => content.uuid === from
+        let parent = loadedContentCopy.find((content) => content.uuid === from);
+        if (parent.type === 'article') throw new Error('Invalid parent.');
+        idx = parent.children.findIndex((uuid) => uuid === object.uuid);
+        parent.children.splice(idx, 1);
+
+        if (object.prevSibling !== '0') {
+            let prevSibling = loadedContentCopy.find(
+                ({ uuid }) => uuid === object.prevSibling
             );
-            if (parent.type === 'article') throw new Error('Invalid parent.');
-            idx = parent.children.findIndex((uuid) => uuid === object.uuid);
-            parent.children.splice(idx, 1);
+            prevSibling.nextSibling = object.nextSibling;
+        }
+
+        if (object.nextSibling !== '0') {
+            let nextSibling = loadedContentCopy.find(
+                ({ uuid }) => uuid === object.nextSibling
+            );
+            nextSibling.prevSibling = object.prevSibling;
         }
 
         setLoadedContent(loadedContentCopy);
     }
 
+    function modifyObject<T extends Content>(
+        from: T,
+        to: T,
+        clearUndoStack = true
+    ) {
+        addAction(
+            {
+                uuid: uuidv4(),
+                type: Actions.MODIFY,
+                from,
+                to
+            },
+            clearUndoStack
+        );
+
+        let loadedContentCopy = loadedContent.slice();
+        let idx = loadedContentCopy.findIndex(
+            (content) => content.uuid === from.uuid
+        );
+        loadedContentCopy[idx] = to;
+
+        setLoadedContent(loadedContentCopy);
+    }
+
     async function loadContent(uuid: string) {
+        if (
+            loadedContent.findIndex(
+                ({ uuid: testUuid }) => testUuid === uuid
+            ) !== -1
+        )
+            return;
+
         let loadedContentCopy = loadedContent.slice();
         loadedContentCopy.push(
-            await (await fetch(`${apiLocation}/content/data/${uuid}`)).json()
+            await (await fetch(`${apiLocation}/content/${uuid}`)).json()
         );
         setLoadedContent(loadedContentCopy);
     }
@@ -121,6 +273,7 @@ export default function Dashboard({ subjects }: { subjects: Subject[] }) {
                             contents={loadedContent}
                             addObject={addObject}
                             removeObject={removeObject}
+                            modifyObject={modifyObject}
                             loadContent={loadContent}
                         />
                     </div>
@@ -133,10 +286,16 @@ export default function Dashboard({ subjects }: { subjects: Subject[] }) {
                             style={{
                                 marginRight: '0.5rem'
                             }}
+                            onClick={undo}
+                            disabled={actions.length === 0}
                         >
                             <span className="material-icons">undo</span>
                         </button>
-                        <button className={styles['control-panel__button']}>
+                        <button
+                            className={styles['control-panel__button']}
+                            onClick={redo}
+                            disabled={undoStack.length === 0}
+                        >
                             <span className="material-icons">redo</span>
                         </button>
                     </div>
@@ -162,14 +321,14 @@ export default function Dashboard({ subjects }: { subjects: Subject[] }) {
     }
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async () => {
+    let root = await (
+        await fetch(`${apiLocation}/content/root?hyphenate={"description":1}`)
+    ).json();
+
     return {
         props: {
-            subjects: await (
-                await fetch(
-                    `${apiLocation}/content/all-subjects?hyphenate={"description":1}`
-                )
-            ).json()
+            root
         }
     };
 };

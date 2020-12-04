@@ -30,7 +30,8 @@ h4,
 h5,
 h6,
 button,
-div {
+div,
+input {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
     margin: 0px;
@@ -40,6 +41,7 @@ div {
 a {
     text-decoration: underline;
     cursor: pointer;
+    font-family: inherit;
 }
 
 h1 {
@@ -56,4 +58,12 @@ button {
     padding: 0px;
     line-height: 0;
     border-radius: 0px;
+}
+
+input {
+    font-size: inherit;
+    outline: none;
+    border-radius: 0px;
+    border: 2px solid var(--color-1);
+    box-sizing: border-box;
 }

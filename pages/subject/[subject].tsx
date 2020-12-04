@@ -53,27 +53,34 @@ export default function SubjectPage({
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+    let subject = await (
+        await fetch(
+            `${apiLocation}/content/root/${params.subject}?hyphenate={"description":1}`
+        )
+    ).json();
+
     return {
         props: {
-            subject: await (
-                await fetch(
-                    `${apiLocation}/content/subject/${params.subject}?hyphenate={"description":1}`
-                )
-            ).json(),
+            subject,
             children: await (
-                await fetch(
-                    `${apiLocation}/content/subject-children/${params.subject}`
-                )
+                await fetch(`${apiLocation}/content/children/${subject.uuid}`)
             ).json()
         }
     };
 };
 
-export const getStaticPaths: GetStaticPaths = async () => ({
-    paths: (
-        await (await fetch(`${apiLocation}/content/all-subjects`)).json()
-    ).map((subject: Subject) => ({
-        params: { subject: subject.name }
-    })),
-    fallback: false
-});
+export const getStaticPaths: GetStaticPaths = async () => {
+    let root = await (await fetch(`${apiLocation}/content/root`)).json();
+    let subjects = await (
+        await fetch(
+            `${apiLocation}/content/children/${root.uuid}?hyphenate={"description":1}`
+        )
+    ).json();
+
+    return {
+        paths: subjects.map((subject: Subject) => ({
+            params: { subject: subject.name }
+        })),
+        fallback: false
+    };
+};

@@ -1,4 +1,17 @@
-export interface Subject {
+interface Common {
+    parent: string;
+    prevSibling: string;
+    nextSibling: string;
+}
+
+export type Root = {
+    _id: string;
+    uuid: string;
+    type: 'root';
+    children: string[];
+} & Common;
+
+export interface IncompleteSubject {
     _id?: string;
     uuid: string;
     type: 'subject';
@@ -7,16 +20,18 @@ export interface Subject {
     color: string;
     children: string[];
 }
+export type Subject = IncompleteSubject & Common;
 
-export interface Folder {
+export interface IncompleteFolder {
     _id?: string;
     uuid: string;
     type: 'folder';
     name: string;
     children: string[];
 }
+export type Folder = IncompleteFolder & Common;
 
-export interface Article {
+export interface IncompleteArticle {
     _id?: string;
     uuid: string;
     type: 'article';
@@ -24,5 +39,10 @@ export interface Article {
     author: string;
     content: string;
 }
+export type Article = IncompleteArticle & Common;
 
-export type Content = Subject | Folder | Article;
+export type IncompleteContent =
+    | IncompleteSubject
+    | IncompleteFolder
+    | IncompleteArticle;
+export type Content = Root | Subject | Folder | Article;

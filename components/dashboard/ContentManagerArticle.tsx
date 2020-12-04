@@ -1,11 +1,17 @@
 import styles from './ContentManagerArticle.module.scss';
-import { Article } from '../../defs/global';
+import { Content, Article } from '../../defs/global';
 
 export default function ContentManagerArticle({
-    article
+    article,
+    removeObject
 }: {
     article: Article;
+    removeObject: (object: Content, from: string) => void;
 }) {
+    function removeSelf() {
+        removeObject(article, article.parent);
+    }
+
     return (
         <div className={styles.article}>
             <p className={styles['article__label']}>
@@ -18,7 +24,7 @@ export default function ContentManagerArticle({
                 <button>
                     <span className="material-icons">create</span>
                 </button>
-                <button>
+                <button onClick={removeSelf}>
                     <span className="material-icons">delete</span>
                 </button>
                 <button>

@@ -41,8 +41,13 @@
         border: none;
         padding: 6px;
 
-        &:hover {
+        &:hover:not(:disabled) {
             background: var(--color-4);
+        }
+
+        &:disabled {
+            color: var(--color-3);
+            cursor: unset;
         }
     }
 }

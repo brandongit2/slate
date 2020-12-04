@@ -14,24 +14,40 @@
     &--expand-button.open {
         transform: rotate(90deg);
     }
+}
 
-    &__info {
-        justify-self: start;
+.info {
+    justify-self: start;
 
-        &--title {
-            color: var(--color-1);
-            font-size: 120%;
-            font-weight: 800;
-        }
+    &--title {
+        color: var(--color-1);
+        font-size: 120%;
+        font-weight: 800;
     }
+}
 
-    &__children {
-        grid-column: 2 / 6;
-        justify-self: stretch;
+.expansion {
+    display: contents;
 
-        &.collapsed {
-            position: fixed;
-            display: none;
-        }
+    &.collapsed {
+        position: fixed;
+        display: none;
     }
+}
+
+.add-content {
+    grid-column: 2 / 6;
+    justify-self: start;
+
+    &--button {
+        border: 2px solid var(--color-5);
+        line-height: normal;
+        font-size: 80%;
+        padding: 8px;
+    }
+}
+
+.children {
+    grid-column: 2 / 6;
+    justify-self: stretch;
 }

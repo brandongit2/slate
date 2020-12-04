@@ -63,13 +63,16 @@ export default function Index({ subjects }: { subjects: Subject[] }) {
 }
 
 export async function getStaticProps() {
+    let root = await (await fetch(`${apiLocation}/content/root`)).json();
+    let subjects = await (
+        await fetch(
+            `${apiLocation}/content/children/${root.uuid}?hyphenate={"name":1,"description":1}`
+        )
+    ).json();
+
     return {
         props: {
-            subjects: await (
-                await fetch(
-                    `${apiLocation}/content/all-subjects?hyphenate={"name":1,"description":1}`
-                )
-            ).json()
+            subjects
         }
     };
 }
