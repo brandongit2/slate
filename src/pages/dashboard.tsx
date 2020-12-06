@@ -8,7 +8,7 @@ import ActionList from '../components/dashboard/ActionList';
 import ContentManager from '../components/dashboard/ContentManager';
 import { ContentManagerContext } from '../contexts/contentManager';
 import { Root } from '../defs/global';
-import useContentManager from '../hooks/contentManager';
+import { useContentManager } from '../hooks/contentManager';
 
 export default function Dashboard({ root }: { root: Root }) {
     const {
@@ -28,6 +28,8 @@ export default function Dashboard({ root }: { root: Root }) {
         addObject,
         removeObject,
         modifyObject,
+        moveObjectDown,
+        moveObjectUp,
         loadContent
     } = useContentManager(root);
 
@@ -43,6 +45,8 @@ export default function Dashboard({ root }: { root: Root }) {
                         addObject,
                         removeObject,
                         modifyObject,
+                        moveObjectDown,
+                        moveObjectUp,
                         loadContent
                     }}
                 >

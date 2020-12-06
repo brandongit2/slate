@@ -43,7 +43,14 @@ export default function ActionList() {
                         );
                     }
                     default: {
-                        return <p key={action.uuid}>unknown action</p>;
+                        return (
+                            <p
+                                key={action.uuid}
+                                className={styles['action-list__entry']}
+                            >
+                                unknown action
+                            </p>
+                        );
                     }
                 }
             })}

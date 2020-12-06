@@ -1,4 +1,5 @@
 import {
+    MutableRefObject,
     useContext,
     useEffect,
     useLayoutEffect,
@@ -14,10 +15,16 @@ import { Subject } from '../../defs/global';
 
 export default function ContentManagerSubject({
     subject,
-    reportYCoords
+    updateYPositions,
+    startReorder
 }: {
     subject: Subject;
-    reportYCoords: (uuid: string, top: number, bottom: number) => void;
+    updateYPositions: () => void;
+    startReorder: (
+        evt: React.MouseEvent<HTMLSpanElement, MouseEvent>,
+        ref: MutableRefObject<any>,
+        uuid: string
+    ) => void;
 }) {
     const { loadedContent, removeObject, loadContent } = useContext(
         ContentManagerContext
@@ -33,7 +40,7 @@ export default function ContentManagerSubject({
         );
     }, []);
 
-    useLayoutEffect(() => {});
+    useLayoutEffect(updateYPositions);
 
     return (
         <div key={subject.name} className={styles.subject} ref={subjectEl}>
@@ -85,7 +92,15 @@ export default function ContentManagerSubject({
                     delete
                 </span>
             </button>
-            <span className="material-icons">reorder</span>
+            <span
+                className="material-icons"
+                style={{ cursor: 'ns-resize' }}
+                onMouseDown={(evt) => {
+                    startReorder(evt, subjectEl, subject.uuid);
+                }}
+            >
+                reorder
+            </span>
             <div
                 className={`${styles.expansion} ${
                     isOpen ? '' : styles.collapsed

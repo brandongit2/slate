@@ -4,35 +4,41 @@ import styles from './ContentManager.module.scss';
 import ContentManagerSubject from './ContentManagerSubject';
 import { ContentManagerContext } from '../../contexts/contentManager';
 import { Root, Subject } from '../../defs/global';
-import { sortedIndex } from '../../misc/util';
+import { useReorder } from '../../hooks/contentManager';
 import { useContext } from 'react';
 
-let yCoords = [] as number[];
-
 export default function ContentManager() {
-    const { loadedContent, addObject } = useContext(ContentManagerContext);
+    const {
+        loadedContent,
+        addObject,
+        moveObjectDown,
+        moveObjectUp
+    } = useContext(ContentManagerContext);
 
-    function reportYCoords(uuid: string, top: number, bottom: number) {
-        yCoords.splice(sortedIndex(yCoords, top), 0, top);
-        yCoords.splice(sortedIndex(yCoords, bottom), 0, bottom);
-    }
+    const { elRef, startReorder, updateYPositions } = useReorder(
+        moveObjectDown,
+        moveObjectUp
+    );
 
     let root = loadedContent.find(({ type }) => type === 'root') as Root;
 
     return (
         <div className={styles['content-manager']}>
             <h1>content management</h1>
-            {root.children.map((uuid) => (
-                <ContentManagerSubject
-                    key={uuid}
-                    subject={
-                        loadedContent.find(
-                            ({ uuid: testUuid }) => testUuid === uuid
-                        ) as Subject
-                    }
-                    reportYCoords={reportYCoords}
-                />
-            ))}
+            <div style={{ display: 'contents' }} ref={elRef}>
+                {root.children.map((uuid) => (
+                    <ContentManagerSubject
+                        key={uuid}
+                        subject={
+                            loadedContent.find(
+                                ({ uuid: testUuid }) => testUuid === uuid
+                            ) as Subject
+                        }
+                        updateYPositions={updateYPositions}
+                        startReorder={startReorder}
+                    />
+                ))}
+            </div>
             <button
                 className={styles['add-subject']}
                 onClick={() => {
@@ -46,7 +52,7 @@ export default function ContentManager() {
                             children: []
                         },
                         root.uuid,
-                        root.children[root.children.length - 1]
+                        root.children[root.children.length - 1] || '0'
                     );
                 }}
             >

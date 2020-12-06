@@ -4,7 +4,8 @@ export enum Actions {
     ADD,
     REMOVE,
     MODIFY,
-    REORDER
+    MOVE_UP,
+    MOVE_DOWN
 }
 
 export interface ActionAdd {
@@ -29,15 +30,21 @@ export interface ActionModify<T extends Content> {
     to: T;
 }
 
-export interface ActionReorder {
+export interface ActionMoveUp {
     uuid: string;
-    type: Actions.REORDER;
-    parent: string;
-    newOrder: string[]; // The new list of ObjectIDs for parent.children
+    type: Actions.MOVE_UP;
+    item: string;
+}
+
+export interface ActionMoveDown {
+    uuid: string;
+    type: Actions.MOVE_DOWN;
+    item: string;
 }
 
 export type Action =
     | ActionAdd
     | ActionRemove
     | ActionModify<Content>
-    | ActionReorder;
+    | ActionMoveUp
+    | ActionMoveDown;

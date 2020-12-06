@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import { apiLocation } from '../config.json';
-import { Action, Actions } from '../defs/contentManager';
+import { apiLocation } from '../../config.json';
+import { Action, Actions } from '../../defs/contentManager';
 import {
     Content,
     IncompleteContent,
     Root,
     Subject,
     Folder
-} from '../defs/global';
+} from '../../defs/global';
 
 let undoStack = [] as Action[];
 
-export default function useContentManager(root: Root) {
+export function useContentManager(root: Root) {
     const [loadedContent, setLoadedContent] = useState([root] as Array<
         Content | Root
     >);
@@ -208,6 +208,78 @@ export default function useContentManager(root: Root) {
         setLoadedContent(loadedContentCopy);
     }
 
+    function moveObjectDown(uuid: string, clearUndoStack = true) {
+        let item = loadedContent.find(
+            ({ uuid: testUuid }) => testUuid === uuid
+        );
+        if (item.nextSibling === '0') return; // Soft fail
+
+        addAction(
+            { uuid: uuidv4(), type: Actions.MOVE_DOWN, item: uuid },
+            clearUndoStack
+        );
+
+        let parent = loadedContent.find(({ uuid }) => uuid === item.parent) as
+            | Root
+            | Subject
+            | Folder;
+        let idx = parent.children.findIndex((child) => child === uuid);
+        let temp = parent.children[idx];
+        parent.children[idx] = parent.children[idx + 1];
+        parent.children[idx + 1] = temp;
+
+        if (item.prevSibling !== '0')
+            loadedContent.find(
+                ({ uuid }) => uuid === item.prevSibling
+            ).nextSibling = item.nextSibling;
+        loadedContent.find(
+            ({ uuid }) => uuid === item.nextSibling
+        ).prevSibling = uuid;
+
+        item.prevSibling = item.nextSibling;
+        item.nextSibling =
+            loadedContent.find(({ uuid }) => uuid === parent.children[idx + 2])
+                ?.uuid || '0';
+
+        setLoadedContent(loadedContent.slice());
+    }
+
+    function moveObjectUp(uuid: string, clearUndoStack = true) {
+        let item = loadedContent.find(
+            ({ uuid: testUuid }) => testUuid === uuid
+        );
+        if (item.prevSibling === '0') return; // Soft fail
+
+        addAction(
+            { uuid: uuidv4(), type: Actions.MOVE_UP, item: uuid },
+            clearUndoStack
+        );
+
+        let parent = loadedContent.find(({ uuid }) => uuid === item.parent) as
+            | Root
+            | Subject
+            | Folder;
+        let idx = parent.children.findIndex((child) => child === uuid);
+        let temp = parent.children[idx];
+        parent.children[idx] = parent.children[idx - 1];
+        parent.children[idx - 1] = temp;
+
+        if (item.nextSibling !== '0')
+            loadedContent.find(
+                ({ uuid }) => uuid === item.nextSibling
+            ).prevSibling = item.prevSibling;
+        loadedContent.find(
+            ({ uuid }) => uuid === item.prevSibling
+        ).nextSibling = uuid;
+
+        item.nextSibling = item.prevSibling;
+        item.prevSibling =
+            loadedContent.find(({ uuid }) => uuid === parent.children[idx - 2])
+                ?.uuid || '0';
+
+        setLoadedContent(loadedContent.slice());
+    }
+
     async function loadContent(uuid: string) {
         if (
             loadedContent.findIndex(
@@ -232,6 +304,8 @@ export default function useContentManager(root: Root) {
         addObject,
         removeObject,
         modifyObject,
+        moveObjectDown,
+        moveObjectUp,
         loadContent
     };
 }

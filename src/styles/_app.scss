@@ -67,3 +67,7 @@ input {
     border: 2px solid var(--color-1);
     box-sizing: border-box;
 }
+
+.material-icons {
+    user-select: none;
+}
