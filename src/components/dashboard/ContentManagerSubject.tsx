@@ -1,3 +1,4 @@
+import { motion, useDragControls } from 'framer-motion';
 import {
     MutableRefObject,
     useContext,
@@ -15,16 +16,17 @@ import { Subject } from '../../defs/global';
 
 export default function ContentManagerSubject({
     subject,
-    updateYPositions,
-    startReorder
+    contentManagerRef,
+    startReorder,
+    updateYPositions
 }: {
     subject: Subject;
-    updateYPositions: () => void;
-    startReorder: (
+    contentManagerRef: MutableRefObject<any>;
+    startReorder?: (
         evt: React.MouseEvent<HTMLSpanElement, MouseEvent>,
-        ref: MutableRefObject<any>,
         uuid: string
     ) => void;
+    updateYPositions?: () => void;
 }) {
     const { loadedContent, removeObject, loadContent } = useContext(
         ContentManagerContext
@@ -32,6 +34,7 @@ export default function ContentManagerSubject({
 
     const [isOpen, toggleIsOpen] = useReducer((state) => !state, false);
     const subjectEl = useRef(null);
+    const reorderButton = useRef(null);
 
     useEffect(() => {
         subjectEl.current.style.setProperty(
@@ -40,10 +43,31 @@ export default function ContentManagerSubject({
         );
     }, []);
 
-    useLayoutEffect(updateYPositions);
+    if (updateYPositions) useLayoutEffect(updateYPositions);
+
+    const dragControls = useDragControls();
 
     return (
-        <div key={subject.name} className={styles.subject} ref={subjectEl}>
+        <motion.div
+            drag="y"
+            dragElastic={0.1}
+            dragControls={dragControls}
+            dragConstraints={contentManagerRef}
+            layoutId={subject.uuid}
+            transition={{ ease: 'easeInOut', duration: 0.2 }}
+            className={styles.subject}
+            ref={subjectEl}
+            onDragStart={(evt, info) => {
+                // Prevent dragging unless event target is reorder button
+                // https://github.com/framer/motion/issues/363#issuecomment-621355442
+                if (evt.target !== reorderButton.current)
+                    (dragControls as any).componentControls.forEach(
+                        (entry: any) => {
+                            entry.stop(evt, info);
+                        }
+                    );
+            }}
+        >
             <button onClick={toggleIsOpen}>
                 <span
                     className={`material-icons ${
@@ -95,8 +119,9 @@ export default function ContentManagerSubject({
             <span
                 className="material-icons"
                 style={{ cursor: 'ns-resize' }}
+                ref={reorderButton}
                 onMouseDown={(evt) => {
-                    startReorder(evt, subjectEl, subject.uuid);
+                    if (startReorder) startReorder(evt, subject.uuid);
                 }}
             >
                 reorder
@@ -143,6 +168,6 @@ export default function ContentManagerSubject({
                     })}
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }

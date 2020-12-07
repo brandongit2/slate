@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import { apiLocation } from '../../config.json';
-import { Action, Actions } from '../../defs/contentManager';
+import { apiLocation } from '../config.json';
+import { Action, Actions } from '../defs/contentManager';
 import {
     Content,
     IncompleteContent,
     Root,
     Subject,
     Folder
-} from '../../defs/global';
+} from '../defs/global';
 
 let undoStack = [] as Action[];
 
@@ -228,14 +228,25 @@ export function useContentManager(root: Root) {
         parent.children[idx] = parent.children[idx + 1];
         parent.children[idx + 1] = temp;
 
+        // Update sibling two items below
+        let nextItem = loadedContent.find(
+            ({ uuid }) => uuid === item.nextSibling
+        );
+        if (nextItem.nextSibling !== '0')
+            loadedContent.find(
+                ({ uuid }) => uuid === nextItem.nextSibling
+            ).prevSibling = uuid;
+
+        // Update previous and next siblings
         if (item.prevSibling !== '0')
             loadedContent.find(
                 ({ uuid }) => uuid === item.prevSibling
             ).nextSibling = item.nextSibling;
-        loadedContent.find(
-            ({ uuid }) => uuid === item.nextSibling
-        ).prevSibling = uuid;
 
+        nextItem.prevSibling = item.prevSibling;
+        nextItem.nextSibling = uuid;
+
+        // Update item itself
         item.prevSibling = item.nextSibling;
         item.nextSibling =
             loadedContent.find(({ uuid }) => uuid === parent.children[idx + 2])
@@ -264,14 +275,25 @@ export function useContentManager(root: Root) {
         parent.children[idx] = parent.children[idx - 1];
         parent.children[idx - 1] = temp;
 
+        // Update sibling two items above
+        let prevItem = loadedContent.find(
+            ({ uuid }) => uuid === item.prevSibling
+        );
+        if (prevItem.prevSibling !== '0')
+            loadedContent.find(
+                ({ uuid }) => uuid === prevItem.prevSibling
+            ).nextSibling = uuid;
+
+        // Update previous and next siblings
         if (item.nextSibling !== '0')
             loadedContent.find(
                 ({ uuid }) => uuid === item.nextSibling
             ).prevSibling = item.prevSibling;
-        loadedContent.find(
-            ({ uuid }) => uuid === item.prevSibling
-        ).nextSibling = uuid;
 
+        prevItem.nextSibling = item.nextSibling;
+        prevItem.prevSibling = uuid;
+
+        // Update item itself
         item.nextSibling = item.prevSibling;
         item.prevSibling =
             loadedContent.find(({ uuid }) => uuid === parent.children[idx - 2])
