@@ -26,10 +26,7 @@ export function useContentManager(root: Root) {
     }, []);
 
     function addAction(action: Action, clearUndoStack: boolean) {
-        let actionsCopy = actions.slice(); // Clone array
-        actionsCopy.push(action);
-        setActions(actionsCopy);
-
+        setActions((prevState) => [...prevState, action]);
         if (clearUndoStack) undoStack = [];
     }
 

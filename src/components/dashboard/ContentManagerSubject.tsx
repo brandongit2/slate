@@ -22,10 +22,7 @@ export default function ContentManagerSubject({
 }: {
     subject: Subject;
     contentManagerRef: MutableRefObject<any>;
-    startReorder?: (
-        evt: React.MouseEvent<HTMLSpanElement, MouseEvent>,
-        uuid: string
-    ) => void;
+    startReorder?: (evt: MouseEvent, uuid: string) => void;
     updateYPositions?: () => void;
 }) {
     const { loadedContent, removeObject, loadContent } = useContext(
@@ -60,12 +57,17 @@ export default function ContentManagerSubject({
             onDragStart={(evt, info) => {
                 // Prevent dragging unless event target is reorder button
                 // https://github.com/framer/motion/issues/363#issuecomment-621355442
-                if (evt.target !== reorderButton.current)
+                if (evt.target !== reorderButton.current) {
                     (dragControls as any).componentControls.forEach(
                         (entry: any) => {
                             entry.stop(evt, info);
                         }
                     );
+                    console.log('stopped');
+                    return;
+                }
+
+                startReorder && startReorder(evt as MouseEvent, subject.uuid);
             }}
         >
             <button onClick={toggleIsOpen}>
@@ -120,9 +122,6 @@ export default function ContentManagerSubject({
                 className="material-icons"
                 style={{ cursor: 'ns-resize' }}
                 ref={reorderButton}
-                onMouseDown={(evt) => {
-                    if (startReorder) startReorder(evt, subject.uuid);
-                }}
             >
                 reorder
             </span>

@@ -42,6 +42,16 @@ export default function ActionList() {
                             />
                         );
                     }
+                    case Actions.MOVE_UP: {
+                        return (
+                            <p
+                                key={action.uuid}
+                                className={styles['action-list__entry']}
+                            >
+                                {action.item}
+                            </p>
+                        );
+                    }
                     default: {
                         return (
                             <p

@@ -1,4 +1,4 @@
-import { AnimateSharedLayout } from 'framer-motion';
+import { AnimateSharedLayout, motion } from 'framer-motion';
 import {
     MutableRefObject,
     useContext,
@@ -6,7 +6,6 @@ import {
     useRef,
     useState
 } from 'react';
-import { createPortal } from 'react-dom';
 import { v4 as uuidv4 } from 'uuid';
 
 import styles from './ContentManager.module.scss';
@@ -40,6 +39,7 @@ export default function ContentManager({
             let boundingBox = child.getBoundingClientRect();
             elementPositions.push(boundingBox.top, boundingBox.bottom);
         }
+        elementPositions.pop();
         elementPositions.sort();
 
         if (elementPositions.length === 0) {
@@ -57,20 +57,22 @@ export default function ContentManager({
             elementPositions[elementPositions.length - 1] +
                 0.5 * convertRemToPixels(1)
         );
-        elementPositions = temp;
+        elementPositions = temp.slice(1, temp.length - 1);
     }
     useEffect(updateYPositions, []);
 
-    function startReorder(
-        evt: React.MouseEvent<HTMLSpanElement, MouseEvent>,
-        uuid: string
-    ) {
+    function startReorder(evt: MouseEvent, uuid: string) {
         setIsReordering(true);
 
-        let prevMousePos = sortedIndex(elementPositions, evt.clientY) - 1;
+        let prevMousePos = sortedIndex(elementPositions, evt.clientY);
+        let yOffset =
+            evt.clientY - (evt.target as any).getBoundingClientRect().top;
 
         function handleMouseMove(evt: MouseEvent) {
-            let curMousePos = sortedIndex(elementPositions, evt.clientY) - 1;
+            let curMousePos = sortedIndex(
+                elementPositions,
+                evt.clientY - yOffset
+            );
             if (curMousePos !== prevMousePos) {
                 if (curMousePos - prevMousePos === 1) {
                     moveObjectDown(uuid);
@@ -109,7 +111,9 @@ export default function ContentManager({
                         />
                     ))}
                 </div>
-                <button
+                <motion.button
+                    layout
+                    transition={{ ease: 'easeInOut', duration: 0.2 }}
                     className={styles['add-subject']}
                     onClick={() => {
                         addObject(
@@ -128,7 +132,7 @@ export default function ContentManager({
                 >
                     <span className="material-icons">add</span>
                     <p style={{ justifySelf: 'start' }}>add a new subject</p>
-                </button>
+                </motion.button>
                 <div style={{ height: '3rem' }} />
             </div>
         </AnimateSharedLayout>
