@@ -1,9 +1,11 @@
 import {useContext, useEffect, useReducer, useState} from 'react';
+import {v4 as uuidv4} from 'uuid';
 
 import ContentManagerArticle from './ContentManagerArticle';
 import styles from './ContentManagerFolder.module.scss';
 import {ContentManagerContext} from '../../contexts/contentManager';
 import {Folder} from '../../defs/content';
+import {getLastElement} from '../../misc/util';
 
 export default function ContentManagerFolder({
     folder,
@@ -12,9 +14,12 @@ export default function ContentManagerFolder({
     folder: Folder;
     editMode?: boolean;
 }) {
-    const {loadedContent, removeObject, modifyObject, loadContent} = useContext(
-        ContentManagerContext
-    );
+    const {
+        user,
+        loadedContent,
+        loadContent,
+        fns: {addObject, removeObject, modifyObject}
+    } = useContext(ContentManagerContext);
 
     const [isOpen, toggleIsOpen] = useReducer((state) => !state, false);
     const [editing, toggleEditing] = useReducer((state) => !state, editMode);
@@ -32,6 +37,34 @@ export default function ContentManagerFolder({
 
     function removeSelf() {
         removeObject(folder, folder.parent);
+    }
+
+    function addFolder(parentUuid: string, after: string) {
+        addObject(
+            {
+                uuid: uuidv4(),
+                type: 'folder',
+                name: uuidv4(),
+                children: []
+            },
+            parentUuid,
+            after
+        );
+    }
+
+    function addArticle(parentUuid: string, after: string) {
+        addObject(
+            {
+                uuid: uuidv4(),
+                type: 'article',
+                name: uuidv4(),
+                author: user.name.toLowerCase(),
+                content: '',
+                children: []
+            },
+            parentUuid,
+            after
+        );
     }
 
     return (
@@ -83,12 +116,26 @@ export default function ContentManagerFolder({
                 ) : (
                     <div className={styles['folder__controls']}>
                         <>
-                            <button>
+                            <button
+                                onClick={() => {
+                                    addFolder(
+                                        folder.uuid,
+                                        getLastElement(folder.children) || '0'
+                                    );
+                                }}
+                            >
                                 <span className="material-icons-sharp">
                                     create_new_folder
                                 </span>
                             </button>
-                            <button>
+                            <button
+                                onClick={() => {
+                                    addArticle(
+                                        folder.uuid,
+                                        getLastElement(folder.children) || '0'
+                                    );
+                                }}
+                            >
                                 <span className="material-icons-sharp">
                                     description
                                 </span>
@@ -96,6 +143,11 @@ export default function ContentManagerFolder({
                             <button onClick={toggleEditing}>
                                 <span className="material-icons-sharp">
                                     create
+                                </span>
+                            </button>
+                            <button>
+                                <span className="material-icons-sharp">
+                                    content_copy
                                 </span>
                             </button>
                             <button onClick={removeSelf}>

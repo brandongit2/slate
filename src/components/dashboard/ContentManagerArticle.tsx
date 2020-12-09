@@ -23,6 +23,9 @@ export default function ContentManagerArticle({article}: {article: Article}) {
                 <button>
                     <span className="material-icons-sharp">create</span>
                 </button>
+                <button>
+                    <span className="material-icons-sharp">content_copy</span>
+                </button>
                 <button onClick={removeSelf}>
                     <span className="material-icons-sharp">delete</span>
                 </button>

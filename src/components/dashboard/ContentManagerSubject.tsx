@@ -1,4 +1,3 @@
-import {motion, useDragControls} from 'framer-motion';
 import {
     MutableRefObject,
     useContext,
@@ -14,6 +13,7 @@ import ContentManagerArticle from './ContentManagerArticle';
 import ContentManagerFolder from './ContentManagerFolder';
 import {ContentManagerContext} from '../../contexts/contentManager';
 import {Content, Subject} from '../../defs/content';
+import {getLastElement} from '../../misc/util';
 
 export default function ContentManagerSubject({
     subject,
@@ -23,12 +23,15 @@ export default function ContentManagerSubject({
 }: {
     subject: Subject;
     contentManagerRef: MutableRefObject<any>;
-    startReorder?: (evt: MouseEvent, object: Content) => void;
+    startReorder?: (evt: React.MouseEvent, object: Content) => void;
     updateYPositions?: () => void;
 }) {
-    const {loadedContent, addObject, removeObject, loadContent} = useContext(
-        ContentManagerContext
-    );
+    const {
+        user,
+        loadedContent,
+        loadContent,
+        fns: {addObject, removeObject}
+    } = useContext(ContentManagerContext);
 
     const [isOpen, toggleIsOpen] = useReducer((state) => !state, false);
     const subjectEl = useRef(null);
@@ -41,7 +44,6 @@ export default function ContentManagerSubject({
         );
     }, []);
     if (updateYPositions) useLayoutEffect(updateYPositions);
-    const dragControls = useDragControls();
 
     function addFolder(parentUuid: string, after: string) {
         addObject(
@@ -62,7 +64,7 @@ export default function ContentManagerSubject({
                 uuid: uuidv4(),
                 type: 'article',
                 name: uuidv4(),
-                author: '',
+                author: user.name.toLowerCase(),
                 content: '',
                 children: []
             },
@@ -72,30 +74,7 @@ export default function ContentManagerSubject({
     }
 
     return (
-        <motion.div
-            drag="y"
-            dragElastic={0.1}
-            dragControls={dragControls}
-            dragConstraints={contentManagerRef}
-            layoutId={subject.uuid}
-            transition={{ease: 'easeInOut', duration: 0.2}}
-            className={styles.subject}
-            ref={subjectEl}
-            onDragStart={(evt, info) => {
-                // Prevent dragging unless event target is reorder button
-                // https://github.com/framer/motion/issues/363#issuecomment-621355442
-                if (evt.target !== reorderButton.current) {
-                    (dragControls as any).componentControls.forEach(
-                        (entry: any) => {
-                            entry.stop(evt, info);
-                        }
-                    );
-                    return;
-                }
-
-                startReorder && startReorder(evt as MouseEvent, subject);
-            }}
-        >
+        <div className={styles.subject} ref={subjectEl}>
             <button onClick={toggleIsOpen}>
                 <span
                     className={`material-icons-sharp ${
@@ -140,7 +119,10 @@ export default function ContentManagerSubject({
             </button>
             <span
                 className="material-icons-sharp"
-                style={{cursor: 'ns-resize'}}
+                style={{cursor: 'ns-resize', margin: '0px -2px'}}
+                onMouseDown={(evt) => {
+                    startReorder && startReorder(evt, subject);
+                }}
                 ref={reorderButton}
             >
                 drag_indicator
@@ -157,8 +139,7 @@ export default function ContentManagerSubject({
                         onClick={() => {
                             addFolder(
                                 subject.uuid,
-                                subject.children[subject.children.length - 1] ||
-                                    '0'
+                                getLastElement(subject.children) || '0'
                             );
                         }}
                     >
@@ -203,6 +184,6 @@ export default function ContentManagerSubject({
                     })}
                 </div>
             </div>
-        </motion.div>
+        </div>
     );
 }

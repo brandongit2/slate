@@ -16,3 +16,7 @@ export function sortedIndex(array: number[], value: number) {
     }
     return low;
 }
+
+export function getLastElement<T>(array: T[]) {
+    return array[array.length - 1];
+}

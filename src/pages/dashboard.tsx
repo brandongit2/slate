@@ -43,14 +43,17 @@ export default function Dashboard({root}: {root: Root}) {
             return (
                 <ContentManagerContext.Provider
                     value={{
+                        user,
                         actions,
                         loadedContent,
-                        addObject,
-                        removeObject,
-                        modifyObject,
-                        moveObjectDown,
-                        moveObjectUp,
-                        loadContent
+                        loadContent,
+                        fns: {
+                            addObject,
+                            removeObject,
+                            modifyObject,
+                            moveObjectDown,
+                            moveObjectUp
+                        }
                     }}
                 >
                     <div className={styles.root}>
