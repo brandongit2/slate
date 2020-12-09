@@ -56,6 +56,21 @@ export default function ContentManagerSubject({
         );
     }
 
+    function addArticle(parentUuid: string, after: string) {
+        addObject(
+            {
+                uuid: uuidv4(),
+                type: 'article',
+                name: uuidv4(),
+                author: '',
+                content: '',
+                children: []
+            },
+            parentUuid,
+            after
+        );
+    }
+
     return (
         <motion.div
             drag="y"
@@ -118,12 +133,7 @@ export default function ContentManagerSubject({
             <button>
                 <span
                     className="material-icons-sharp"
-                    onClick={() =>
-                        removeObject(
-                            subject,
-                            loadedContent.find(({type}) => type === 'root').uuid
-                        )
-                    }
+                    onClick={() => removeObject(subject, subject.parent)}
                 >
                     delete
                 </span>
@@ -154,7 +164,16 @@ export default function ContentManagerSubject({
                     >
                         add folder
                     </button>
-                    <button className={styles['add-content--button']}>
+                    <button
+                        className={styles['add-content--button']}
+                        onClick={() => {
+                            addArticle(
+                                subject.uuid,
+                                subject.children[subject.children.length - 1] ||
+                                    '0'
+                            );
+                        }}
+                    >
                         add article
                     </button>
                 </div>

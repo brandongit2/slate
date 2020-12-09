@@ -3,7 +3,7 @@ import {Action} from '../defs/contentManager';
 import {Content, IncompleteContent, Root} from '../defs/content';
 
 export const ContentManagerContext = createContext({
-    actions: undefined as Action[],
+    actions: undefined as Action<Content>[],
     loadedContent: undefined as Array<Content | Root>,
     addObject: undefined as (
         object: IncompleteContent | Content,
@@ -17,7 +17,6 @@ export const ContentManagerContext = createContext({
         clearUndoStack?: boolean
     ) => void,
     modifyObject: undefined as <T extends Content>(
-        object: Content,
         from: T,
         to: T,
         clearUndoStack?: boolean

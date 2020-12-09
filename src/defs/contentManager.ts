@@ -8,44 +8,43 @@ export enum Actions {
     MOVE_DOWN
 }
 
-export interface ActionAdd {
+export interface ActionAdd<T extends Content> {
     uuid: string;
     type: Actions.ADD;
-    object: Content;
+    object: T;
     to: string;
     after: string;
 }
 
-export interface ActionRemove {
+export interface ActionRemove<T extends Content> {
     uuid: string;
     type: Actions.REMOVE;
-    object: Content;
+    object: T;
     from: string;
 }
 
 export interface ActionModify<T extends Content> {
     uuid: string;
     type: Actions.MODIFY;
-    object: Content;
     from: T;
     to: T;
 }
 
-export interface ActionMoveUp {
+export interface ActionMoveUp<T extends Content> {
     uuid: string;
     type: Actions.MOVE_UP;
-    object: Content;
+    object: T;
 }
 
-export interface ActionMoveDown {
+export interface ActionMoveDown<T extends Content> {
     uuid: string;
     type: Actions.MOVE_DOWN;
-    object: Content;
+    object: T;
 }
 
-export type Action =
-    | ActionAdd
-    | ActionRemove
-    | ActionModify<Content>
-    | ActionMoveUp
-    | ActionMoveDown;
+export type Action<T extends Content> =
+    | ActionAdd<T>
+    | ActionRemove<T>
+    | ActionModify<T>
+    | ActionMoveUp<T>
+    | ActionMoveDown<T>;
