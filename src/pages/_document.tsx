@@ -10,10 +10,6 @@ export default class MyDocument extends Document {
                         type="image/svg+xml"
                         href="/favicon.svg"
                     />
-                    <link
-                        href="https://fonts.googleapis.com/icon?family=Material+Icons"
-                        rel="stylesheet"
-                    />
                 </Head>
                 <body>
                     <Main />

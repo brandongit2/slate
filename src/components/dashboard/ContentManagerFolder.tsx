@@ -3,7 +3,7 @@ import {useContext, useEffect, useReducer, useState} from 'react';
 import ContentManagerArticle from './ContentManagerArticle';
 import styles from './ContentManagerFolder.module.scss';
 import {ContentManagerContext} from '../../contexts/contentManager';
-import {Folder} from '../../defs/global';
+import {Folder} from '../../defs/content';
 
 export default function ContentManagerFolder({
     folder,
@@ -46,7 +46,7 @@ export default function ContentManagerFolder({
                 >
                     <button onClick={toggleIsOpen}>
                         <span
-                            className={`material-icons ${
+                            className={`material-icons-sharp ${
                                 styles['folder--expand-button']
                             } ${isOpen ? styles.open : ''}`}
                         >
@@ -83,14 +83,33 @@ export default function ContentManagerFolder({
                 ) : (
                     <div className={styles['folder__controls']}>
                         <>
-                            <button onClick={toggleEditing}>
-                                <span className="material-icons">create</span>
-                            </button>
-                            <button onClick={removeSelf}>
-                                <span className="material-icons">delete</span>
+                            <button>
+                                <span className="material-icons-sharp">
+                                    create_new_folder
+                                </span>
                             </button>
                             <button>
-                                <span className="material-icons">reorder</span>
+                                <span className="material-icons-sharp">
+                                    description
+                                </span>
+                            </button>
+                            <button onClick={toggleEditing}>
+                                <span className="material-icons-sharp">
+                                    create
+                                </span>
+                            </button>
+                            <button onClick={removeSelf}>
+                                <span className="material-icons-sharp">
+                                    delete
+                                </span>
+                            </button>
+                            <button>
+                                <span
+                                    className="material-icons-sharp"
+                                    style={{cursor: 'move'}}
+                                >
+                                    drag_indicator
+                                </span>
                             </button>
                         </>
                     </div>

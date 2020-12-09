@@ -8,7 +8,7 @@ import {apiLocation} from '../config.json';
 import ActionList from '../components/dashboard/ActionList';
 import ContentManager from '../components/dashboard/ContentManager';
 import {ContentManagerContext} from '../contexts/contentManager';
-import {Root} from '../defs/global';
+import {Root} from '../defs/content';
 import {useContentManager} from '../hooks/contentManager';
 
 export default function Dashboard({root}: {root: Root}) {
@@ -101,14 +101,18 @@ export default function Dashboard({root}: {root: Root}) {
                                 onClick={undo}
                                 disabled={actions.length === 0}
                             >
-                                <span className="material-icons">undo</span>
+                                <span className="material-icons-sharp">
+                                    undo
+                                </span>
                             </button>
                             <button
                                 className={styles['control-panel__button']}
                                 onClick={redo}
                                 disabled={undoStack.length === 0}
                             >
-                                <span className="material-icons">redo</span>
+                                <span className="material-icons-sharp">
+                                    redo
+                                </span>
                             </button>
                         </div>
                     </div>

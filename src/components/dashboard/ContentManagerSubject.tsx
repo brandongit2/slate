@@ -7,12 +7,13 @@ import {
     useReducer,
     useRef
 } from 'react';
+import {v4 as uuidv4} from 'uuid';
 
 import styles from './ContentManagerSubject.module.scss';
 import ContentManagerArticle from './ContentManagerArticle';
 import ContentManagerFolder from './ContentManagerFolder';
 import {ContentManagerContext} from '../../contexts/contentManager';
-import {Content, Subject} from '../../defs/global';
+import {Content, Subject} from '../../defs/content';
 
 export default function ContentManagerSubject({
     subject,
@@ -25,7 +26,7 @@ export default function ContentManagerSubject({
     startReorder?: (evt: MouseEvent, object: Content) => void;
     updateYPositions?: () => void;
 }) {
-    const {loadedContent, removeObject, loadContent} = useContext(
+    const {loadedContent, addObject, removeObject, loadContent} = useContext(
         ContentManagerContext
     );
 
@@ -39,10 +40,21 @@ export default function ContentManagerSubject({
             `#${subject.color}`
         );
     }, []);
-
     if (updateYPositions) useLayoutEffect(updateYPositions);
-
     const dragControls = useDragControls();
+
+    function addFolder(parentUuid: string, after: string) {
+        addObject(
+            {
+                uuid: uuidv4(),
+                type: 'folder',
+                name: uuidv4(),
+                children: []
+            },
+            parentUuid,
+            after
+        );
+    }
 
     return (
         <motion.div
@@ -71,7 +83,7 @@ export default function ContentManagerSubject({
         >
             <button onClick={toggleIsOpen}>
                 <span
-                    className={`material-icons ${
+                    className={`material-icons-sharp ${
                         styles['subject--expand-button']
                     } ${isOpen ? styles.open : ''}`}
                 >
@@ -101,11 +113,11 @@ export default function ContentManagerSubject({
                 {subject.description}
             </p>
             <button>
-                <span className="material-icons">create</span>
+                <span className="material-icons-sharp">create</span>
             </button>
             <button>
                 <span
-                    className="material-icons"
+                    className="material-icons-sharp"
                     onClick={() =>
                         removeObject(
                             subject,
@@ -117,11 +129,11 @@ export default function ContentManagerSubject({
                 </span>
             </button>
             <span
-                className="material-icons"
+                className="material-icons-sharp"
                 style={{cursor: 'ns-resize'}}
                 ref={reorderButton}
             >
-                reorder
+                drag_indicator
             </span>
             <div
                 className={`${styles.expansion} ${
@@ -132,6 +144,13 @@ export default function ContentManagerSubject({
                     <button
                         className={styles['add-content--button']}
                         style={{marginRight: '0.5rem'}}
+                        onClick={() => {
+                            addFolder(
+                                subject.uuid,
+                                subject.children[subject.children.length - 1] ||
+                                    '0'
+                            );
+                        }}
                     >
                         add folder
                     </button>

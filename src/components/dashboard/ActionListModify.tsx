@@ -2,7 +2,7 @@ import {useReducer} from 'react';
 
 import styles from './ActionList.module.scss';
 import {ActionModify} from '../../defs/contentManager';
-import {Content} from '../../defs/global';
+import {Content} from '../../defs/content';
 
 export default function ActionListModify<T extends Content>({
     action

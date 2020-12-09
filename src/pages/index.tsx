@@ -8,7 +8,7 @@ import SubjectCard from '../components/SubjectCard';
 
 import styles from './index.module.scss';
 import {apiLocation} from '../config.json';
-import {Subject} from '../defs/global';
+import {Subject} from '../defs/content';
 
 export default function Index({subjects}: {subjects: Subject[]}) {
     const {isAuthenticated, user} = useAuth0();

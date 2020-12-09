@@ -9,7 +9,7 @@ import {
     Root,
     Subject,
     Folder
-} from '../defs/global';
+} from '../defs/content';
 
 let undoStack = [] as Action[];
 

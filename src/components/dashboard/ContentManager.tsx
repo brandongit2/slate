@@ -5,7 +5,7 @@ import {v4 as uuidv4} from 'uuid';
 import styles from './ContentManager.module.scss';
 import ContentManagerSubject from './ContentManagerSubject';
 import {ContentManagerContext} from '../../contexts/contentManager';
-import {Content, Root, Subject} from '../../defs/global';
+import {Content, Root, Subject} from '../../defs/content';
 import {convertRemToPixels, sortedIndex} from '../../misc/util';
 
 let elementPositions = [] as number[];
@@ -56,8 +56,6 @@ export default function ContentManager({
         setIsReordering(true);
 
         let prevMousePos = sortedIndex(elementPositions, evt.clientY);
-        let yOffset =
-            evt.clientY - (evt.target as any).getBoundingClientRect().top;
 
         function handleMouseMove(evt: MouseEvent) {
             let curMousePos = sortedIndex(elementPositions, evt.clientY);
@@ -76,6 +74,21 @@ export default function ContentManager({
             window.removeEventListener('mousemove', handleMouseMove);
             setIsReordering(false);
         });
+    }
+
+    function addSubject() {
+        addObject(
+            {
+                uuid: uuidv4(),
+                type: 'subject',
+                name: uuidv4(),
+                description: 'test',
+                color: 'ffffff',
+                children: []
+            },
+            root.uuid,
+            root.children[root.children.length - 1] || '0'
+        );
     }
 
     let root = loadedContent.find(({type}) => type === 'root') as Root;
@@ -103,22 +116,9 @@ export default function ContentManager({
                     layout
                     transition={{ease: 'easeInOut', duration: 0.2}}
                     className={styles['add-subject']}
-                    onClick={() => {
-                        addObject(
-                            {
-                                uuid: uuidv4(),
-                                type: 'subject',
-                                name: uuidv4(),
-                                description: 'test',
-                                color: 'ffffff',
-                                children: []
-                            },
-                            root.uuid,
-                            root.children[root.children.length - 1] || '0'
-                        );
-                    }}
+                    onClick={addSubject}
                 >
-                    <span className="material-icons">add</span>
+                    <span className="material-icons-sharp">add</span>
                     <p style={{justifySelf: 'start'}}>add a new subject</p>
                 </motion.button>
                 <div style={{height: '3rem'}} />

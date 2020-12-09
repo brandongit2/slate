@@ -2,7 +2,7 @@ import {useContext} from 'react';
 
 import styles from './ContentManagerArticle.module.scss';
 import {ContentManagerContext} from '../../contexts/contentManager';
-import {Article} from '../../defs/global';
+import {Article} from '../../defs/content';
 
 export default function ContentManagerArticle({article}: {article: Article}) {
     const {removeObject} = useContext(ContentManagerContext);
@@ -21,13 +21,18 @@ export default function ContentManagerArticle({article}: {article: Article}) {
             </p>
             <div className={styles['article__controls']}>
                 <button>
-                    <span className="material-icons">create</span>
+                    <span className="material-icons-sharp">create</span>
                 </button>
                 <button onClick={removeSelf}>
-                    <span className="material-icons">delete</span>
+                    <span className="material-icons-sharp">delete</span>
                 </button>
                 <button>
-                    <span className="material-icons">reorder</span>
+                    <span
+                        className="material-icons-sharp"
+                        style={{cursor: 'move'}}
+                    >
+                        drag_indicator
+                    </span>
                 </button>
             </div>
         </div>

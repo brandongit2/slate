@@ -2,7 +2,7 @@ import {GetStaticPaths, GetStaticProps} from 'next';
 
 import styles from './[subject].module.scss';
 import {apiLocation} from '../../config.json';
-import {Subject, Folder, Article} from '../../defs/global';
+import {Subject, Folder, Article} from '../../defs/content';
 
 function FolderView({name}: {name: string}) {
     return <p>{name}</p>;
