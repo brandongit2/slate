@@ -26,6 +26,7 @@ export interface ActionRemove {
 export interface ActionModify<T extends Content> {
     uuid: string;
     type: Actions.MODIFY;
+    object: Content;
     from: T;
     to: T;
 }
@@ -33,13 +34,13 @@ export interface ActionModify<T extends Content> {
 export interface ActionMoveUp {
     uuid: string;
     type: Actions.MOVE_UP;
-    item: string;
+    object: Content;
 }
 
 export interface ActionMoveDown {
     uuid: string;
     type: Actions.MOVE_DOWN;
-    item: string;
+    object: Content;
 }
 
 export type Action =

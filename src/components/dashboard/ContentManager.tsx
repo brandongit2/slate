@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 import styles from './ContentManager.module.scss';
 import ContentManagerSubject from './ContentManagerSubject';
 import { ContentManagerContext } from '../../contexts/contentManager';
-import { Root, Subject } from '../../defs/global';
+import { Content, Root, Subject } from '../../defs/global';
 import { convertRemToPixels, sortedIndex } from '../../misc/util';
 
 let elementPositions = [] as number[];
@@ -61,7 +61,7 @@ export default function ContentManager({
     }
     useEffect(updateYPositions, []);
 
-    function startReorder(evt: MouseEvent, uuid: string) {
+    function startReorder(evt: MouseEvent, object: Content) {
         setIsReordering(true);
 
         let prevMousePos = sortedIndex(elementPositions, evt.clientY);
@@ -75,9 +75,9 @@ export default function ContentManager({
             );
             if (curMousePos !== prevMousePos) {
                 if (curMousePos - prevMousePos === 1) {
-                    moveObjectDown(uuid);
+                    moveObjectDown(object);
                 } else if (curMousePos - prevMousePos === -1) {
-                    moveObjectUp(uuid);
+                    moveObjectUp(object);
                 }
                 prevMousePos = curMousePos;
             }

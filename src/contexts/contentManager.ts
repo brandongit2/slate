@@ -17,14 +17,18 @@ export const ContentManagerContext = createContext({
         clearUndoStack?: boolean
     ) => void,
     modifyObject: undefined as <T extends Content>(
+        object: Content,
         from: T,
         to: T,
         clearUndoStack?: boolean
     ) => void,
     moveObjectDown: undefined as (
-        uuid: string,
+        object: Content,
         clearUndoStack?: boolean
     ) => void,
-    moveObjectUp: undefined as (uuid: string, clearUndoStack?: boolean) => void,
+    moveObjectUp: undefined as (
+        object: Content,
+        clearUndoStack?: boolean
+    ) => void,
     loadContent: undefined as (uuid: string) => void
 });

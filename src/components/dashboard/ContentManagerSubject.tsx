@@ -12,7 +12,7 @@ import styles from './ContentManagerSubject.module.scss';
 import ContentManagerArticle from './ContentManagerArticle';
 import ContentManagerFolder from './ContentManagerFolder';
 import { ContentManagerContext } from '../../contexts/contentManager';
-import { Subject } from '../../defs/global';
+import { Content, Subject } from '../../defs/global';
 
 export default function ContentManagerSubject({
     subject,
@@ -22,7 +22,7 @@ export default function ContentManagerSubject({
 }: {
     subject: Subject;
     contentManagerRef: MutableRefObject<any>;
-    startReorder?: (evt: MouseEvent, uuid: string) => void;
+    startReorder?: (evt: MouseEvent, object: Content) => void;
     updateYPositions?: () => void;
 }) {
     const { loadedContent, removeObject, loadContent } = useContext(
@@ -67,7 +67,7 @@ export default function ContentManagerSubject({
                     return;
                 }
 
-                startReorder && startReorder(evt as MouseEvent, subject.uuid);
+                startReorder && startReorder(evt as MouseEvent, subject);
             }}
         >
             <button onClick={toggleIsOpen}>

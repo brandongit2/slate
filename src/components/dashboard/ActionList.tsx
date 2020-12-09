@@ -1,7 +1,7 @@
 import styles from './ActionList.module.scss';
 import ActionListModify from './ActionListModify';
 import { ContentManagerContext } from '../../contexts/contentManager';
-import { Actions } from '../../defs/contentManager';
+import { Action, Actions } from '../../defs/contentManager';
 import { useContext } from 'react';
 
 export default function ActionList() {
@@ -42,20 +42,27 @@ export default function ActionList() {
                             />
                         );
                     }
-                    case Actions.MOVE_UP: {
+                    case Actions.MOVE_UP:
+                    case Actions.MOVE_DOWN: {
                         return (
                             <p
                                 key={action.uuid}
                                 className={styles['action-list__entry']}
                             >
-                                {action.item}
+                                <b style={{ color: '#775600' }}>moved</b>{' '}
+                                {action.object.type} <b>{action.object.name}</b>{' '}
+                                <b style={{ color: '#775600' }}>
+                                    {action.type === Actions.MOVE_UP
+                                        ? 'up'
+                                        : 'down'}
+                                </b>
                             </p>
                         );
                     }
                     default: {
                         return (
                             <p
-                                key={action.uuid}
+                                key={(action as Action).uuid}
                                 className={styles['action-list__entry']}
                             >
                                 unknown action
