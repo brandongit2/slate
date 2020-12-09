@@ -1,14 +1,14 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
+import {GetStaticPaths, GetStaticProps} from 'next';
 
 import styles from './[subject].module.scss';
-import { apiLocation } from '../../config.json';
-import { Subject, Folder, Article } from '../../defs/global';
+import {apiLocation} from '../../config.json';
+import {Subject, Folder, Article} from '../../defs/global';
 
-function FolderView({ name }: { name: string }) {
+function FolderView({name}: {name: string}) {
     return <p>{name}</p>;
 }
 
-function ArticleView({ title }: { title: string }) {
+function ArticleView({title}: {title: string}) {
     return <p>{title}</p>;
 }
 
@@ -52,7 +52,7 @@ export default function SubjectPage({
     );
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({params}) => {
     let subject = await (
         await fetch(
             `${apiLocation}/content/root/${params.subject}?hyphenate={"description":1}`
@@ -79,7 +79,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     return {
         paths: subjects.map((subject: Subject) => ({
-            params: { subject: subject.name }
+            params: {subject: subject.name}
         })),
         fallback: false
     };

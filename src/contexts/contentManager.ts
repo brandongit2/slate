@@ -1,6 +1,6 @@
-import { createContext } from 'react';
-import { Action } from '../defs/contentManager';
-import { Content, IncompleteContent, Root } from '../defs/global';
+import {createContext} from 'react';
+import {Action} from '../defs/contentManager';
+import {Content, IncompleteContent, Root} from '../defs/global';
 
 export const ContentManagerContext = createContext({
     actions: undefined as Action[],

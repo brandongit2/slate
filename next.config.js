@@ -1,4 +1,4 @@
-const { apiLocation } = require('./src/config.json');
+const {apiLocation} = require('./src/config.json');
 
 module.exports = {
     redirects: async () => [

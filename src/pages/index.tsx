@@ -1,5 +1,5 @@
 // import { motion } from 'framer-motion';
-import { useAuth0 } from '@auth0/auth0-react';
+import {useAuth0} from '@auth0/auth0-react';
 import Head from 'next/head';
 import Link from 'next/Link';
 import LogInButton from '../components/LogInButton';
@@ -7,11 +7,11 @@ import LogOutButton from '../components/LogOutButton';
 import SubjectCard from '../components/SubjectCard';
 
 import styles from './index.module.scss';
-import { apiLocation } from '../config.json';
-import { Subject } from '../defs/global';
+import {apiLocation} from '../config.json';
+import {Subject} from '../defs/global';
 
-export default function Index({ subjects }: { subjects: Subject[] }) {
-    const { isAuthenticated, user } = useAuth0();
+export default function Index({subjects}: {subjects: Subject[]}) {
+    const {isAuthenticated, user} = useAuth0();
 
     return (
         <div>

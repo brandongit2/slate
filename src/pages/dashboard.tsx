@@ -1,17 +1,17 @@
-import { useAuth0 } from '@auth0/auth0-react';
-import { GetStaticProps } from 'next';
+import {useAuth0} from '@auth0/auth0-react';
+import {GetStaticProps} from 'next';
 import Head from 'next/head';
-import { useRef } from 'react';
+import {useRef} from 'react';
 
 import styles from './dashboard.module.scss';
-import { apiLocation } from '../config.json';
+import {apiLocation} from '../config.json';
 import ActionList from '../components/dashboard/ActionList';
 import ContentManager from '../components/dashboard/ContentManager';
-import { ContentManagerContext } from '../contexts/contentManager';
-import { Root } from '../defs/global';
-import { useContentManager } from '../hooks/contentManager';
+import {ContentManagerContext} from '../contexts/contentManager';
+import {Root} from '../defs/global';
+import {useContentManager} from '../hooks/contentManager';
 
-export default function Dashboard({ root }: { root: Root }) {
+export default function Dashboard({root}: {root: Root}) {
     const {
         isAuthenticated,
         isLoading,

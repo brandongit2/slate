@@ -1,9 +1,9 @@
-import { Auth0Provider } from '@auth0/auth0-react';
-import type { AppProps } from 'next/app';
+import {Auth0Provider} from '@auth0/auth0-react';
+import type {AppProps} from 'next/app';
 
 import '../styles/_app.scss';
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+export default function MyApp({Component, pageProps}: AppProps) {
     return (
         <Auth0Provider
             domain="slatecx.us.auth0.com"

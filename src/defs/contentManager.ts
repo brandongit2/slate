@@ -1,4 +1,4 @@
-import { Content } from './global';
+import {Content} from './global';
 
 export enum Actions {
     ADD,

@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import {useEffect, useState} from 'react';
+import {v4 as uuidv4} from 'uuid';
 
-import { apiLocation } from '../config.json';
-import { Action, Actions } from '../defs/contentManager';
+import {apiLocation} from '../config.json';
+import {Action, Actions} from '../defs/contentManager';
 import {
     Content,
     IncompleteContent,
@@ -95,11 +95,11 @@ export function useContentManager(root: Root) {
             completeObject = object;
         } else {
             let prevSibling = after;
-            let nextSibling = loadedContent.find(({ uuid }) => uuid === after)
+            let nextSibling = loadedContent.find(({uuid}) => uuid === after)
                 ?.nextSibling;
             if (typeof nextSibling === 'undefined') nextSibling = '0';
             let parent = to;
-            completeObject = { ...object, prevSibling, nextSibling, parent };
+            completeObject = {...object, prevSibling, nextSibling, parent};
         }
 
         addAction(
@@ -122,12 +122,12 @@ export function useContentManager(root: Root) {
 
         if (completeObject.prevSibling !== '0') {
             loadedContentCopy.find(
-                ({ uuid }) => uuid === completeObject.prevSibling
+                ({uuid}) => uuid === completeObject.prevSibling
             ).nextSibling = object.uuid;
         }
         if (completeObject.nextSibling !== '0') {
             loadedContentCopy.find(
-                ({ uuid }) => uuid === completeObject.nextSibling
+                ({uuid}) => uuid === completeObject.nextSibling
             ).prevSibling = object.uuid;
         }
 
@@ -149,7 +149,7 @@ export function useContentManager(root: Root) {
         clearUndoStack = true
     ) {
         addAction(
-            { uuid: uuidv4(), type: Actions.REMOVE, object, from },
+            {uuid: uuidv4(), type: Actions.REMOVE, object, from},
             clearUndoStack
         );
 
@@ -166,14 +166,14 @@ export function useContentManager(root: Root) {
 
         if (object.prevSibling !== '0') {
             let prevSibling = loadedContentCopy.find(
-                ({ uuid }) => uuid === object.prevSibling
+                ({uuid}) => uuid === object.prevSibling
             );
             prevSibling.nextSibling = object.nextSibling;
         }
 
         if (object.nextSibling !== '0') {
             let nextSibling = loadedContentCopy.find(
-                ({ uuid }) => uuid === object.nextSibling
+                ({uuid}) => uuid === object.nextSibling
             );
             nextSibling.prevSibling = object.prevSibling;
         }
@@ -209,16 +209,16 @@ export function useContentManager(root: Root) {
 
     function moveObjectDown(object: Content, clearUndoStack = true) {
         let item = loadedContent.find(
-            ({ uuid: testUuid }) => testUuid === object.uuid
+            ({uuid: testUuid}) => testUuid === object.uuid
         );
         if (item.nextSibling === '0') return; // Soft fail
 
         addAction(
-            { uuid: uuidv4(), type: Actions.MOVE_DOWN, object },
+            {uuid: uuidv4(), type: Actions.MOVE_DOWN, object},
             clearUndoStack
         );
 
-        let parent = loadedContent.find(({ uuid }) => uuid === item.parent) as
+        let parent = loadedContent.find(({uuid}) => uuid === item.parent) as
             | Root
             | Subject
             | Folder;
@@ -229,17 +229,17 @@ export function useContentManager(root: Root) {
 
         // Update sibling two items below
         let nextItem = loadedContent.find(
-            ({ uuid }) => uuid === item.nextSibling
+            ({uuid}) => uuid === item.nextSibling
         );
         if (nextItem.nextSibling !== '0')
             loadedContent.find(
-                ({ uuid }) => uuid === nextItem.nextSibling
+                ({uuid}) => uuid === nextItem.nextSibling
             ).prevSibling = object.uuid;
 
         // Update previous and next siblings
         if (item.prevSibling !== '0')
             loadedContent.find(
-                ({ uuid }) => uuid === item.prevSibling
+                ({uuid}) => uuid === item.prevSibling
             ).nextSibling = item.nextSibling;
 
         nextItem.prevSibling = item.prevSibling;
@@ -248,22 +248,22 @@ export function useContentManager(root: Root) {
         // Update item itself
         item.prevSibling = item.nextSibling;
         item.nextSibling =
-            loadedContent.find(({ uuid }) => uuid === parent.children[idx + 2])
+            loadedContent.find(({uuid}) => uuid === parent.children[idx + 2])
                 ?.uuid || '0';
 
         setLoadedContent(loadedContent.slice());
     }
 
     function moveObjectUp(object: Content, clearUndoStack = true) {
-        let item = loadedContent.find(({ uuid }) => uuid === object.uuid);
+        let item = loadedContent.find(({uuid}) => uuid === object.uuid);
         if (item.prevSibling === '0') return; // Soft fail
 
         addAction(
-            { uuid: uuidv4(), type: Actions.MOVE_UP, object },
+            {uuid: uuidv4(), type: Actions.MOVE_UP, object},
             clearUndoStack
         );
 
-        let parent = loadedContent.find(({ uuid }) => uuid === item.parent) as
+        let parent = loadedContent.find(({uuid}) => uuid === item.parent) as
             | Root
             | Subject
             | Folder;
@@ -274,17 +274,17 @@ export function useContentManager(root: Root) {
 
         // Update sibling two items above
         let prevItem = loadedContent.find(
-            ({ uuid }) => uuid === item.prevSibling
+            ({uuid}) => uuid === item.prevSibling
         );
         if (prevItem.prevSibling !== '0')
             loadedContent.find(
-                ({ uuid }) => uuid === prevItem.prevSibling
+                ({uuid}) => uuid === prevItem.prevSibling
             ).nextSibling = object.uuid;
 
         // Update previous and next siblings
         if (item.nextSibling !== '0')
             loadedContent.find(
-                ({ uuid }) => uuid === item.nextSibling
+                ({uuid}) => uuid === item.nextSibling
             ).prevSibling = item.prevSibling;
 
         prevItem.nextSibling = item.nextSibling;
@@ -293,7 +293,7 @@ export function useContentManager(root: Root) {
         // Update item itself
         item.nextSibling = item.prevSibling;
         item.prevSibling =
-            loadedContent.find(({ uuid }) => uuid === parent.children[idx - 2])
+            loadedContent.find(({uuid}) => uuid === parent.children[idx - 2])
                 ?.uuid || '0';
 
         setLoadedContent(loadedContent.slice());
@@ -301,9 +301,8 @@ export function useContentManager(root: Root) {
 
     async function loadContent(uuid: string) {
         if (
-            loadedContent.findIndex(
-                ({ uuid: testUuid }) => testUuid === uuid
-            ) !== -1
+            loadedContent.findIndex(({uuid: testUuid}) => testUuid === uuid) !==
+            -1
         )
             return;
 

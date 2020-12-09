@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 
 import styles from './SubjectCard.module.scss';
-import { convertRemToPixels } from '../misc/util';
+import {convertRemToPixels} from '../misc/util';
 
 const width = 20;
 

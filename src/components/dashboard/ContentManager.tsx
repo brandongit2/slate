@@ -1,18 +1,12 @@
-import { AnimateSharedLayout, motion } from 'framer-motion';
-import {
-    MutableRefObject,
-    useContext,
-    useEffect,
-    useRef,
-    useState
-} from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import {AnimateSharedLayout, motion} from 'framer-motion';
+import {MutableRefObject, useContext, useEffect, useRef, useState} from 'react';
+import {v4 as uuidv4} from 'uuid';
 
 import styles from './ContentManager.module.scss';
 import ContentManagerSubject from './ContentManagerSubject';
-import { ContentManagerContext } from '../../contexts/contentManager';
-import { Content, Root, Subject } from '../../defs/global';
-import { convertRemToPixels, sortedIndex } from '../../misc/util';
+import {ContentManagerContext} from '../../contexts/contentManager';
+import {Content, Root, Subject} from '../../defs/global';
+import {convertRemToPixels, sortedIndex} from '../../misc/util';
 
 let elementPositions = [] as number[];
 
@@ -21,12 +15,9 @@ export default function ContentManager({
 }: {
     contentManagerRef: MutableRefObject<any>;
 }) {
-    const {
-        loadedContent,
-        addObject,
-        moveObjectDown,
-        moveObjectUp
-    } = useContext(ContentManagerContext);
+    const {loadedContent, addObject, moveObjectDown, moveObjectUp} = useContext(
+        ContentManagerContext
+    );
 
     const [isReordering, setIsReordering] = useState(false);
     const elRef = useRef(null);
@@ -87,19 +78,19 @@ export default function ContentManager({
         });
     }
 
-    let root = loadedContent.find(({ type }) => type === 'root') as Root;
+    let root = loadedContent.find(({type}) => type === 'root') as Root;
 
     return (
         <AnimateSharedLayout>
             <div className={styles['content-manager']}>
                 <h1>content management</h1>
-                <div style={{ display: 'contents' }} ref={elRef}>
+                <div style={{display: 'contents'}} ref={elRef}>
                     {root.children.map((uuid) => (
                         <ContentManagerSubject
                             key={uuid}
                             subject={
                                 loadedContent.find(
-                                    ({ uuid: testUuid }) => testUuid === uuid
+                                    ({uuid: testUuid}) => testUuid === uuid
                                 ) as Subject
                             }
                             contentManagerRef={contentManagerRef}
@@ -110,7 +101,7 @@ export default function ContentManager({
                 </div>
                 <motion.button
                     layout
-                    transition={{ ease: 'easeInOut', duration: 0.2 }}
+                    transition={{ease: 'easeInOut', duration: 0.2}}
                     className={styles['add-subject']}
                     onClick={() => {
                         addObject(
@@ -128,9 +119,9 @@ export default function ContentManager({
                     }}
                 >
                     <span className="material-icons">add</span>
-                    <p style={{ justifySelf: 'start' }}>add a new subject</p>
+                    <p style={{justifySelf: 'start'}}>add a new subject</p>
                 </motion.button>
-                <div style={{ height: '3rem' }} />
+                <div style={{height: '3rem'}} />
             </div>
         </AnimateSharedLayout>
     );

@@ -1,9 +1,9 @@
-import { useContext, useEffect, useReducer, useState } from 'react';
+import {useContext, useEffect, useReducer, useState} from 'react';
 
 import ContentManagerArticle from './ContentManagerArticle';
 import styles from './ContentManagerFolder.module.scss';
-import { ContentManagerContext } from '../../contexts/contentManager';
-import { Folder } from '../../defs/global';
+import {ContentManagerContext} from '../../contexts/contentManager';
+import {Folder} from '../../defs/global';
 
 export default function ContentManagerFolder({
     folder,
@@ -12,12 +12,9 @@ export default function ContentManagerFolder({
     folder: Folder;
     editMode?: boolean;
 }) {
-    const {
-        loadedContent,
-        removeObject,
-        modifyObject,
-        loadContent
-    } = useContext(ContentManagerContext);
+    const {loadedContent, removeObject, modifyObject, loadContent} = useContext(
+        ContentManagerContext
+    );
 
     const [isOpen, toggleIsOpen] = useReducer((state) => !state, false);
     const [editing, toggleEditing] = useReducer((state) => !state, editMode);
@@ -30,7 +27,7 @@ export default function ContentManagerFolder({
 
     function saveEdit() {
         toggleEditing();
-        modifyObject(folder, { ...folder, name });
+        modifyObject(folder, {...folder, name});
     }
 
     function removeSelf() {

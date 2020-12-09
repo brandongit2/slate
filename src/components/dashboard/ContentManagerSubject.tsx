@@ -1,4 +1,4 @@
-import { motion, useDragControls } from 'framer-motion';
+import {motion, useDragControls} from 'framer-motion';
 import {
     MutableRefObject,
     useContext,
@@ -11,8 +11,8 @@ import {
 import styles from './ContentManagerSubject.module.scss';
 import ContentManagerArticle from './ContentManagerArticle';
 import ContentManagerFolder from './ContentManagerFolder';
-import { ContentManagerContext } from '../../contexts/contentManager';
-import { Content, Subject } from '../../defs/global';
+import {ContentManagerContext} from '../../contexts/contentManager';
+import {Content, Subject} from '../../defs/global';
 
 export default function ContentManagerSubject({
     subject,
@@ -25,7 +25,7 @@ export default function ContentManagerSubject({
     startReorder?: (evt: MouseEvent, object: Content) => void;
     updateYPositions?: () => void;
 }) {
-    const { loadedContent, removeObject, loadContent } = useContext(
+    const {loadedContent, removeObject, loadContent} = useContext(
         ContentManagerContext
     );
 
@@ -51,7 +51,7 @@ export default function ContentManagerSubject({
             dragControls={dragControls}
             dragConstraints={contentManagerRef}
             layoutId={subject.uuid}
-            transition={{ ease: 'easeInOut', duration: 0.2 }}
+            transition={{ease: 'easeInOut', duration: 0.2}}
             className={styles.subject}
             ref={subjectEl}
             onDragStart={(evt, info) => {
@@ -109,8 +109,7 @@ export default function ContentManagerSubject({
                     onClick={() =>
                         removeObject(
                             subject,
-                            loadedContent.find(({ type }) => type === 'root')
-                                .uuid
+                            loadedContent.find(({type}) => type === 'root').uuid
                         )
                     }
                 >
@@ -119,7 +118,7 @@ export default function ContentManagerSubject({
             </button>
             <span
                 className="material-icons"
-                style={{ cursor: 'ns-resize' }}
+                style={{cursor: 'ns-resize'}}
                 ref={reorderButton}
             >
                 reorder
@@ -132,7 +131,7 @@ export default function ContentManagerSubject({
                 <div className={styles['add-content']}>
                     <button
                         className={styles['add-content--button']}
-                        style={{ marginRight: '0.5rem' }}
+                        style={{marginRight: '0.5rem'}}
                     >
                         add folder
                     </button>
