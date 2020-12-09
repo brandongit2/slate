@@ -3,6 +3,7 @@
     height: calc(100% - 4rem);
     padding: 2rem;
     background: var(--color-4);
+    overflow: auto;
 
     .action-list__entry {
         font-family: 'Roboto Mono', monospace;

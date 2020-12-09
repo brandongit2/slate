@@ -63,7 +63,6 @@ export default function ContentManagerSubject({
                             entry.stop(evt, info);
                         }
                     );
-                    console.log('stopped');
                     return;
                 }
 

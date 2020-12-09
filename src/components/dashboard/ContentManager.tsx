@@ -69,10 +69,7 @@ export default function ContentManager({
             evt.clientY - (evt.target as any).getBoundingClientRect().top;
 
         function handleMouseMove(evt: MouseEvent) {
-            let curMousePos = sortedIndex(
-                elementPositions,
-                evt.clientY - yOffset
-            );
+            let curMousePos = sortedIndex(elementPositions, evt.clientY);
             if (curMousePos !== prevMousePos) {
                 if (curMousePos - prevMousePos === 1) {
                     moveObjectDown(object);
