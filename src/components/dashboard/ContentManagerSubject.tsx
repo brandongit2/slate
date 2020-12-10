@@ -1,5 +1,5 @@
+import {motion, useDragControls} from 'framer-motion';
 import {
-    MutableRefObject,
     useContext,
     useEffect,
     useLayoutEffect,
@@ -17,11 +17,13 @@ import {getLastElement} from '../../misc/util';
 
 export default function ContentManagerSubject({
     subject,
+    isReordering,
     startReorder,
     updateYPositions
 }: {
     subject: Subject;
-    startReorder?: (evt: React.MouseEvent, object: Content) => void;
+    isReordering: boolean;
+    startReorder?: (evt: MouseEvent, object: Content) => void;
     updateYPositions?: (force?: boolean) => void;
 }) {
     const {
@@ -32,6 +34,7 @@ export default function ContentManagerSubject({
     } = useContext(ContentManagerContext);
 
     const [isOpen, toggleIsOpen] = useReducer((state) => !state, false);
+    const dragControls = useDragControls();
     const subjectEl = useRef(null);
     const reorderButton = useRef(null);
 
@@ -76,7 +79,31 @@ export default function ContentManagerSubject({
     }
 
     return (
-        <div className={styles.subject} ref={subjectEl}>
+        <motion.div
+            layoutId={subject.uuid}
+            transition={{ease: 'easeInOut', duration: isReordering ? 0.2 : 0}}
+            drag="y"
+            dragControls={dragControls}
+            onDragStart={(evt, info) => {
+                // Prevent dragging unless event target is reorder button
+                // https://github.com/framer/motion/issues/363#issuecomment-621355442
+                if (evt.target !== reorderButton.current) {
+                    (dragControls as any).componentControls.forEach(
+                        (entry: any) => {
+                            entry.stop(evt, info);
+                        }
+                    );
+                    return;
+                }
+
+                if (startReorder) {
+                    if (isOpen) toggleIsOpen();
+                    startReorder(evt as MouseEvent, subject);
+                }
+            }}
+            className={styles.subject}
+            ref={subjectEl}
+        >
             <button onClick={toggleIsOpen}>
                 <span
                     className={`material-icons-sharp ${
@@ -122,12 +149,6 @@ export default function ContentManagerSubject({
             <span
                 className="material-icons-sharp"
                 style={{cursor: 'ns-resize', margin: '0px -2px'}}
-                onMouseDown={(evt) => {
-                    if (startReorder) {
-                        if (isOpen) toggleIsOpen();
-                        startReorder(evt, subject);
-                    }
-                }}
                 ref={reorderButton}
             >
                 drag_indicator
@@ -189,6 +210,6 @@ export default function ContentManagerSubject({
                     })}
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }

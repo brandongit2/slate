@@ -1,4 +1,5 @@
-import {MutableRefObject, useContext, useEffect, useRef, useState} from 'react';
+import {AnimateSharedLayout} from 'framer-motion';
+import {useContext, useEffect, useRef, useState} from 'react';
 import {v4 as uuidv4} from 'uuid';
 
 import styles from './ContentManager.module.scss';
@@ -48,7 +49,7 @@ export default function ContentManager() {
     }
     useEffect(updateYPositions, []);
 
-    function startReorder(evt: React.MouseEvent, object: Content) {
+    function startReorder(evt: MouseEvent, object: Content) {
         setIsReordering(true);
 
         let prevMousePos = sortedIndex(elementPositions, evt.clientY);
@@ -65,11 +66,14 @@ export default function ContentManager() {
             }
         }
 
-        window.addEventListener('mousemove', handleMouseMove);
-        window.addEventListener('mouseup', () => {
+        function stopReorder() {
             window.removeEventListener('mousemove', handleMouseMove);
+            window.removeEventListener('mouseup', stopReorder);
             setIsReordering(false);
-        });
+        }
+
+        window.addEventListener('mousemove', handleMouseMove);
+        window.addEventListener('mouseup', stopReorder);
     }
 
     function addSubject() {
@@ -90,27 +94,30 @@ export default function ContentManager() {
     let root = loadedContent.find(({type}) => type === 'root') as Root;
 
     return (
-        <div className={styles['content-manager']}>
-            <h1>content management</h1>
-            <div style={{display: 'contents'}} ref={elRef}>
-                {root.children.map((uuid) => (
-                    <ContentManagerSubject
-                        key={uuid}
-                        subject={
-                            loadedContent.find(
-                                ({uuid: testUuid}) => testUuid === uuid
-                            ) as Subject
-                        }
-                        updateYPositions={updateYPositions}
-                        startReorder={startReorder}
-                    />
-                ))}
+        <AnimateSharedLayout>
+            <div className={styles['content-manager']}>
+                <h1>content management</h1>
+                <div style={{display: 'contents'}} ref={elRef}>
+                    {root.children.map((uuid) => (
+                        <ContentManagerSubject
+                            key={uuid}
+                            subject={
+                                loadedContent.find(
+                                    ({uuid: testUuid}) => testUuid === uuid
+                                ) as Subject
+                            }
+                            isReordering={isReordering}
+                            updateYPositions={updateYPositions}
+                            startReorder={startReorder}
+                        />
+                    ))}
+                </div>
+                <button className={styles['add-subject']} onClick={addSubject}>
+                    <span className="material-icons-sharp">add</span>
+                    <p style={{justifySelf: 'start'}}>add a new subject</p>
+                </button>
+                <div style={{height: '3rem'}} />
             </div>
-            <button className={styles['add-subject']} onClick={addSubject}>
-                <span className="material-icons-sharp">add</span>
-                <p style={{justifySelf: 'start'}}>add a new subject</p>
-            </button>
-            <div style={{height: '3rem'}} />
-        </div>
+        </AnimateSharedLayout>
     );
 }
