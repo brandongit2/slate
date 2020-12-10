@@ -1,7 +1,6 @@
 import {useAuth0} from '@auth0/auth0-react';
 import {GetStaticProps} from 'next';
 import Head from 'next/head';
-import {useRef} from 'react';
 
 import styles from './dashboard.module.scss';
 import {apiLocation} from '../config.json';
@@ -33,8 +32,6 @@ export default function Dashboard({root}: {root: Root}) {
         moveObjectUp,
         loadContent
     } = useContentManager(root);
-
-    const contentManagerRef = useRef(null);
 
     if (isLoading) {
         return <div>loading...</div>;
@@ -84,13 +81,8 @@ export default function Dashboard({root}: {root: Root}) {
                                 </a>
                             </span>
                         </header>
-                        <div
-                            className={styles['content-manager']}
-                            ref={contentManagerRef}
-                        >
-                            <ContentManager
-                                contentManagerRef={contentManagerRef}
-                            />
+                        <div className={styles['content-manager']}>
+                            <ContentManager />
                         </div>
                         <div className={styles['action-list']}>
                             <ActionList />

@@ -9,11 +9,7 @@ import {convertRemToPixels, sortedIndex} from '../../misc/util';
 
 let elementPositions = [] as number[];
 
-export default function ContentManager({
-    contentManagerRef
-}: {
-    contentManagerRef: MutableRefObject<any>;
-}) {
+export default function ContentManager() {
     const {
         loadedContent,
         fns: {addObject, moveObjectDown, moveObjectUp}
@@ -22,8 +18,8 @@ export default function ContentManager({
     const [isReordering, setIsReordering] = useState(false);
     const elRef = useRef(null);
 
-    function updateYPositions() {
-        if (!elRef.current || isReordering) return;
+    function updateYPositions(force = false) {
+        if ((!elRef.current || isReordering) && !force) return;
 
         elementPositions = [];
         for (let child of elRef.current.childNodes) {
@@ -105,7 +101,6 @@ export default function ContentManager({
                                 ({uuid: testUuid}) => testUuid === uuid
                             ) as Subject
                         }
-                        contentManagerRef={contentManagerRef}
                         updateYPositions={updateYPositions}
                         startReorder={startReorder}
                     />

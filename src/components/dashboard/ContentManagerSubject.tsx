@@ -17,14 +17,12 @@ import {getLastElement} from '../../misc/util';
 
 export default function ContentManagerSubject({
     subject,
-    contentManagerRef,
     startReorder,
     updateYPositions
 }: {
     subject: Subject;
-    contentManagerRef: MutableRefObject<any>;
     startReorder?: (evt: React.MouseEvent, object: Content) => void;
-    updateYPositions?: () => void;
+    updateYPositions?: (force?: boolean) => void;
 }) {
     const {
         user,
@@ -44,6 +42,10 @@ export default function ContentManagerSubject({
         );
     }, []);
     if (updateYPositions) useLayoutEffect(updateYPositions);
+
+    useEffect(() => {
+        updateYPositions(true);
+    }, [isOpen]);
 
     function addFolder(parentUuid: string, after: string) {
         addObject(
@@ -121,7 +123,10 @@ export default function ContentManagerSubject({
                 className="material-icons-sharp"
                 style={{cursor: 'ns-resize', margin: '0px -2px'}}
                 onMouseDown={(evt) => {
-                    startReorder && startReorder(evt, subject);
+                    if (startReorder) {
+                        if (isOpen) toggleIsOpen();
+                        startReorder(evt, subject);
+                    }
                 }}
                 ref={reorderButton}
             >
