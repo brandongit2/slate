@@ -9,11 +9,10 @@ import {
 import {v4 as uuidv4} from 'uuid';
 
 import styles from './ContentManagerSubject.module.scss';
-import ContentManagerArticle from './ContentManagerArticle';
-import ContentManagerFolder from './ContentManagerFolder';
 import {ContentManagerContext} from '../../contexts/contentManager';
 import {Content, Subject} from '../../defs/content';
 import {getLastElement} from '../../misc/util';
+import ContentManagerSubjectChildren from './ContentManagerSubjectChildren';
 
 export default function ContentManagerSubject({
     subject,
@@ -28,8 +27,6 @@ export default function ContentManagerSubject({
 }) {
     const {
         user,
-        loadedContent,
-        loadContent,
         fns: {addObject, removeObject}
     } = useContext(ContentManagerContext);
 
@@ -185,29 +182,10 @@ export default function ContentManagerSubject({
                     </button>
                 </div>
                 <div className={styles.children}>
-                    {subject.children.map((uuid) => {
-                        let content = loadedContent.find(
-                            (c) => c.uuid === uuid
-                        );
-                        if (typeof content === 'undefined') {
-                            if (isOpen) loadContent(uuid);
-                            return null;
-                        } else if (content.type === 'folder') {
-                            return (
-                                <ContentManagerFolder
-                                    key={uuid}
-                                    folder={content}
-                                />
-                            );
-                        } else if (content.type === 'article') {
-                            return (
-                                <ContentManagerArticle
-                                    key={uuid}
-                                    article={content}
-                                />
-                            );
-                        }
-                    })}
+                    <ContentManagerSubjectChildren
+                        children={subject.children}
+                        isOpen={isOpen}
+                    />
                 </div>
             </div>
         </motion.div>
