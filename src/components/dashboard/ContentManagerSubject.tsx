@@ -9,10 +9,10 @@ import {
 import {v4 as uuidv4} from 'uuid';
 
 import styles from './ContentManagerSubject.module.scss';
+import ContentManagerSubjectContent from './ContentManagerSubjectContent';
 import {ContentManagerContext} from '../../contexts/contentManager';
 import {Content, Subject} from '../../defs/content';
 import {getLastElement} from '../../misc/util';
-import ContentManagerSubjectChildren from './ContentManagerSubjectChildren';
 
 export default function ContentManagerSubject({
     subject,
@@ -182,8 +182,8 @@ export default function ContentManagerSubject({
                     </button>
                 </div>
                 <div className={styles.children}>
-                    <ContentManagerSubjectChildren
-                        children={subject.children}
+                    <ContentManagerSubjectContent
+                        content={subject.children}
                         isOpen={isOpen}
                     />
                 </div>

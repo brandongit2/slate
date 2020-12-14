@@ -1,17 +1,31 @@
-import {useContext, useEffect, useReducer, useState} from 'react';
+import {motion, useDragControls} from 'framer-motion';
+import {
+    useContext,
+    useEffect,
+    useLayoutEffect,
+    useReducer,
+    useRef,
+    useState
+} from 'react';
 import {v4 as uuidv4} from 'uuid';
 
 import ContentManagerArticle from './ContentManagerArticle';
 import styles from './ContentManagerFolder.module.scss';
 import {ContentManagerContext} from '../../contexts/contentManager';
-import {Folder} from '../../defs/content';
+import {Article, Folder} from '../../defs/content';
 import {getLastElement} from '../../misc/util';
 
 export default function ContentManagerFolder({
     folder,
+    isReordering,
+    startReorder,
+    updateYPositions,
     editMode
 }: {
     folder: Folder;
+    isReordering: boolean;
+    startReorder: (evt: MouseEvent, content: Folder | Article) => void;
+    updateYPositions: (force?: boolean) => void;
     editMode?: boolean;
 }) {
     const {
@@ -20,15 +34,22 @@ export default function ContentManagerFolder({
         loadContent,
         fns: {addObject, removeObject, modifyObject}
     } = useContext(ContentManagerContext);
+    const reorderButton = useRef(null);
+    const dragControls = useDragControls();
 
     const [isOpen, toggleIsOpen] = useReducer((state) => !state, false);
     const [editing, toggleEditing] = useReducer((state) => !state, editMode);
 
+    const [selected, setSelected] = useState(false);
     const [name, setName] = useState(folder.name);
 
     useEffect(() => {
         setName(folder.name);
     }, [folder]);
+    useLayoutEffect(updateYPositions);
+    useLayoutEffect(() => {
+        updateYPositions(true);
+    }, [isOpen]);
 
     function saveEdit() {
         toggleEditing();
@@ -68,7 +89,38 @@ export default function ContentManagerFolder({
     }
 
     return (
-        <div className={`${styles.folder} ${isOpen ? '' : styles.collapsed}`}>
+        <motion.div
+            className={`folder ${styles.folder} ${
+                isOpen ? '' : styles.collapsed
+            } ${selected ? styles.selected : ''}`}
+            layoutId={folder.uuid}
+            transition={{ease: 'easeInOut', duration: isReordering ? 0.2 : 0}}
+            drag
+            dragControls={dragControls}
+            onDragStart={(evt, info) => {
+                setSelected(true);
+
+                // Prevent dragging unless event target is reorder button
+                // https://github.com/framer/motion/issues/363#issuecomment-621355442
+                if (evt.target !== reorderButton.current) {
+                    (dragControls as any).componentControls.forEach(
+                        (entry: any) => {
+                            entry.stop(evt, info);
+                        }
+                    );
+                    setSelected(false);
+                    return;
+                }
+
+                if (startReorder) {
+                    if (isOpen) toggleIsOpen();
+                    startReorder(evt as MouseEvent, folder);
+                }
+            }}
+            onDragEnd={() => {
+                setSelected(false);
+            }}
+        >
             <div className={styles['folder--label']}>
                 <div
                     style={{
@@ -159,6 +211,7 @@ export default function ContentManagerFolder({
                                 <span
                                     className="material-icons-sharp"
                                     style={{cursor: 'move'}}
+                                    ref={reorderButton}
                                 >
                                     drag_indicator
                                 </span>
@@ -176,18 +229,27 @@ export default function ContentManagerFolder({
                         return null;
                     } else if (content.type === 'folder') {
                         return (
-                            <ContentManagerFolder key={uuid} folder={content} />
+                            <ContentManagerFolder
+                                key={uuid}
+                                folder={content}
+                                isReordering={isReordering}
+                                startReorder={startReorder}
+                                updateYPositions={updateYPositions}
+                            />
                         );
                     } else if (content.type === 'article') {
                         return (
                             <ContentManagerArticle
                                 key={uuid}
                                 article={content}
+                                isReordering={isReordering}
+                                startReorder={startReorder}
+                                updateYPositions={updateYPositions}
                             />
                         );
                     }
                 })}
             </div>
-        </div>
+        </motion.div>
     );
 }

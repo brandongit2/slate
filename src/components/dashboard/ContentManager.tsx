@@ -1,22 +1,22 @@
 import {AnimateSharedLayout} from 'framer-motion';
-import {useContext, useEffect, useRef, useState} from 'react';
+import {useContext, useEffect, useRef} from 'react';
 import {v4 as uuidv4} from 'uuid';
 
 import styles from './ContentManager.module.scss';
 import ContentManagerSubject from './ContentManagerSubject';
 import {ContentManagerContext} from '../../contexts/contentManager';
 import {Content, Root, Subject} from '../../defs/content';
-import {convertRemToPixels, sortedIndex} from '../../misc/util';
+import {convertRemToPixels} from '../../misc/util';
+import useReorder from '../../hooks/reorder';
 
 let elementPositions = [] as number[];
 
 export default function ContentManager() {
     const {
         loadedContent,
-        fns: {addObject, moveObjectDown, moveObjectUp}
+        fns: {addObject}
     } = useContext(ContentManagerContext);
 
-    const [isReordering, setIsReordering] = useState(false);
     const elRef = useRef(null);
 
     function updateYPositions(force = false) {
@@ -49,32 +49,7 @@ export default function ContentManager() {
     }
     useEffect(updateYPositions, []);
 
-    function startReorder(evt: MouseEvent, object: Content) {
-        setIsReordering(true);
-
-        let prevMousePos = sortedIndex(elementPositions, evt.clientY);
-
-        function handleMouseMove(evt: MouseEvent) {
-            let curMousePos = sortedIndex(elementPositions, evt.clientY);
-            if (curMousePos !== prevMousePos) {
-                if (curMousePos - prevMousePos === 1) {
-                    moveObjectDown(object);
-                } else if (curMousePos - prevMousePos === -1) {
-                    moveObjectUp(object);
-                }
-                prevMousePos = curMousePos;
-            }
-        }
-
-        function stopReorder() {
-            window.removeEventListener('mousemove', handleMouseMove);
-            window.removeEventListener('mouseup', stopReorder);
-            setIsReordering(false);
-        }
-
-        window.addEventListener('mousemove', handleMouseMove);
-        window.addEventListener('mouseup', stopReorder);
-    }
+    const {startReorder, isReordering} = useReorder(elementPositions);
 
     function addSubject() {
         addObject(

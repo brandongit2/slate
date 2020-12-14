@@ -4,6 +4,12 @@
     grid-template-areas: '. a b';
     padding: 6px 0px;
 
+    &.selected {
+        position: relative;
+        z-index: 2;
+        background: var(--color-2);
+    }
+
     &:hover {
         background: var(--color-2);
 

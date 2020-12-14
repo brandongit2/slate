@@ -3,6 +3,12 @@
     grid-template-columns: 2rem 1fr auto;
     align-items: center;
 
+    &.selected {
+        position: relative;
+        z-index: 2;
+        background: var(--color-2);
+    }
+
     &--label {
         display: contents;
 
