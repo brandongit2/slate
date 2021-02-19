@@ -1,78 +1,73 @@
-// import { motion } from 'framer-motion';
-import {useAuth0} from '@auth0/auth0-react';
-import Head from 'next/head';
-import Link from 'next/Link';
-import LogInButton from '../components/LogInButton';
-import LogOutButton from '../components/LogOutButton';
-import SubjectCard from '../components/SubjectCard';
+import {Link} from "gatsby";
+import React from "react";
+import {Helmet} from "react-helmet";
+import styled from "styled-components";
 
-import styles from './index.module.scss';
-import {apiLocation} from '../config.json';
-import {Subject} from '../defs/content';
+import "./index.css";
+import SubjectCard from "components/SubjectCard";
+import logo from "images/logotype-dark.svg";
 
-export default function Index({subjects}: {subjects: Subject[]}) {
-    const {isAuthenticated, user} = useAuth0();
+const Container = styled.div`
+  position: absolute;
+  top: 50%;
+  transform: translate(0px, -50%);
+  margin-left: 4rem;
+  display: grid;
+  row-gap: 2rem;
+`;
 
-    return (
-        <div>
-            <Head>
-                <title>Slate: Learn by doing.</title>
-            </Head>
-            <div className={styles['log-in-out']}>
-                <LogInButton />
-                <LogOutButton />
-                <p>
-                    {isAuthenticated
-                        ? `Hello, ${user.name}.`
-                        : 'You are logged out.'}
-                </p>
-            </div>
-            <div className={styles.main}>
-                <img src="logotype-dark.svg" className={styles['main__logo']} />
-                <div className={styles.hero}>
-                    <p className={styles['hero--text']}>learn by doing.</p>
-                    <p className={styles['hero--subtext']}>
-                        mathematics, science, and more with interactive demos
-                        and virtual labs.
-                    </p>
-                </div>
-                <div>
-                    <div className={styles.subjects}>
-                        {subjects.map((subject, i) => (
-                            <Link
-                                href={`/subject/${subject.name.replace(
-                                    /\u00AD/g,
-                                    ''
-                                )}`}
-                                key={subject.name}
-                            >
-                                <div className={styles.subject}>
-                                    <SubjectCard
-                                        name={subject.name}
-                                        description={subject.description}
-                                        color={subject.color}
-                                    />
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-}
+const Logo = styled.img`
+  height: 2rem;
+`;
 
-export async function getStaticProps() {
-    let root = await (await fetch(`${apiLocation}/content/root`)).json();
-    let subjects = await (
-        await fetch(
-            `${apiLocation}/content/children/${root.uuid}?hyphenate={"name":1,"description":1}`
-        )
-    ).json();
+const Header = styled.h1`
+  font-size: 32px;
+  font-weight: 800;
+`;
 
-    return {
-        props: {
-            subjects
-        }
-    };
+const Subheader = styled.h2`
+  font-size: 18px;
+`;
+
+const Subjects = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: auto auto;
+  column-gap: 0.5rem;
+`;
+
+const Subject = styled.div`
+  display: contents;
+`;
+
+export default function Index() {
+  return (
+    <Container>
+      <Helmet>
+        <title>Slate: Learn by doing.</title>
+        <link rel="stylesheet" href="https://use.typekit.net/eqs1cah.css" />
+      </Helmet>
+      <Logo src={logo} />
+      <div>
+        <Header>learn by doing.</Header>
+        <Subheader>
+          mathematics, science, and more with interactive demos and virtual
+          labs.
+        </Subheader>
+      </div>
+      <div>
+        <Subjects>
+          <Link to="/subject/mathematics" key="mathematics">
+            <Subject>
+              <SubjectCard
+                name="mathematics"
+                description="description"
+                color="ff0000"
+              />
+            </Subject>
+          </Link>
+        </Subjects>
+      </div>
+    </Container>
+  );
 }

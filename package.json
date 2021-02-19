@@ -1,38 +1,47 @@
 {
-    "name": "slate2",
-    "version": "0.1.0",
-    "private": true,
-    "scripts": {
-        "dev": "NODE_OPTIONS='--inspect' next dev",
-        "build": "next build",
-        "start": "next start"
-    },
-    "dependencies": {
-        "@auth0/auth0-react": "^1.2.0",
-        "framer-motion": "^2.9.4",
-        "next": "^10.0.3",
-        "react": "^17.0.1",
-        "react-dom": "^17.0.1",
-        "sass": "^1.29.0",
-        "styled-jsx": "^3.3.2",
-        "uuid": "^8.3.1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/brandongit2/slate2.git"
-    },
-    "author": "Brandon Tsang",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/brandongit2/slate2/issues"
-    },
-    "homepage": "https://github.com/brandongit2/slate2#readme",
-    "devDependencies": {
-        "@types/node": "^14.14.10",
-        "@types/react": "^17.0.0",
-        "@types/react-dom": "^17.0.0",
-        "@types/uuid": "^8.3.0",
-        "hyphenopoly": "^4.8.1",
-        "typescript": "^4.1.2"
-    }
+  "name": "slate",
+  "private": true,
+  "homepage": "https://slate.cx",
+  "bugs": "https://github.com/brandongit2/slate/issues",
+  "author": {
+    "name": "Brandon Tsang",
+    "email": "brandononline2@gmail.com",
+    "url": "https://brandontsang.net"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brandongit2/slate.git"
+  },
+  "scripts": {
+    "dev": "gatsby develop",
+    "build": "gatsby build",
+    "start": "gatsby serve"
+  },
+  "dependencies": {
+    "@mdx-js/mdx": "^1.6.22",
+    "@mdx-js/react": "^1.6.22",
+    "@types/node": "^14.14.10",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-helmet": "^6.1.0",
+    "@types/styled-components": "^5.1.7",
+    "@types/uuid": "^8.3.0",
+    "framer-motion": "^3.3.0",
+    "gatsby": "^2.32.3",
+    "gatsby-image": "^2.11.0",
+    "gatsby-plugin-mdx": "^1.10.0",
+    "gatsby-plugin-netlify": "^2.11.0",
+    "gatsby-plugin-react-helmet": "^3.10.0",
+    "gatsby-plugin-sharp": "^2.14.1",
+    "gatsby-source-filesystem": "^2.11.0",
+    "gatsby-transformer-sharp": "^2.12.0",
+    "hyphenopoly": "^4.8.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-helmet": "^6.1.0",
+    "styled-components": "^5.2.1",
+    "styled-jsx": "^3.3.2",
+    "typescript": "^4.1.2",
+    "uuid": "^8.3.1"
+  }
 }
