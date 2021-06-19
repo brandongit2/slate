@@ -1,0 +1,53 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "import", "react", "react-hooks"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"
+  ],
+  "env": {
+    "es6": true,
+    "browser": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "@typescript-eslint/ban-ts-comment": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "@typescript-eslint/no-empty-function": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/no-extra-semi": 0,
+    "@typescript-eslint/no-non-null-assertion": 0,
+    "@typescript-eslint/no-unused-vars": [1, {"argsIgnorePattern": "^_", "ignoreRestSiblings": true, "args": false}],
+    "@typescript-eslint/quotes": [1, "backtick"],
+    "import/no-duplicates": 2,
+    "import/no-unresolved": 0,
+    "import/order": [
+      1,
+      {
+        "groups": [
+          ["builtin", "external"],
+          ["internal", "index", "object", "unknown", "type"],
+          ["parent", "sibling"]
+        ],
+        "pathGroups": [{"pattern": "@app/**", "group": "internal"}],
+        "pathGroupsExcludedImportTypes": ["builtin"],
+        "newlines-between": "always",
+        "alphabetize": {"order": "asc", "caseInsensitive": true}
+      }
+    ],
+    "prefer-const": 0,
+    "no-console": [1, {"allow": ["warn", "error"]}],
+    "no-constant-condition": [2, {"checkLoops": false}],
+    "no-control-regex": 0,
+    "no-empty": [1, {"allowEmptyCatch": true}],
+    "react/prop-types": 0,
+    "sort-imports": [1, {"ignoreDeclarationSort": true}]
+  }
+}
