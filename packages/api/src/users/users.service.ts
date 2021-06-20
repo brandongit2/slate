@@ -1,30 +1,36 @@
 import {Injectable} from "@nestjs/common"
+import {InjectRepository} from "@nestjs/typeorm"
+import {Repository} from "typeorm"
+import {v4} from "uuid"
 
-import {CreateUserInput} from "./dto/create-user.input"
-import {UpdateUserInput} from "./dto/update-user.input"
+import {CreateUserInput} from "./dto/createUser.input"
+import {UpdateUserInput} from "./dto/updateUser.input"
+import {User} from "./entities/user.entity"
 
 @Injectable()
 export class UsersService {
-  create(createUserInput: CreateUserInput) {
-    return `This action adds a new user`
+  constructor(@InjectRepository(User) private usersRepository: Repository<User>) {}
+
+  async create(createUserInput: CreateUserInput) {
+    const userId = v4()
+
+    const res = await this.usersRepository.insert({
+      id: userId,
+      email: createUserInput.email,
+      name: createUserInput.name,
+    })
+    return res.raw.ops[0] as User
   }
 
-  findAll() {
-    return `This action returns all users`
+  findOne(email: string) {
+    return this.usersRepository.findOne({email})
   }
 
-  findOne(id: string) {
-    return {
-      id: `1`,
-      name: `Brandon Tsang`,
-    }
-  }
-
-  update(id: number, updateUserInput: UpdateUserInput) {
+  update(id: string, updateUserInput: UpdateUserInput) {
     return `This action updates a #${id} user`
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} user`
   }
 }

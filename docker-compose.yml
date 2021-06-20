@@ -1,11 +1,10 @@
 version: "3.9"
 services:
   slate-db:
-    image: postgres:13.2-alpine
+    image: mongo:5.0.0-rc2
     container_name: slate-db
     ports:
-      - "65432:5432"
+      - "27020:27017"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: slate
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
