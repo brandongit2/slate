@@ -14,6 +14,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "cap": "cap --",
     "format": "prettier --write . --loglevel warn",
     "lint": "eslint .",
     "tsc": "tsc",
