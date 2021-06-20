@@ -14,7 +14,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "format": "prettier --write . --loglevel warn",
+    "lint": "eslint .",
+    "tsc": "tsc",
+    "check-all": "yarn format && yarn lint && yarn tsc"
   },
   "dependencies": {
     "@types/node": "^15.12.4",

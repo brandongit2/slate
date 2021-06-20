@@ -1,15 +1,38 @@
 {
   "name": "slate-api",
+  "homepage": "https://slate.cx",
+  "bugs": "https://github.com/brandongit2/slate/issues",
+  "repository": "git@github.com:brandongit2/slate.git",
+  "author": {
+    "name": "Brandon Tsang",
+    "email": "brandononline2@gmail.com",
+    "url": "https://brandontsang.net"
+  },
+  "license": "UNLICENSED",
+  "private": true,
   "scripts": {
-    "dev": "ts-node-dev --respawn ./src/index.ts"
+    "dev": "nest start --watch --preserveWatchOutput",
+    "build": "nest build",
+    "prod": "node dist/main",
+    "test": "jest",
+    "format": "prettier --write . --loglevel warn",
+    "lint": "eslint .",
+    "tsc": "tsc",
+    "check-all": "yarn format && yarn lint && yarn tsc"
   },
   "dependencies": {
-    "@marblejs/core": "^3.5.0",
-    "@marblejs/middleware-body": "^3.5.0",
-    "@marblejs/middleware-logger": "^3.5.0",
+    "@nestjs/cli": "^7.6.0",
+    "@nestjs/common": "^7.6.18",
+    "@nestjs/core": "^7.6.18",
+    "@nestjs/platform-fastify": "^7.6.18",
+    "@nestjs/testing": "^7.6.18",
+    "@types/jest": "^26.0.23",
     "@types/node": "^15.12.4",
-    "fp-ts": "^2.10.5",
+    "jest": "^27.0.4",
+    "reflect-metadata": "^0.1.13",
     "rxjs": "^7.1.0",
+    "supertest": "^6.1.3",
+    "ts-jest": "^27.0.3",
     "ts-node-dev": "^1.1.6",
     "typescript": "^4.3.4"
   }
