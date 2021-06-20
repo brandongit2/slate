@@ -16,7 +16,7 @@
     "noImplicitAny": true,
     "baseUrl": ".",
     "paths": {
-      "@web/*": ["src/*"],
+      "@app/*": ["src/*"],
       "@types/*": ["../types/src/*"]
     }
   },

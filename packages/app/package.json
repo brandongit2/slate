@@ -1,5 +1,5 @@
 {
-  "name": "slate-web",
+  "name": "slate-app",
   "homepage": "https://slate.cx",
   "bugs": "https://github.com/brandongit2/slate/issues",
   "repository": "git@github.com:brandongit2/slate.git",
@@ -20,6 +20,10 @@
     "check-all": "yarn format && yarn lint && yarn tsc"
   },
   "dependencies": {
+    "@capacitor/android": "^3.0.1",
+    "@capacitor/cli": "^3.0.1",
+    "@capacitor/core": "^3.0.1",
+    "@capacitor/ios": "^3.0.1",
     "@types/node": "^15.12.4",
     "@types/react": "^17.0.11",
     "@types/react-dom": "^17.0.8",

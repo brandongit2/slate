@@ -26,7 +26,7 @@
           ["internal", "index", "object", "unknown", "type"],
           ["parent", "sibling"]
         ],
-        "pathGroups": [{"pattern": "{@web/**,@api/**,@types/**}", "group": "internal"}],
+        "pathGroups": [{"pattern": "{@api/**,@app/**,@types/**}", "group": "internal"}],
         "pathGroupsExcludedImportTypes": ["builtin"],
         "newlines-between": "always",
         "alphabetize": {"order": "asc", "caseInsensitive": true}
