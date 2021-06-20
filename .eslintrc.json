@@ -26,7 +26,7 @@
           ["internal", "index", "object", "unknown", "type"],
           ["parent", "sibling"]
         ],
-        "pathGroups": [{"pattern": "@app/**", "group": "internal"}],
+        "pathGroups": [{"pattern": "{@web/**,@api/**,@types/**}", "group": "internal"}],
         "pathGroupsExcludedImportTypes": ["builtin"],
         "newlines-between": "always",
         "alphabetize": {"order": "asc", "caseInsensitive": true}
@@ -38,30 +38,5 @@
     "no-control-regex": 0,
     "no-empty": [1, {"allowEmptyCatch": true}],
     "sort-imports": [1, {"ignoreDeclarationSort": true}]
-  },
-  "overrides": [
-    {
-      "files": ["packages/web/src/**/*"],
-      "plugins": ["@typescript-eslint", "import", "react", "react-hooks"],
-      "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:import/recommended",
-        "plugin:react/recommended",
-        "plugin:react-hooks/recommended"
-      ],
-      "env": {
-        "es6": true,
-        "browser": true
-      },
-      "settings": {
-        "react": {
-          "version": "detect"
-        }
-      },
-      "rules": {
-        "react/prop-types": 0
-      }
-    }
-  ]
+  }
 }
