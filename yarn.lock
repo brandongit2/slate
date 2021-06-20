@@ -12206,6 +12206,17 @@ resolve@^2.0.0-next.3:
   languageName: unknown
   linkType: soft
 
+"slate-types@workspace:packages/types":
+  version: 0.0.0-use.local
+  resolution: "slate-types@workspace:packages/types"
+  dependencies:
+    "@types/node": ^15.12.4
+    eslint: ^7.29.0
+    prettier: ^2.3.1
+    typescript: ^4.3.4
+  languageName: unknown
+  linkType: soft
+
 "slate-web@workspace:packages/web":
   version: 0.0.0-use.local
   resolution: "slate-web@workspace:packages/web"
