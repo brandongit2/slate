@@ -8,13 +8,3 @@ export const UserQuery = graphql`
     }
   }
 `
-
-export type UserQueryType = {
-  variables: {userId: string}
-  response: {
-    user: {
-      id: string
-      name: string
-    }
-  }
-}

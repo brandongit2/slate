@@ -4,7 +4,8 @@ import React, {Suspense, useEffect} from "react"
 import {useQueryLoader} from "react-relay"
 
 import SubjectList from "@app/components/page-specific/index/SubjectList"
-import {UserQuery, UserQueryType} from "@app/queries/User"
+import {UserQuery as UserQueryType} from "@app/queries/__generated__/UserQuery.graphql"
+import {UserQuery} from "@app/queries/User"
 
 const Index: NextPage = () => {
   const [queryRef, loadQuery, disposeQuery] = useQueryLoader<UserQueryType>(UserQuery)
@@ -15,7 +16,6 @@ const Index: NextPage = () => {
     return disposeQuery
   }, [loadQuery, disposeQuery])
 
-  console.log(queryRef)
   return (
     <div>
       <Head>

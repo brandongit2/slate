@@ -1,7 +1,8 @@
 import React, {FC} from "react"
 import {PreloadedQuery, usePreloadedQuery} from "react-relay"
 
-import {UserQuery, UserQueryType} from "@app/queries/User"
+import {UserQuery as UserQueryType} from "@app/queries/__generated__/UserQuery.graphql"
+import {UserQuery} from "@app/queries/User"
 
 type Props = {
   queryRef: PreloadedQuery<UserQueryType>
