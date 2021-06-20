@@ -6,5 +6,9 @@
     "source.fixAll.eslint": true
   },
   "files.eol": "\n",
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "search.exclude": {
+    "**/.yarn": true,
+    "node_modules": true
+  }
 }
