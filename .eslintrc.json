@@ -22,15 +22,12 @@
     "import/order": [
       1,
       {
-        "groups": [
-          ["builtin", "external"],
-          ["internal", "index", "object", "unknown", "type"],
-          ["parent", "sibling"]
-        ],
-        "pathGroups": [{"pattern": "{@api/**,@app/**,@types/**}", "group": "internal"}],
+        "groups": [["builtin", "external"], "type", "internal", ["parent", "sibling", "index"], ["object", "unknown"]],
+        "pathGroups": [{"pattern": "{@api/**,@app/**}", "group": "internal"}],
         "pathGroupsExcludedImportTypes": ["builtin"],
         "newlines-between": "always",
-        "alphabetize": {"order": "asc", "caseInsensitive": true}
+        "alphabetize": {"order": "asc", "caseInsensitive": true},
+        "warnOnUnassignedImports": true
       }
     ],
     "prefer-const": 0,

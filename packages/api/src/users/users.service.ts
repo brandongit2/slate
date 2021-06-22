@@ -5,25 +5,28 @@ import {v4} from "uuid"
 
 import {CreateUserInput} from "./dto/createUser.input"
 import {UpdateUserInput} from "./dto/updateUser.input"
-import {User} from "./entities/user.entity"
+import {UserDb} from "./entities/userDb.entity"
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectRepository(User) private usersRepository: Repository<User>) {}
+  constructor(@InjectRepository(UserDb) private usersRepository: Repository<UserDb>) {}
 
   async create(createUserInput: CreateUserInput) {
     const userId = v4()
 
-    const res = await this.usersRepository.insert({
+    const user = this.usersRepository.create({
       id: userId,
       email: createUserInput.email,
       name: createUserInput.name,
+      password: createUserInput.password,
     })
-    return res.raw.ops[0] as User
+    this.usersRepository.save(user)
+
+    return user
   }
 
-  findOne(email: string) {
-    return this.usersRepository.findOne({email})
+  async findOne(email: string) {
+    return await this.usersRepository.findOne({email})
   }
 
   update(id: string, updateUserInput: UpdateUserInput) {

@@ -3,27 +3,27 @@
 # ------------------------------------------------------
 
 type User {
-  id: String!
+  id: UUID!
   name: String!
   email: String!
+}
+
+"""v4 UUID"""
+scalar UUID
+
+type AuthToken {
+  authToken: String!
 }
 
 type Query {
-  user(email: String!): User!
+  user: User!
 }
 
 type Mutation {
-  createUser(createUserInput: CreateUserInput!): User
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: String!): User!
-}
-
-input CreateUserInput {
-  """The user's full name."""
-  name: String!
-
-  """The user's email address."""
-  email: String!
+  signUp(signUpInput: SignUpInput!): AuthToken!
+  signIn(signInInput: SignInInput!): User!
 }
 
 input UpdateUserInput {
@@ -33,6 +33,28 @@ input UpdateUserInput {
   """The user's email address."""
   email: String!
 
+  """The user's password."""
+  password: String
+
   """The ID of the user."""
   id: String!
+}
+
+input SignUpInput {
+  """The user's full name."""
+  name: String!
+
+  """The user's email address."""
+  email: String!
+
+  """The user's new password."""
+  password: String!
+}
+
+input SignInInput {
+  """The user's email address."""
+  email: String!
+
+  """The user's password."""
+  password: String!
 }

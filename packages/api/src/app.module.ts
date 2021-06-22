@@ -3,13 +3,19 @@ import {GraphQLModule} from "@nestjs/graphql"
 import {TypeOrmModule} from "@nestjs/typeorm"
 import path from "path"
 
-import {User} from "./users/entities/user.entity"
+import {AuthModule} from "./auth/auth.module"
+import {UserDb} from "./users/entities/userDb.entity"
 import {UsersModule} from "./users/users.module"
+import {UuidScalar} from "./uuid.scalar"
 
 @Module({
   imports: [
     GraphQLModule.forRoot({
       autoSchemaFile: path.resolve(process.cwd(), `schema.gql`),
+      cors: {
+        origin: [`http://localhost:3000`, `https://studio.apollographql.com`],
+        credentials: true,
+      },
     }),
     TypeOrmModule.forRoot({
       type: `mongodb`,
@@ -22,9 +28,11 @@ import {UsersModule} from "./users/users.module"
       logging: true,
       synchronize: true,
       useUnifiedTopology: true,
-      entities: [User],
+      entities: [UserDb],
     }),
     UsersModule,
+    AuthModule,
   ],
+  providers: [UuidScalar],
 })
 export class AppModule {}

@@ -1,7 +1,13 @@
 {
   "recommendations": [
-    "arcanis.vscode-zipfs",
     "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    "mrmlnc.vscode-json5",
+    "ms-azuretools.vscode-docker",
+    "mikestead.dotenv",
+    "kumar-harsh.graphql-for-vscode",
+    "divlo.vscode-styled-jsx-languageserver",
+    "divlo.vscode-styled-jsx-syntax",
+    "bradlc.vscode-tailwindcss"
   ]
 }

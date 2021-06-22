@@ -1,18 +1,15 @@
 import {Field, ObjectType} from "@nestjs/graphql"
-import {Column, Entity, ObjectIdColumn} from "typeorm"
+
+import {UuidScalar} from "@api/src/uuid.scalar"
 
 @ObjectType()
-@Entity()
 export class User {
-  @Field()
-  @ObjectIdColumn()
+  @Field(() => UuidScalar)
   id!: string
 
   @Field()
-  @Column()
   name!: string
 
   @Field()
-  @Column()
   email!: string
 }

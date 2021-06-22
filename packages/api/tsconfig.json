@@ -19,7 +19,7 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "@api/*": ["src/*"]
+      "@api/*": ["./*"]
     }
   }
 }
