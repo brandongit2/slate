@@ -24,6 +24,11 @@ const Layout: FC = ({children}) => {
 
   return (
     <ModalContext.Provider value={{setIsModalVisible, setModalContents}}>
+      <style jsx global>{`
+        span {
+          margin-bottom: -0.2em;
+        }
+      `}</style>
       <div className="min-h-screen grid" style={{gridTemplateRows: `max-content 1fr`}}>
         <Navbar className="sticky t-0 l-0" />
         <main>{children}</main>

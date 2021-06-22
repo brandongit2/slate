@@ -11,6 +11,9 @@ module.exports = {
       contrast: {
         25: `.25`,
       },
+      fontSize: {
+        "2xs": `0.625rem`,
+      },
       spacing: {
         128: `32rem`,
       },

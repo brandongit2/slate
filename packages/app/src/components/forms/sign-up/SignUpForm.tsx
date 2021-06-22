@@ -1,34 +1,20 @@
 import {yupResolver} from "@hookform/resolvers/yup"
-import chroma from "chroma-js"
 import React, {FC, useState} from "react"
 import {useForm} from "react-hook-form"
-import styled from "styled-components"
-import colors from "tailwindcss/colors"
 import * as yup from "yup"
 import zxcvbn from "zxcvbn"
 
-import ChevronDown from "@app/public/icons/chevron-down.svg"
-import ChevronUp from "@app/public/icons/chevron-up.svg"
-
-import Button from "../atomic/1-atoms/Button"
-import H1 from "../atomic/1-atoms/H1"
-import Span from "../atomic/1-atoms/Span"
-import TextInput from "../atomic/1-atoms/TextInput"
-import Page from "../atomic/4-templates/Page"
-import CloseButton from "../modal/CloseButton"
-
-const PasswordStrength = styled.progress`
-  &::-webkit-progress-bar {
-    background: #d4d4d4;
-  }
-
-  &::-webkit-progress-value {
-    background: ${({color}) => color};
-    transition: all 0.4s;
-  }
-`
+import Button from "../../atomic/1-atoms/Button"
+import H1 from "../../atomic/1-atoms/H1"
+import TextInput from "../../atomic/1-atoms/TextInput"
+import ErrorCarousel from "../../atomic/2-molecules/ErrorCarousel"
+import Page from "../../atomic/4-templates/Page"
+import CloseButton from "../../modal/CloseButton"
+import PasswordStrength from "./PasswordStrength"
 
 const SignUpForm: FC = () => {
+  const [currentError, setCurrentError] = useState(0)
+
   const schema = yup.object().shape({
     firstName: yup.string().required(`Please enter your first name.`),
     lastName: yup.string().required(`Please enter your last name.`),
@@ -54,21 +40,7 @@ const SignUpForm: FC = () => {
     console.log(data)
   })
 
-  const [currentError, setCurrentError] = useState(0)
-
-  function errorUp() {
-    if (currentError === 0) return
-    setCurrentError((currentError) => currentError - 1)
-  }
-
-  function errorDown() {
-    if (currentError === Object.values(errors).length - 1) return
-    setCurrentError((currentError) => currentError + 1)
-  }
-
   const password = watch(`password`)
-  const pwScore = zxcvbn(password || ``).score
-  const pwColor = chroma.scale([`#F84258`, `#50E128`]).mode(`lch`).correctLightness().domain([0, 4])(pwScore).hex()
 
   const formGrid = `
     "a b" auto
@@ -119,33 +91,17 @@ const SignUpForm: FC = () => {
             activeError={Object.keys(errors)[currentError] === `password`}
             {...register(`password`)}
           />
-          <PasswordStrength max={4} value={pwScore} color={pwColor} className="w-full h-1" />
+          <PasswordStrength password={password} />
         </div>
         <div className="col-span-2 flex gap-6 items-center">
           <Button disabled={!!Object.values(errors).length}>Submit</Button>
           <div className="flex-grow flex justify-between items-center text-red-700">
             <span>{Object.values(errors)[currentError]?.message}</span>
-            {Object.values(errors).length > 1 ? (
-              <div className="grid justify-items-center" style={{gridTemplateRows: `12px auto 12px`}}>
-                {currentError !== 0 ? (
-                  <button type="button" onClick={errorUp}>
-                    <ChevronUp fill={colors.red[`700`]} className="h-2.5" />
-                  </button>
-                ) : (
-                  <div />
-                )}
-                <Span className="text-xs select-none">
-                  {currentError + 1}/{Object.values(errors).length}
-                </Span>
-                {currentError !== Object.values(errors).length ? (
-                  <button type="button" onClick={errorDown}>
-                    <ChevronDown fill={colors.red[`700`]} className="h-2.5" />
-                  </button>
-                ) : (
-                  <div />
-                )}
-              </div>
-            ) : null}
+            <ErrorCarousel
+              errors={Object.values(errors)}
+              currentError={currentError}
+              setCurrentError={setCurrentError}
+            />
           </div>
         </div>
       </form>

@@ -3,8 +3,8 @@ import React, {FC, useContext} from "react"
 
 import LogoType from "@app/public/slate-logo.svg"
 
+import SignUpForm from "../../forms/sign-up/SignUpForm"
 import SignInForm from "../../forms/SignInForm"
-import SignUpForm from "../../forms/SignUpForm"
 import ModalContext from "../../modal/ModalContext"
 import Button from "../1-atoms/Button"
 
