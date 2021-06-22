@@ -8,7 +8,7 @@ type User {
   email: String!
 }
 
-"""v4 UUID"""
+"""The `UUID` scalar type represents a v4 UUID."""
 scalar UUID
 
 type AuthToken {

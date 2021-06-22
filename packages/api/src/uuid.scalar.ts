@@ -3,7 +3,7 @@ import {Kind, ValueNode} from "graphql"
 
 @Scalar(`UUID`)
 export class UuidScalar implements CustomScalar<string, string> {
-  description = `v4 UUID`
+  description = `The \`UUID\` scalar type represents a v4 UUID.`
 
   parseValue(value: string) {
     return value

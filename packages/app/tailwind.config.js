@@ -6,5 +6,14 @@ module.exports = {
     fontFamily: {
       sans: [`Gothic A1`, `sans-serif`],
     },
+
+    extend: {
+      contrast: {
+        25: `.25`,
+      },
+      spacing: {
+        128: `32rem`,
+      },
+    },
   },
 }
