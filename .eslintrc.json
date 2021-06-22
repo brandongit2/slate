@@ -1,22 +1,12 @@
 {
   "root": true,
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "import"],
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:import/recommended"],
+  "plugins": ["import"],
+  "extends": ["eslint:recommended", "plugin:import/recommended"],
   "env": {
     "es6": true,
     "node": true
   },
   "rules": {
-    "@typescript-eslint/ban-ts-comment": 0,
-    "@typescript-eslint/ban-types": 0,
-    "@typescript-eslint/explicit-module-boundary-types": 0,
-    "@typescript-eslint/no-empty-function": 0,
-    "@typescript-eslint/no-explicit-any": 0,
-    "@typescript-eslint/no-extra-semi": 0,
-    "@typescript-eslint/no-non-null-assertion": 0,
-    "@typescript-eslint/no-unused-vars": [1, {"argsIgnorePattern": "^_", "ignoreRestSiblings": true, "args": "none"}],
-    "@typescript-eslint/quotes": [1, "backtick"],
     "import/no-duplicates": 2,
     "import/no-unresolved": 0,
     "import/order": [
@@ -36,5 +26,27 @@
     "no-control-regex": 0,
     "no-empty": [1, {"allowEmptyCatch": true}],
     "sort-imports": [1, {"ignoreDeclarationSort": true}]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint"],
+      "extends": "plugin:@typescript-eslint/recommended",
+      "rules": {
+        "@typescript-eslint/ban-ts-comment": 0,
+        "@typescript-eslint/ban-types": 0,
+        "@typescript-eslint/explicit-module-boundary-types": 0,
+        "@typescript-eslint/no-empty-function": 0,
+        "@typescript-eslint/no-explicit-any": 0,
+        "@typescript-eslint/no-extra-semi": 0,
+        "@typescript-eslint/no-non-null-assertion": 0,
+        "@typescript-eslint/no-unused-vars": [
+          1,
+          {"argsIgnorePattern": "^_", "ignoreRestSiblings": true, "args": "none"}
+        ],
+        "@typescript-eslint/quotes": [1, "backtick"]
+      }
+    }
+  ]
 }

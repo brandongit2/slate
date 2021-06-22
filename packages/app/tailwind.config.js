@@ -1,12 +1,10 @@
 module.exports = {
-  purge: [`./pages/**/*.{js,ts,jsx,tsx}`, `./components/**/*.{js,ts,jsx,tsx}`],
+  purge: [`./src/**/*.{js,ts,jsx,tsx}`],
   mode: `jit`,
   darkMode: false,
   theme: {
-    extend: {},
+    fontFamily: {
+      sans: [`Gothic A1`, `sans-serif`],
+    },
   },
-  variants: {
-    extend: {},
-  },
-  plugins: [],
 }

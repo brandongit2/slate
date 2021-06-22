@@ -1,5 +1,6 @@
 {
   api: {
+    url: "http://localhost:4000",
     port: 4000,
     secret: "123fdce931dab002d05abaa1cf1a1724", // To be overridden in production
   },

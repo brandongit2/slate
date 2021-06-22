@@ -11,21 +11,19 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "dev": "nodemon -x yarn relay -e ts -e tsx && next dev",
+    "dev": "NODE_CONFIG_DIR=../../config/ concurrently \"nodemon -x yarn relay -e ts -e tsx\" \"next dev\"",
     "build": "next build",
     "start": "next start",
     "relay": "relay-compiler --src ./src/ --schema ../api/schema.gql --language typescript",
     "cap": "cap --",
-    "format": "prettier --write . --loglevel warn",
-    "lint": "eslint .",
-    "tsc": "tsc",
-    "check-all": "yarn format && yarn lint && yarn tsc"
+    "lint": "prettier --write . --loglevel warn && eslint --fix . && tsc"
   },
   "dependencies": {
     "@capacitor/android": "^3.0.1",
     "@capacitor/cli": "^3.0.1",
     "@capacitor/core": "^3.0.1",
     "@capacitor/ios": "^3.0.1",
+    "@svgr/webpack": "^5.5.0",
     "@types/node": "^15.12.4",
     "@types/react": "^17.0.11",
     "@types/react-dom": "^17.0.8",
@@ -33,10 +31,11 @@
     "@types/relay-runtime": "^11.0.0",
     "autoprefixer": "^10.2.6",
     "babel-plugin-relay": "^11.0.2",
+    "concurrently": "^6.2.0",
     "eslint": "^7.29.0",
     "graphql": "^15.5.0",
     "graphql-cli": "^4.1.0",
-    "next": "^11.0.0",
+    "next": "canary",
     "nodemon": "^2.0.7",
     "postcss": "^8.3.5",
     "prettier": "^2.3.1",
@@ -47,6 +46,7 @@
     "relay-compiler-language-typescript": "^14.0.0",
     "relay-config": "^11.0.2",
     "relay-runtime": "^11.0.2",
+    "tailwind-styled-components": "^2.0.3",
     "tailwindcss": "^2.2.2",
     "typescript": "^4.3.4"
   }

@@ -3,13 +3,12 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
-export type UserQueryVariables = {
-    userId: string;
-};
+export type UserQueryVariables = {};
 export type UserQueryResponse = {
     readonly user: {
-        readonly id: string;
+        readonly id: unknown;
         readonly name: string;
+        readonly email: string;
     };
 };
 export type UserQuery = {
@@ -20,12 +19,11 @@ export type UserQuery = {
 
 
 /*
-query UserQuery(
-  $userId: String!
-) {
-  user(id: $userId) {
+query UserQuery {
+  user {
     id
     name
+    email
   }
 }
 */
@@ -33,20 +31,8 @@ query UserQuery(
 const node: ConcreteRequest = (function () {
     var v0 = [
         {
-            "defaultValue": null,
-            "kind": "LocalArgument",
-            "name": "userId"
-        } as any
-    ], v1 = [
-        {
             "alias": null,
-            "args": [
-                {
-                    "kind": "Variable",
-                    "name": "id",
-                    "variableName": "userId"
-                }
-            ],
+            "args": null,
             "concreteType": "User",
             "kind": "LinkedField",
             "name": "user",
@@ -65,6 +51,13 @@ const node: ConcreteRequest = (function () {
                     "kind": "ScalarField",
                     "name": "name",
                     "storageKey": null
+                },
+                {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "email",
+                    "storageKey": null
                 }
             ],
             "storageKey": null
@@ -72,30 +65,30 @@ const node: ConcreteRequest = (function () {
     ];
     return {
         "fragment": {
-            "argumentDefinitions": (v0 /*: any*/),
+            "argumentDefinitions": [],
             "kind": "Fragment",
             "metadata": null,
             "name": "UserQuery",
-            "selections": (v1 /*: any*/),
+            "selections": (v0 /*: any*/),
             "type": "Query",
             "abstractKey": null
         },
         "kind": "Request",
         "operation": {
-            "argumentDefinitions": (v0 /*: any*/),
+            "argumentDefinitions": [],
             "kind": "Operation",
             "name": "UserQuery",
-            "selections": (v1 /*: any*/)
+            "selections": (v0 /*: any*/)
         },
         "params": {
-            "cacheID": "83807056a2049be9934a8099abdd840d",
+            "cacheID": "bb966146da58b5dc002394bb4f6737c1",
             "id": null,
             "metadata": {},
             "name": "UserQuery",
             "operationKind": "query",
-            "text": "query UserQuery(\n  $userId: String!\n) {\n  user(id: $userId) {\n    id\n    name\n  }\n}\n"
+            "text": "query UserQuery {\n  user {\n    id\n    name\n    email\n  }\n}\n"
         }
     } as any;
 })();
-(node as any).hash = 'd7d8f6202b6e0a018ca7daa7e8fd94c0';
+(node as any).hash = '9e4b51dd1a685c120c08508e0797fef8';
 export default node;
