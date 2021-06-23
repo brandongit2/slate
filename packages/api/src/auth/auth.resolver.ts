@@ -42,10 +42,21 @@ export class AuthResolver {
   }
 
   @Mutation(() => User)
-  async signIn(@Args(`signInInput`, ValidationPipe) signInInput: SignInInput) {
-    const user = await this.authService.validateUser(signInInput.email, signInInput.password)
-    if (!user) throw new HttpException(`Incorrect email or password.`, 401)
+  async signIn(
+    @Args(`signInInput`, ValidationPipe) signInInput: SignInInput,
+    @Context() context: {request: FastifyRequest; reply: FastifyReply},
+  ) {
+    const dbRes = await this.authService.validateUser(signInInput.email, signInInput.password)
+    if (!dbRes) throw new HttpException(`Incorrect email or password.`, 401)
 
-    return this.authService.signJwt(user)
+    const {password, ...user} = dbRes
+
+    context.reply.setCookie(`authToken`, this.authService.signJwt(user), {
+      httpOnly: true,
+      sameSite: `lax`,
+      secure: true,
+    })
+
+    return user
   }
 }

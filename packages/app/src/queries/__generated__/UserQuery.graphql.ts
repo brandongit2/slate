@@ -6,7 +6,7 @@ import { ConcreteRequest } from "relay-runtime";
 export type UserQueryVariables = {};
 export type UserQueryResponse = {
     readonly user: {
-        readonly id: unknown;
+        readonly id: string;
         readonly firstName: string;
         readonly lastName: string;
         readonly email: string;

@@ -1,4 +1,4 @@
-import React, {FC} from "react"
+import React, {FC, useEffect} from "react"
 import colors from "tailwindcss/colors"
 
 import ChevronDown from "@app/public/icons/chevron-down.svg"
@@ -21,9 +21,13 @@ const ErrorCarousel: FC<Props> = ({errors, currentError, setCurrentError}) => {
     setCurrentError((currentError) => currentError + 1)
   }
 
+  useEffect(() => {
+    if (errors.length > 0 && currentError > errors.length - 1) setCurrentError(errors.length - 1)
+  })
+
   return (
-    <div className="flex justify-between items-center text-red-700">
-      <span>{errors[currentError]}</span>
+    <div className="flex justify-between gap-x-6 items-center text-red-700">
+      <span className="h-8 overflow-visible grid items-center">{errors[currentError]}</span>
       {errors.length > 1 && (
         <div className="grid justify-items-center" style={{gridTemplateRows: `12px auto 12px`}}>
           {currentError !== 0 ? (
@@ -36,7 +40,7 @@ const ErrorCarousel: FC<Props> = ({errors, currentError, setCurrentError}) => {
           <span className="text-xs select-none -mt-0.5 -mb-1">
             {currentError + 1}/{errors.length}
           </span>
-          {currentError !== errors.length ? (
+          {currentError !== errors.length - 1 ? (
             <button type="button" onClick={errorDown}>
               <ChevronDown fill={colors.red[`700`]} className="h-2" />
             </button>

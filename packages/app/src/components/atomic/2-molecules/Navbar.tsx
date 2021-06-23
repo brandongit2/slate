@@ -3,8 +3,8 @@ import React, {FC, useContext} from "react"
 
 import LogoType from "@app/public/slate-logo.svg"
 
+import SignInForm from "../../forms/sign-in/SignInForm"
 import SignUpForm from "../../forms/sign-up/SignUpForm"
-import SignInForm from "../../forms/SignInForm"
 import ModalContext from "../../modal/ModalContext"
 import UserContext from "../../UserContext"
 import Button from "../1-atoms/Button"
@@ -33,7 +33,9 @@ const Navbar: FC<Props> = ({className}) => {
       <LogoType className="h-8" />
       <div className="flex gap-2">
         {user.isSignedIn ? (
-          <div />
+          <span>
+            Hi, <b>{user.firstName}</b>.
+          </span>
         ) : (
           <>
             <Button onClick={showSignInModal}>Sign in</Button>

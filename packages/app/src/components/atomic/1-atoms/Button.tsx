@@ -5,10 +5,11 @@ type Props = {
   disabled?: boolean
 } & React.ButtonHTMLAttributes<HTMLButtonElement>
 
-const Button: FC<Props> = ({disabled, children, ...props}) => {
+const Button: FC<Props> = ({disabled, className, children, ...props}) => {
   return (
     <button
       className={classNames(
+        className,
         `bg-black px-4 py-2 rounded-none text-white font-bold text-sm transition duration-300`,
         disabled && `filter contrast-25 cursor-default`,
       )}
