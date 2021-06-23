@@ -7,6 +7,7 @@ import {UserQuery} from "@app/src/queries/User"
 import Navbar from "./atomic/2-molecules/Navbar"
 import Modal from "./modal/Modal"
 import ModalContext from "./modal/ModalContext"
+import UserContext, {UserContextType} from "./UserContext"
 
 const Layout: FC = ({children}) => {
   // Attempt get user and keep it in the Relay environment
@@ -18,23 +19,27 @@ const Layout: FC = ({children}) => {
     error() {},
   })
 
+  const [user, setUser] = useState<UserContextType>({isSignedIn: false})
+
   // Modal logic
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [modalContents, setModalContents] = useState<ReactNode>()
 
   return (
-    <ModalContext.Provider value={{setIsModalVisible, setModalContents}}>
-      <style jsx global>{`
-        span {
-          margin-bottom: -0.2em;
-        }
-      `}</style>
-      <div className="min-h-screen grid" style={{gridTemplateRows: `max-content 1fr`}}>
-        <Navbar className="sticky t-0 l-0" />
-        <main>{children}</main>
-        {isModalVisible && <Modal>{modalContents}</Modal>}
-      </div>
-    </ModalContext.Provider>
+    <UserContext.Provider value={{user, setUser}}>
+      <ModalContext.Provider value={{setIsModalVisible, setModalContents}}>
+        <style jsx global>{`
+          span {
+            margin-bottom: -0.2em;
+          }
+        `}</style>
+        <div className="min-h-screen grid" style={{gridTemplateRows: `max-content 1fr`}}>
+          <Navbar className="sticky t-0 l-0" />
+          <main>{children}</main>
+          {isModalVisible && <Modal>{modalContents}</Modal>}
+        </div>
+      </ModalContext.Provider>
+    </UserContext.Provider>
   )
 }
 

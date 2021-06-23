@@ -7,7 +7,8 @@ export type UserQueryVariables = {};
 export type UserQueryResponse = {
     readonly user: {
         readonly id: unknown;
-        readonly name: string;
+        readonly firstName: string;
+        readonly lastName: string;
         readonly email: string;
     };
 };
@@ -22,7 +23,8 @@ export type UserQuery = {
 query UserQuery {
   user {
     id
-    name
+    firstName
+    lastName
     email
   }
 }
@@ -49,7 +51,14 @@ const node: ConcreteRequest = (function () {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
-                    "name": "name",
+                    "name": "firstName",
+                    "storageKey": null
+                },
+                {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "lastName",
                     "storageKey": null
                 },
                 {
@@ -81,14 +90,14 @@ const node: ConcreteRequest = (function () {
             "selections": (v0 /*: any*/)
         },
         "params": {
-            "cacheID": "bb966146da58b5dc002394bb4f6737c1",
+            "cacheID": "dc895ce2002d7c2077acce4421581e5d",
             "id": null,
             "metadata": {},
             "name": "UserQuery",
             "operationKind": "query",
-            "text": "query UserQuery {\n  user {\n    id\n    name\n    email\n  }\n}\n"
+            "text": "query UserQuery {\n  user {\n    id\n    firstName\n    lastName\n    email\n  }\n}\n"
         }
     } as any;
 })();
-(node as any).hash = '9e4b51dd1a685c120c08508e0797fef8';
+(node as any).hash = '34f5d74032ae4bfb51ec27af5932fc82';
 export default node;

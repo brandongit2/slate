@@ -4,16 +4,13 @@
 
 type User {
   id: UUID!
-  name: String!
+  firstName: String!
+  lastName: String!
   email: String!
 }
 
 """The `UUID` scalar type represents a v4 UUID."""
 scalar UUID
-
-type AuthToken {
-  authToken: String!
-}
 
 type Query {
   user: User!
@@ -22,13 +19,16 @@ type Query {
 type Mutation {
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: String!): User!
-  signUp(signUpInput: SignUpInput!): AuthToken!
+  signUp(signUpInput: SignUpInput!): User!
   signIn(signInInput: SignInInput!): User!
 }
 
 input UpdateUserInput {
-  """The user's full name."""
-  name: String!
+  """The user's first name."""
+  firstName: String!
+
+  """The user's last name."""
+  lastName: String!
 
   """The user's email address."""
   email: String!
@@ -41,8 +41,11 @@ input UpdateUserInput {
 }
 
 input SignUpInput {
-  """The user's full name."""
-  name: String!
+  """The user's first name."""
+  firstName: String!
+
+  """The user's last name."""
+  lastName: String!
 
   """The user's email address."""
   email: String!

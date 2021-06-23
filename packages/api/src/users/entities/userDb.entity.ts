@@ -6,7 +6,10 @@ export class UserDb {
   id!: string
 
   @Column()
-  name!: string
+  firstName!: string
+
+  @Column()
+  lastName!: string
 
   @Column()
   email!: string

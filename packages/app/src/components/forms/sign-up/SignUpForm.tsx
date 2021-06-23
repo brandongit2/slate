@@ -1,43 +1,57 @@
 import {yupResolver} from "@hookform/resolvers/yup"
-import React, {FC, useState} from "react"
+import React, {FC, useContext, useState} from "react"
 import {useForm} from "react-hook-form"
-import * as yup from "yup"
-import zxcvbn from "zxcvbn"
+import {useMutation} from "react-relay"
+
+import {
+  UserSignUpMutation as UserSignUpMutationType,
+  UserSignUpMutationVariables,
+} from "@app/src/queries/__generated__/UserSignUpMutation.graphql"
+import {UserSignUpMutation} from "@app/src/queries/User"
 
 import Button from "../../atomic/1-atoms/Button"
 import H1 from "../../atomic/1-atoms/H1"
+import Spinner from "../../atomic/1-atoms/Spinner"
 import TextInput from "../../atomic/1-atoms/TextInput"
 import ErrorCarousel from "../../atomic/2-molecules/ErrorCarousel"
 import Page from "../../atomic/4-templates/Page"
 import CloseButton from "../../modal/CloseButton"
+import ModalContext from "../../modal/ModalContext"
+import UserContext from "../../UserContext"
 import PasswordStrength from "./PasswordStrength"
+import {signUpFormSchema} from "./signUpFormSchema"
 
 const SignUpForm: FC = () => {
   const [currentError, setCurrentError] = useState(0)
+  const [submitted, setSubmitted] = useState(false)
 
-  const schema = yup.object().shape({
-    firstName: yup.string().required(`Please enter your first name.`),
-    lastName: yup.string().required(`Please enter your last name.`),
-    email: yup.string().email(`Hmm, that email doesn't look right.`).required(`Please enter your email.`),
-    password: yup
-      .string()
-      .required(`Please enter a password.`)
-      .test(`strength`, `Please enter a stronger password.`, (value) => {
-        return zxcvbn(value || ``).score > 3
-      }),
-  })
+  const [commitSignUp, isInFlight] = useMutation<UserSignUpMutationType>(UserSignUpMutation)
 
   const {
     register,
     handleSubmit,
-    formState: {errors},
+    formState: {errors: formErrors},
     watch,
-  } = useForm({
-    resolver: yupResolver(schema),
+  } = useForm<UserSignUpMutationVariables>({
+    resolver: yupResolver(signUpFormSchema),
   })
 
+  const {setUser} = useContext(UserContext)
+
+  const [submitErrors, setSubmitErrors] = useState<string[]>([])
+  const {setIsModalVisible} = useContext(ModalContext)
   const onSubmit = handleSubmit((data) => {
-    console.log(data)
+    commitSignUp({
+      variables: data,
+      onCompleted(response) {
+        setUser({isSignedIn: true, ...response})
+        setIsModalVisible(false)
+      },
+      onError(err: any) {
+        setSubmitErrors(err.source.errors.map((err: any) => err.message))
+      },
+    })
+    setSubmitted(true)
   })
 
   const password = watch(`password`)
@@ -57,8 +71,8 @@ const SignUpForm: FC = () => {
           label="First name"
           autoComplete="given-name"
           required
-          error={errors.firstName?.message}
-          activeError={Object.keys(errors)[currentError] === `firstName`}
+          error={formErrors.firstName?.message}
+          activeError={Object.keys(formErrors)[currentError] === `firstName`}
           style={{gridArea: `a`}}
           {...register(`firstName`)}
         />
@@ -66,8 +80,8 @@ const SignUpForm: FC = () => {
           label="Last name"
           autoComplete="family-name"
           required
-          error={errors.lastName?.message}
-          activeError={Object.keys(errors)[currentError] === `lastName`}
+          error={formErrors.lastName?.message}
+          activeError={Object.keys(formErrors)[currentError] === `lastName`}
           style={{gridArea: `b`}}
           {...register(`lastName`)}
         />
@@ -76,8 +90,8 @@ const SignUpForm: FC = () => {
           type="email"
           autoComplete="email"
           required
-          error={errors.email?.message}
-          activeError={Object.keys(errors)[currentError] === `email`}
+          error={formErrors.email?.message}
+          activeError={Object.keys(formErrors)[currentError] === `email`}
           style={{gridArea: `c`}}
           {...register(`email`)}
         />
@@ -87,21 +101,38 @@ const SignUpForm: FC = () => {
             type="password"
             autoComplete="new-password"
             required
-            error={errors.password?.message}
-            activeError={Object.keys(errors)[currentError] === `password`}
+            error={formErrors.password?.message}
+            activeError={Object.keys(formErrors)[currentError] === `password`}
             {...register(`password`)}
           />
           <PasswordStrength password={password} />
         </div>
         <div className="col-span-2 flex gap-6 items-center">
-          <Button disabled={!!Object.values(errors).length}>Submit</Button>
-          <div className="flex-grow flex justify-between items-center text-red-700">
-            <span>{Object.values(errors)[currentError]?.message}</span>
-            <ErrorCarousel
-              errors={Object.values(errors)}
-              currentError={currentError}
-              setCurrentError={setCurrentError}
-            />
+          <Button disabled={!!Object.values(formErrors).length}>Submit</Button>
+          <div className="flex-grow">
+            {(() => {
+              if (submitted) {
+                if (isInFlight) {
+                  return <Spinner />
+                } else if (submitErrors.length) {
+                  return (
+                    <ErrorCarousel
+                      errors={submitErrors}
+                      currentError={currentError}
+                      setCurrentError={setCurrentError}
+                    />
+                  )
+                }
+              } else {
+                return (
+                  <ErrorCarousel
+                    errors={Object.values(formErrors).map((error) => error.message!)}
+                    currentError={currentError}
+                    setCurrentError={setCurrentError}
+                  />
+                )
+              }
+            })()}
           </div>
         </div>
       </form>

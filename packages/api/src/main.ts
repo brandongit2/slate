@@ -7,6 +7,7 @@ import {AppModule} from "./app.module"
 //
 ;(async () => {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter())
+  // @ts-ignore
   app.register(fastifyCookie, {secret: config.get(`api.secret`)})
 
   await app.listen(4000)

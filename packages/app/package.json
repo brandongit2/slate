@@ -11,7 +11,7 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "dev": "NODE_CONFIG_DIR=../../config/ concurrently -n typegn,nextjs -c yellow,cyan \"nodemon -x yarn relay -e ts -e tsx\" \"next dev\"",
+    "dev": "NODE_CONFIG_DIR=../../config/ concurrently -n typegn,nextjs -c yellow,cyan \"nodemon -x yarn relay -e ts --watch src/queries --watch ../api/schema.gql\" \"next dev\"",
     "build": "next build",
     "start": "next start",
     "relay": "relay-compiler --src ./src/ --schema ../api/schema.gql --language typescript",

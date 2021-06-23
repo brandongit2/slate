@@ -1,7 +1,9 @@
 export class UserPayload {
   sub!: string
 
-  name!: string
+  firstName!: string
+
+  lastName!: string
 
   email!: string
 }

@@ -4,7 +4,7 @@ import bcrypt from "bcrypt"
 
 import {UsersService} from "@api/src/users/users.service"
 
-import {UserDb} from "../users/entities/userDb.entity"
+import {User} from "../users/entities/user.entity"
 
 @Injectable()
 export class AuthService {
@@ -20,8 +20,8 @@ export class AuthService {
     }
   }
 
-  signJwt(user: UserDb) {
-    const {id, password, ...payload} = {...user, sub: user.id}
+  signJwt(user: User) {
+    const payload = {...user, sub: user.id}
     return this.jwtService.sign(payload)
   }
 }

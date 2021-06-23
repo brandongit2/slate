@@ -17,7 +17,8 @@ export class UsersService {
     const user = this.usersRepository.create({
       id: userId,
       email: createUserInput.email,
-      name: createUserInput.name,
+      firstName: createUserInput.firstName,
+      lastName: createUserInput.lastName,
       password: createUserInput.password,
     })
     this.usersRepository.save(user)

@@ -1855,6 +1855,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fastify/ajv-compiler@npm:^1.0.0":
+  version: 1.1.0
+  resolution: "@fastify/ajv-compiler@npm:1.1.0"
+  dependencies:
+    ajv: ^6.12.6
+  checksum: 2df7d2edb4f14fb6cfbdd3bba3d059e9c495ce33f8cce2b73c72a5ef753e0e98cd92cd7be9b025c970276a729a2f5309de14d1e8f06eaa75ef24224a7cd31778
+  languageName: node
+  linkType: hard
+
 "@fastify/forwarded@npm:^1.0.0":
   version: 1.0.0
   resolution: "@fastify/forwarded@npm:1.0.0"
@@ -5421,7 +5430,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:6.12.6, ajv@npm:^6.10.0, ajv@npm:^6.11.0, ajv@npm:^6.12.2, ajv@npm:^6.12.3, ajv@npm:^6.12.4, ajv@npm:^6.12.5":
+"ajv@npm:6.12.6, ajv@npm:^6.10.0, ajv@npm:^6.11.0, ajv@npm:^6.12.2, ajv@npm:^6.12.3, ajv@npm:^6.12.4, ajv@npm:^6.12.5, ajv@npm:^6.12.6":
   version: 6.12.6
   resolution: "ajv@npm:6.12.6"
   dependencies:
@@ -5760,7 +5769,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"apollo-server-fastify@npm:3.0.0-preview.2":
+"apollo-server-fastify@npm:preview":
   version: 3.0.0-preview.2
   resolution: "apollo-server-fastify@npm:3.0.0-preview.2"
   dependencies:
@@ -5773,23 +5782,6 @@ __metadata:
     fastify: ^3.17.0
     graphql: ^15.3.0
   checksum: eec909937ab5c4e7cd1930080ee2e6d0b4a55fd42e45b3f30956b5ecb2a1246823bb7f7503705e6adf738588bdde64f1422b2ee4b49a804c1317359c6dec9f89
-  languageName: node
-  linkType: hard
-
-"apollo-server-fastify@npm:^2.25.1":
-  version: 2.25.1
-  resolution: "apollo-server-fastify@npm:2.25.1"
-  dependencies:
-    "@apollographql/graphql-playground-html": 1.6.27
-    apollo-server-core: ^2.25.1
-    apollo-server-types: ^0.9.0
-    fastify-accepts: ^1.0.0
-    fastify-cors: ^0.2.0
-    graphql-subscriptions: ^1.0.0
-    graphql-tools: ^4.0.8
-  peerDependencies:
-    graphql: ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
-  checksum: 917c6b86545203f7d51eb9abbbeebd4bb713b4ac3d86b78921cc7da61088644b3e31490a3d03cf499017c2d43369f31a07667977214c93cd24a65b48c71767c8
   languageName: node
   linkType: hard
 
@@ -9720,7 +9712,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-json-stringify@npm:^2.5.0, fast-json-stringify@npm:^2.7.6":
+"fast-json-stringify@npm:^2.5.0, fast-json-stringify@npm:^2.5.2, fast-json-stringify@npm:^2.7.6":
   version: 2.7.6
   resolution: "fast-json-stringify@npm:2.7.6"
   dependencies:
@@ -9750,16 +9742,6 @@ __metadata:
   version: 2.0.7
   resolution: "fast-safe-stringify@npm:2.0.7"
   checksum: 7bd22543263b707870d70c6f2336b6e8563e34d6807dc388cc0566895e31e0a8273af017a7eb1c9538d0ef54288284e1c0585b557bd856491295a847159fd929
-  languageName: node
-  linkType: hard
-
-"fastify-accepts@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "fastify-accepts@npm:1.0.0"
-  dependencies:
-    accepts: ^1.3.5
-    fastify-plugin: ^1.2.0
-  checksum: 9c96217e54b158b31be057d160143bd5ffe60bf662cecf4e806119f0412a53692458fd10b4652d3eee07dd9cad8504cbcad3dfd8a02a0dbd6b42dfa5cd8f1940
   languageName: node
   linkType: hard
 
@@ -9794,16 +9776,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fastify-cors@npm:^0.2.0":
-  version: 0.2.0
-  resolution: "fastify-cors@npm:0.2.0"
-  dependencies:
-    fastify-plugin: ^1.2.0
-    vary: ^1.1.2
-  checksum: d26c63052fe9a9834d4dde339dbf2277c1043989d40f06e544e326efa3e2ff0c57ca6152e50272ff99f93085c4ef3fbcbe42d212ab10037923cf5a80c4377395
-  languageName: node
-  linkType: hard
-
 "fastify-error@npm:^0.3.0":
   version: 0.3.1
   resolution: "fastify-error@npm:0.3.1"
@@ -9817,15 +9789,6 @@ __metadata:
   dependencies:
     fastify-plugin: ^2.3.2
   checksum: 14645084d24c201d63abb94347b656a49fed80035b2a5d0c43308e167ddb070242ccf11eda4d4392b1f020c0f42de160a709f0ed6158af795391f484fa7efaae
-  languageName: node
-  linkType: hard
-
-"fastify-plugin@npm:^1.2.0":
-  version: 1.6.1
-  resolution: "fastify-plugin@npm:1.6.1"
-  dependencies:
-    semver: ^6.3.0
-  checksum: d07c9fe38c88717750758ac86fbafba166990f41c7eab960f7e16008f10b1a1829cc57d624343fcbf6c377d91ead58ea6bacfba569902afa6e747b8d832f0785
   languageName: node
   linkType: hard
 
@@ -9873,6 +9836,30 @@ __metadata:
     semver: ^7.3.2
     tiny-lru: ^7.0.0
   checksum: acb5c8e1263b522cf370cdc0b5ea518acc987a76f4bd8080d75b28a8218da550a343433e792fef1a3d8ebefefa016e86a00458ecc3253bc4cca7dc1c5b6df112
+  languageName: node
+  linkType: hard
+
+"fastify@npm:^3.18.0":
+  version: 3.18.0
+  resolution: "fastify@npm:3.18.0"
+  dependencies:
+    "@fastify/ajv-compiler": ^1.0.0
+    abstract-logging: ^2.0.0
+    avvio: ^7.1.2
+    fast-json-stringify: ^2.5.2
+    fastify-error: ^0.3.0
+    fastify-warning: ^0.2.0
+    find-my-way: ^4.0.0
+    flatstr: ^1.0.12
+    light-my-request: ^4.2.0
+    pino: ^6.2.1
+    proxy-addr: ^2.0.7
+    readable-stream: ^3.4.0
+    rfdc: ^1.1.4
+    secure-json-parse: ^2.0.0
+    semver: ^7.3.2
+    tiny-lru: ^7.0.0
+  checksum: 2a32682fb1df1712b87f426eded4e614d38e6ab3d2ff0c168900d118378fd3ab7739525877bf66be805a65b4a3db4107ce4fa2f83cf008924750d4c883f5798f
   languageName: node
   linkType: hard
 
@@ -10200,6 +10187,13 @@ __metadata:
   version: 1.2.2
   resolution: "formidable@npm:1.2.2"
   checksum: 9fe5ef38d5881ac16cc8ca78bd3229fbf32b10e0fd3b718ec20f86ea1de7302aa0ffcfa9a9163cec02fc3f825faf9d0533f24539bb20ae6d73b580b526c25edb
+  languageName: node
+  linkType: hard
+
+"forwarded@npm:0.2.0":
+  version: 0.2.0
+  resolution: "forwarded@npm:0.2.0"
+  checksum: 1e84548d8ffb072d7edd4c5375ce71e2631c28efcd1084c4578f1a71dd6c4b0d58a6ddcdc923514766030cf38068258971a919e91ffa472460ec0f6dac7209ea
   languageName: node
   linkType: hard
 
@@ -10785,7 +10779,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-subscriptions@npm:^1.0.0, graphql-subscriptions@npm:^1.1.0":
+"graphql-subscriptions@npm:^1.1.0":
   version: 1.2.1
   resolution: "graphql-subscriptions@npm:1.2.1"
   dependencies:
@@ -11586,6 +11580,13 @@ __metadata:
   version: 1.1.5
   resolution: "ip@npm:1.1.5"
   checksum: 3ad007368cf797ec9b73fbac0a644077198dd85a128d0fe39697a78a9cdd47915577eee5c4eca9933549b575ac4716107896c2d4aa43a1622b3f72104232cad4
+  languageName: node
+  linkType: hard
+
+"ipaddr.js@npm:1.9.1":
+  version: 1.9.1
+  resolution: "ipaddr.js@npm:1.9.1"
+  checksum: de15bc7e63973d960abc43c9fbbf19589c726774f59d157d1b29382a1e86ae87c68cbd8b5c78a1712a87fc4fcd91e10762c7671950c66a1a19040ff4fd2f9c9b
   languageName: node
   linkType: hard
 
@@ -16274,6 +16275,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"proxy-addr@npm:^2.0.7":
+  version: 2.0.7
+  resolution: "proxy-addr@npm:2.0.7"
+  dependencies:
+    forwarded: 0.2.0
+    ipaddr.js: 1.9.1
+  checksum: ad78682246dc20ed6ca4080539349828bc2708cf0b69c55d6a3c41532780a8d05f563dcbac6ec4b74dce367421bff6fc4bc6b700b14319ecf57c93bd62727fc6
+  languageName: node
+  linkType: hard
+
 "psl@npm:^1.1.28, psl@npm:^1.1.33":
   version: 1.8.0
   resolution: "psl@npm:1.8.0"
@@ -17801,11 +17812,12 @@ resolve@^2.0.0-next.3:
     "@types/passport-jwt": ^3.0.5
     "@types/uuid": ^8.3.0
     apollo-server-core: ^2.25.1
-    apollo-server-fastify: ^2.25.1
+    apollo-server-fastify: preview
     bcrypt: ^5.0.1
     class-transformer: ^0.4.0
     class-validator: ^0.13.1
     eslint: ^7.29.0
+    fastify: ^3.18.0
     fastify-cookie: ^5.3.1
     graphql: ^15.5.0
     graphql-tools: ^7.0.5
@@ -17880,7 +17892,6 @@ resolve@^2.0.0-next.3:
     "@types/config": ^0.0.38
     "@typescript-eslint/eslint-plugin": ^4.27.0
     "@typescript-eslint/parser": ^4.27.0
-    apollo-server-fastify: 3.0.0-preview.2
     config: ^3.3.6
     eslint: ^7.29.0
     eslint-plugin-import: ^2.23.4

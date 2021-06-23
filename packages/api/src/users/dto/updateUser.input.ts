@@ -9,9 +9,13 @@ export class UpdateUserInput extends PartialType(CreateUserInput) {
   @IsString()
   id!: string
 
-  @Field({description: `The user's full name.`})
+  @Field({description: `The user's first name.`})
   @IsString()
-  name!: string
+  firstName!: string
+
+  @Field({description: `The user's last name.`})
+  @IsString()
+  lastName!: string
 
   @Field({description: `The user's email address.`})
   @IsString()

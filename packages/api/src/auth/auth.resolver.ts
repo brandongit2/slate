@@ -1,6 +1,8 @@
 import {HttpException, ValidationPipe} from "@nestjs/common"
-import {Args, Mutation, Resolver} from "@nestjs/graphql"
+import {Args, Context, Mutation, Resolver} from "@nestjs/graphql"
 import bcrypt from "bcrypt"
+
+import type {FastifyReply, FastifyRequest} from "fastify"
 
 import {User} from "@api/src/users/entities/user.entity"
 import {UsersService} from "@api/src/users/users.service"
@@ -8,26 +10,35 @@ import {UsersService} from "@api/src/users/users.service"
 import {AuthService} from "./auth.service"
 import {SignInInput} from "./dto/signIn.input"
 import {SignUpInput} from "./dto/signUp.input"
-import {AuthToken} from "./entities/authToken.entity"
 
 @Resolver()
 export class AuthResolver {
   constructor(private authService: AuthService, private usersService: UsersService) {}
 
-  @Mutation(() => AuthToken)
-  async signUp(@Args(`signUpInput`, ValidationPipe) signUpInput: SignUpInput) {
+  @Mutation(() => User)
+  async signUp(
+    @Args(`signUpInput`, ValidationPipe) signUpInput: SignUpInput,
+    @Context() context: {request: FastifyRequest; reply: FastifyReply},
+  ) {
     const existingUser = await this.usersService.findOne(signUpInput.email)
-    if (existingUser) throw new HttpException(`This user already exists.`, 409)
+    if (existingUser) throw new HttpException(`This email is already taken.`, 409)
 
     const encryptedPassword = await bcrypt.hash(signUpInput.password, 10)
 
-    const user = await this.usersService.create({
-      name: signUpInput.name,
+    const {password, ...user} = await this.usersService.create({
+      firstName: signUpInput.firstName,
+      lastName: signUpInput.lastName,
       email: signUpInput.email,
       password: encryptedPassword,
     })
 
-    return {authToken: this.authService.signJwt(user)}
+    context.reply.setCookie(`authToken`, this.authService.signJwt(user), {
+      httpOnly: true,
+      sameSite: `lax`,
+      secure: true,
+    })
+
+    return user
   }
 
   @Mutation(() => User)

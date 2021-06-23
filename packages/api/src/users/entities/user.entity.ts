@@ -8,7 +8,10 @@ export class User {
   id!: string
 
   @Field()
-  name!: string
+  firstName!: string
+
+  @Field()
+  lastName!: string
 
   @Field()
   email!: string

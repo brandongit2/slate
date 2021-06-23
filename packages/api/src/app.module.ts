@@ -16,6 +16,7 @@ import {UuidScalar} from "./uuid.scalar"
         origin: [`http://localhost:3000`, `https://studio.apollographql.com`],
         credentials: true,
       },
+      context: ({request, reply}) => ({request, reply}),
     }),
     TypeOrmModule.forRoot({
       type: `mongodb`,
