@@ -32,3 +32,14 @@ export const UserSignUpMutation = graphql`
     }
   }
 `
+
+export const UserSignOutMutation = graphql`
+  mutation UserSignOutMutation {
+    signOut {
+      id
+      firstName
+      lastName
+      email
+    }
+  }
+`

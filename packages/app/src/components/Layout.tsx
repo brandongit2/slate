@@ -1,4 +1,4 @@
-import React, {FC, ReactNode, useState} from "react"
+import React, {FC, ReactNode, useEffect, useState} from "react"
 import {useRelayEnvironment} from "react-relay"
 import {fetchQuery} from "relay-runtime"
 
@@ -14,12 +14,14 @@ const Layout: FC = ({children}) => {
   const [user, setUser] = useState<UserContextType>({isSignedIn: false})
 
   const environment = useRelayEnvironment()
-  fetchQuery<UserQueryType>(environment, UserQuery, {}).subscribe({
-    error: () => {},
-    next: ({user}) => {
-      setUser({isSignedIn: true, ...user})
-    },
-  })
+  useEffect(() => {
+    fetchQuery<UserQueryType>(environment, UserQuery, {}).subscribe({
+      error: () => {},
+      next: ({user}) => {
+        setUser({isSignedIn: true, ...user})
+      },
+    })
+  }, [environment])
 
   // Modal logic
   const [isModalVisible, setIsModalVisible] = useState(false)

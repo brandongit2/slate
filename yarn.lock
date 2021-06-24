@@ -8414,6 +8414,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dayjs@npm:^1.10.5":
+  version: 1.10.5
+  resolution: "dayjs@npm:1.10.5"
+  checksum: 11b3a952cdb77959b07318804bd982d1d377581e4752ec478da82b494da1ebb9d82e0539481ab51f90a36e35a268a730034cb6f3cac1b45609755c909329c0a1
+  languageName: node
+  linkType: hard
+
 "debug@npm:2, debug@npm:^2.2.0, debug@npm:^2.3.3, debug@npm:^2.6.9":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
@@ -17776,6 +17783,7 @@ resolve@^2.0.0-next.3:
     bcrypt: ^5.0.1
     class-transformer: ^0.4.0
     class-validator: ^0.13.1
+    dayjs: ^1.10.5
     eslint: ^7.29.0
     fastify-cookie: ^5.3.1
     fastify-helmet: ^5.3.1

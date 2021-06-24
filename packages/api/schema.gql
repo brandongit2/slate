@@ -39,6 +39,7 @@ type Mutation {
     """The user's password."""
     password: String!
   ): User!
+  signOut: User!
 }
 
 input UpdateUserInput {

@@ -1,6 +1,6 @@
 import {Injectable} from "@nestjs/common"
 import {InjectRepository} from "@nestjs/typeorm"
-import {Repository} from "typeorm"
+import {MongoRepository} from "typeorm"
 import {v4} from "uuid"
 
 import {CreateUserInput} from "./dto/createUser.input"
@@ -9,7 +9,7 @@ import {UserDb} from "./entities/userDb.entity"
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectRepository(UserDb) private usersRepository: Repository<UserDb>) {}
+  constructor(@InjectRepository(UserDb) private usersRepository: MongoRepository<UserDb>) {}
 
   async create(createUserInput: CreateUserInput) {
     const userId = v4()

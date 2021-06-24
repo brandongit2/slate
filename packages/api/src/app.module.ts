@@ -4,6 +4,7 @@ import {TypeOrmModule} from "@nestjs/typeorm"
 import path from "path"
 
 import {AuthModule} from "./auth/auth.module"
+import {JwtDb} from "./auth/entities/jwt.entity"
 import {UserDb} from "./users/entities/userDb.entity"
 import {UsersModule} from "./users/users.module"
 import {UuidScalar} from "./uuid.scalar"
@@ -29,7 +30,7 @@ import {UuidScalar} from "./uuid.scalar"
       logging: true,
       synchronize: true,
       useUnifiedTopology: true,
-      entities: [UserDb],
+      entities: [UserDb, JwtDb],
     }),
     UsersModule,
     AuthModule,
