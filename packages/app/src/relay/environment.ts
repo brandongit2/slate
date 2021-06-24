@@ -10,6 +10,7 @@ async function fetchQuery(request: RequestParameters, variables: Record<string, 
       query: request.text,
       variables,
     }),
+    credentials: `include`,
   })
 
   return await res.json()

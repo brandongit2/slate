@@ -1,25 +1,25 @@
 import React, {FC, ReactNode, useState} from "react"
 import {useRelayEnvironment} from "react-relay"
-import {createOperationDescriptor, getRequest} from "relay-runtime"
+import {fetchQuery} from "relay-runtime"
 
 import {UserQuery} from "@app/src/queries/User"
 
+import {UserQuery as UserQueryType} from "../queries/__generated__/UserQuery.graphql"
 import Navbar from "./atomic/2-molecules/Navbar"
 import Modal from "./modal/Modal"
 import ModalContext from "./modal/ModalContext"
 import UserContext, {UserContextType} from "./UserContext"
 
 const Layout: FC = ({children}) => {
-  // Attempt get user and keep it in the Relay environment
-  const request = getRequest(UserQuery)
-  const operation = createOperationDescriptor(request, {})
+  const [user, setUser] = useState<UserContextType>({isSignedIn: false})
 
   const environment = useRelayEnvironment()
-  environment.execute({operation}).subscribe({
-    error() {},
+  fetchQuery<UserQueryType>(environment, UserQuery, {}).subscribe({
+    error: () => {},
+    next: ({user}) => {
+      setUser({isSignedIn: true, ...user})
+    },
   })
-
-  const [user, setUser] = useState<UserContextType>({isSignedIn: false})
 
   // Modal logic
   const [isModalVisible, setIsModalVisible] = useState(false)

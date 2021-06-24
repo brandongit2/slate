@@ -27,7 +27,7 @@ mutation UserSignInMutation(
   $email: String!
   $password: String!
 ) {
-  signIn(signInInput: {email: $email, password: $password}) {
+  signIn(email: $email, password: $password) {
     id
     firstName
     lastName
@@ -53,20 +53,14 @@ const node: ConcreteRequest = (function () {
             "alias": null,
             "args": [
                 {
-                    "fields": [
-                        {
-                            "kind": "Variable",
-                            "name": "email",
-                            "variableName": "email"
-                        },
-                        {
-                            "kind": "Variable",
-                            "name": "password",
-                            "variableName": "password"
-                        }
-                    ],
-                    "kind": "ObjectValue",
-                    "name": "signInInput"
+                    "kind": "Variable",
+                    "name": "email",
+                    "variableName": "email"
+                },
+                {
+                    "kind": "Variable",
+                    "name": "password",
+                    "variableName": "password"
                 }
             ],
             "concreteType": "User",
@@ -124,14 +118,14 @@ const node: ConcreteRequest = (function () {
             "selections": (v1 /*: any*/)
         },
         "params": {
-            "cacheID": "11b810e5f751ed2e9bf500ee30bc3d93",
+            "cacheID": "5c7c9ac04b34d1b08c53191d92a7ef31",
             "id": null,
             "metadata": {},
             "name": "UserSignInMutation",
             "operationKind": "mutation",
-            "text": "mutation UserSignInMutation(\n  $email: String!\n  $password: String!\n) {\n  signIn(signInInput: {email: $email, password: $password}) {\n    id\n    firstName\n    lastName\n    email\n  }\n}\n"
+            "text": "mutation UserSignInMutation(\n  $email: String!\n  $password: String!\n) {\n  signIn(email: $email, password: $password) {\n    id\n    firstName\n    lastName\n    email\n  }\n}\n"
         }
     } as any;
 })();
-(node as any).hash = '2fc2f06e752916c247509f1a1f2b02a0';
+(node as any).hash = 'a55b92e382d5373737ec235612ef51b4';
 export default node;

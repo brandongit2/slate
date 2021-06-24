@@ -12,11 +12,11 @@ import {UuidScalar} from "./uuid.scalar"
   imports: [
     GraphQLModule.forRoot({
       autoSchemaFile: path.resolve(process.cwd(), `schema.gql`),
+      context: ({request, reply}) => ({request, reply}),
       cors: {
-        origin: [`http://localhost:3000`, `https://studio.apollographql.com`],
+        origin: `http://localhost:3000`,
         credentials: true,
       },
-      context: ({request, reply}) => ({request, reply}),
     }),
     TypeOrmModule.forRoot({
       type: `mongodb`,

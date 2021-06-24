@@ -31,7 +31,7 @@ mutation UserSignUpMutation(
   $email: String!
   $password: String!
 ) {
-  signUp(signUpInput: {firstName: $firstName, lastName: $lastName, email: $email, password: $password}) {
+  signUp(firstName: $firstName, lastName: $lastName, email: $email, password: $password) {
     id
     firstName
     lastName
@@ -62,30 +62,24 @@ const node: ConcreteRequest = (function () {
             "alias": null,
             "args": [
                 {
-                    "fields": [
-                        {
-                            "kind": "Variable",
-                            "name": "email",
-                            "variableName": "email"
-                        },
-                        {
-                            "kind": "Variable",
-                            "name": "firstName",
-                            "variableName": "firstName"
-                        },
-                        {
-                            "kind": "Variable",
-                            "name": "lastName",
-                            "variableName": "lastName"
-                        },
-                        {
-                            "kind": "Variable",
-                            "name": "password",
-                            "variableName": "password"
-                        }
-                    ],
-                    "kind": "ObjectValue",
-                    "name": "signUpInput"
+                    "kind": "Variable",
+                    "name": "email",
+                    "variableName": "email"
+                },
+                {
+                    "kind": "Variable",
+                    "name": "firstName",
+                    "variableName": "firstName"
+                },
+                {
+                    "kind": "Variable",
+                    "name": "lastName",
+                    "variableName": "lastName"
+                },
+                {
+                    "kind": "Variable",
+                    "name": "password",
+                    "variableName": "password"
                 }
             ],
             "concreteType": "User",
@@ -153,14 +147,14 @@ const node: ConcreteRequest = (function () {
             "selections": (v4 /*: any*/)
         },
         "params": {
-            "cacheID": "955b2bb188fef073c045566b2cea3ed4",
+            "cacheID": "dfbe8aa29f23db72f7b59a63a9fe1053",
             "id": null,
             "metadata": {},
             "name": "UserSignUpMutation",
             "operationKind": "mutation",
-            "text": "mutation UserSignUpMutation(\n  $firstName: String!\n  $lastName: String!\n  $email: String!\n  $password: String!\n) {\n  signUp(signUpInput: {firstName: $firstName, lastName: $lastName, email: $email, password: $password}) {\n    id\n    firstName\n    lastName\n    email\n  }\n}\n"
+            "text": "mutation UserSignUpMutation(\n  $firstName: String!\n  $lastName: String!\n  $email: String!\n  $password: String!\n) {\n  signUp(firstName: $firstName, lastName: $lastName, email: $email, password: $password) {\n    id\n    firstName\n    lastName\n    email\n  }\n}\n"
         }
     } as any;
 })();
-(node as any).hash = 'd91c6c5605c66445d5ab1e0863d8b429';
+(node as any).hash = 'def1e691b4e71cb8cc3c8cd24faf511d';
 export default node;

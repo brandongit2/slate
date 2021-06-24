@@ -1,4 +1,4 @@
-import {HttpException, ValidationPipe} from "@nestjs/common"
+import {HttpException} from "@nestjs/common"
 import {Args, Context, Mutation, Resolver} from "@nestjs/graphql"
 import bcrypt from "bcrypt"
 
@@ -16,10 +16,7 @@ export class AuthResolver {
   constructor(private authService: AuthService, private usersService: UsersService) {}
 
   @Mutation(() => User)
-  async signUp(
-    @Args(`signUpInput`, ValidationPipe) signUpInput: SignUpInput,
-    @Context() context: {request: FastifyRequest; reply: FastifyReply},
-  ) {
+  async signUp(@Args() signUpInput: SignUpInput, @Context() context: {request: FastifyRequest; reply: FastifyReply}) {
     const existingUser = await this.usersService.findOne(signUpInput.email)
     if (existingUser) throw new HttpException(`This email is already taken.`, 409)
 
@@ -36,16 +33,14 @@ export class AuthResolver {
       httpOnly: true,
       sameSite: `lax`,
       secure: true,
+      path: `/`,
     })
 
     return user
   }
 
   @Mutation(() => User)
-  async signIn(
-    @Args(`signInInput`, ValidationPipe) signInInput: SignInInput,
-    @Context() context: {request: FastifyRequest; reply: FastifyReply},
-  ) {
+  async signIn(@Args() signInInput: SignInInput, @Context() context: {request: FastifyRequest; reply: FastifyReply}) {
     const dbRes = await this.authService.validateUser(signInInput.email, signInInput.password)
     if (!dbRes) throw new HttpException(`Incorrect email or password.`, 401)
 
@@ -55,6 +50,7 @@ export class AuthResolver {
       httpOnly: true,
       sameSite: `lax`,
       secure: true,
+      path: `/`,
     })
 
     return user

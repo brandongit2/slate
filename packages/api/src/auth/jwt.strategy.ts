@@ -1,7 +1,8 @@
 import {Injectable} from "@nestjs/common"
 import {PassportStrategy} from "@nestjs/passport"
 import config from "config"
-import {ExtractJwt, Strategy} from "passport-jwt"
+import {FastifyRequest} from "fastify"
+import {Strategy} from "passport-jwt"
 
 import {User} from "../users/entities/user.entity"
 import {UserPayload} from "./entities/userPayload.entity"
@@ -10,7 +11,7 @@ import {UserPayload} from "./entities/userPayload.entity"
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: (req: FastifyRequest) => req.cookies.authToken || null,
       ignoreExpiration: false,
       secretOrKey: config.get(`api.secret`),
     })

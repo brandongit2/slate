@@ -47,6 +47,10 @@ const SignUpForm: FC = () => {
         setIsModalVisible(false)
       },
       onError(err: any) {
+        if (!err.source) {
+          console.error(err)
+          return
+        }
         setSubmitErrors(err.source.errors.map((err: any) => err.message))
       },
     })

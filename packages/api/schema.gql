@@ -19,8 +19,26 @@ type Query {
 type Mutation {
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: String!): User!
-  signUp(signUpInput: SignUpInput!): User!
-  signIn(signInInput: SignInInput!): User!
+  signUp(
+    """The user's first name."""
+    firstName: String!
+
+    """The user's last name."""
+    lastName: String!
+
+    """The user's email address."""
+    email: String!
+
+    """The user's new password."""
+    password: String!
+  ): User!
+  signIn(
+    """The user's email address."""
+    email: String!
+
+    """The user's password."""
+    password: String!
+  ): User!
 }
 
 input UpdateUserInput {
@@ -38,26 +56,4 @@ input UpdateUserInput {
 
   """The ID of the user."""
   id: String!
-}
-
-input SignUpInput {
-  """The user's first name."""
-  firstName: String!
-
-  """The user's last name."""
-  lastName: String!
-
-  """The user's email address."""
-  email: String!
-
-  """The user's new password."""
-  password: String!
-}
-
-input SignInInput {
-  """The user's email address."""
-  email: String!
-
-  """The user's password."""
-  password: String!
 }
