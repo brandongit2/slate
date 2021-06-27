@@ -92,6 +92,8 @@ export class AuthResolver {
   @Mutation(() => User)
   @UseGuards(LocalAuthGuard)
   async signOut(@Context() context: FastifyExecutionContext, @CurrentUser() user: User) {
+    this.authService.removeToken(context.request.cookies.sessionId)
+
     context.reply.setCookie(`authToken`, ``, {
       expires: new Date(0),
       httpOnly: true,
