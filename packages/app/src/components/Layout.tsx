@@ -11,7 +11,7 @@ import ModalContext from "./modal/ModalContext"
 import UserContext, {UserContextType} from "./UserContext"
 
 const Layout: FC = ({children}) => {
-  const [user, setUser] = useState<UserContextType>({isSignedIn: false})
+  const [user, setUser] = useState<UserContextType>({isSignedIn: null})
 
   const environment = useRelayEnvironment()
   useEffect(() => {
