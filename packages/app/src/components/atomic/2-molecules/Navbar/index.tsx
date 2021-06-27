@@ -11,7 +11,7 @@ type Props = {
 
 const Navbar: FC<Props> = ({className}) => {
   return (
-    <nav className={classNames(`flex justify-between px-12 py-6`, className)}>
+    <nav className={classNames(`flex justify-between px-12 py-auto h-20 items-center`, className)}>
       <LogoType className="h-8" />
       <div className="flex gap-4 items-center">
         <AuthButtons />

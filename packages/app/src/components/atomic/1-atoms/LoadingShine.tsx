@@ -27,7 +27,7 @@ const LoadingShine: FC<Props> = ({className}) => {
     <Shiny
       className={classNames(`bg-gray-300`, className)}
       style={{
-        backgroundImage: gradientEase(`easeInOutSine`, [`#888`, `#ccc`, `#888`], [0.3, 0.5, 0.7], `70deg`),
+        backgroundImage: gradientEase(`easeInOutSine`, [`#ccc`, `#eee`, `#ccc`], [0.3, 0.5, 0.7], `70deg`),
         backgroundSize: `800% 100%`,
       }}
     />

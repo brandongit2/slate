@@ -16,7 +16,9 @@ const Layout: FC = ({children}) => {
   const environment = useRelayEnvironment()
   useEffect(() => {
     fetchQuery<UserQueryType>(environment, UserQuery, {}).subscribe({
-      error: () => {},
+      error: () => {
+        setUser({isSignedIn: false})
+      },
       next: ({user}) => {
         setUser({isSignedIn: true, ...user})
       },

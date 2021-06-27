@@ -38,7 +38,7 @@ const AuthButtons: FC = () => {
   }
 
   if (user.isSignedIn === null) {
-    return <LoadingShine className="h-10 w-24" />
+    return <LoadingShine className="h-10 w-20" />
   } else if (user.isSignedIn) {
     return (
       <>
