@@ -1,41 +1,48 @@
 import {Injectable} from "@nestjs/common"
-import {JwtService} from "@nestjs/jwt"
-import {InjectRepository} from "@nestjs/typeorm"
 import bcrypt from "bcrypt"
-import {MongoRepository} from "typeorm"
+import {RedisService} from "nestjs-redis"
+import {v4} from "uuid"
 
 import {UsersService} from "@api/src/users/users.service"
 
 import {User} from "../users/entities/user.entity"
-import {JwtDb} from "./entities/jwt.entity"
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private usersService: UsersService,
-    private jwtService: JwtService,
-    @InjectRepository(JwtDb) private jwtsRepository: MongoRepository<JwtDb>,
-  ) {}
+  constructor(private usersService: UsersService, private redisService: RedisService) {}
 
-  async validateUser(email: string, password: string) {
-    const user = await this.usersService.findOne(email)
+  async validateUser(email: string, password: string): Promise<User | null> {
+    const user = await this.usersService.findOneByEmail(email)
 
     if (user && bcrypt.compareSync(password, user.password)) {
-      return user
+      return {
+        id: user.userId,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+      }
     } else {
       return null
     }
   }
 
-  signJwt(user: User) {
-    const {id, ...payload} = {...user, sub: user.id}
-    return this.jwtService.sign(payload)
+  async genSessionToken(userId: string, sessionId?: string) {
+    const token = v4()
+    const encryptedToken = bcrypt.hashSync(token, 10)
+
+    if (!sessionId) sessionId = v4()
+
+    const redis = this.redisService.getClient()
+    await Promise.all([
+      redis.hset(`sess:${sessionId}`, `userId`, userId),
+      redis.hset(`sess:${sessionId}`, `token`, encryptedToken),
+    ])
+
+    return {sessionId, token}
   }
 
-  async blacklistJwt(jwt: string) {
-    await this.jwtsRepository.insert({
-      jwt,
-      blacklistedDate: new Date(),
-    })
+  async removeToken(sessionId: string) {
+    const redis = this.redisService.getClient()
+    await redis.del(`sess:${sessionId}`)
   }
 }

@@ -8,3 +8,15 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - slate-postgres:/var/lib/postgresql/data
+  slate-sessions:
+    image: redis:6.2.4-alpine3.13
+    container_name: slate-sessions
+    ports:
+      - "6370:6379"
+    volumes:
+      - slate-redis:/data
+volumes:
+  slate-postgres:
+  slate-redis:

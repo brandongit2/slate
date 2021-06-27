@@ -1,10 +1,10 @@
 import {Module} from "@nestjs/common"
 import {GraphQLModule} from "@nestjs/graphql"
 import {TypeOrmModule} from "@nestjs/typeorm"
+import config from "config"
 import path from "path"
 
 import {AuthModule} from "./auth/auth.module"
-import {JwtDb} from "./auth/entities/jwt.entity"
 import {UserDb} from "./users/entities/userDb.entity"
 import {UsersModule} from "./users/users.module"
 import {UuidScalar} from "./uuid.scalar"
@@ -22,7 +22,7 @@ import {UuidScalar} from "./uuid.scalar"
     TypeOrmModule.forRoot({
       type: `mongodb`,
       host: `localhost`,
-      port: 27020,
+      port: config.get(`db.port`),
       authSource: `admin`,
       database: `slate`,
       username: `root`,
@@ -30,7 +30,7 @@ import {UuidScalar} from "./uuid.scalar"
       logging: true,
       synchronize: true,
       useUnifiedTopology: true,
-      entities: [UserDb, JwtDb],
+      entities: [UserDb],
     }),
     UsersModule,
     AuthModule,

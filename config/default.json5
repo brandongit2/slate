@@ -10,4 +10,7 @@
   db: {
     port: 27020, // Synchronize this with the one in docker-compose.yml
   },
+  redis: {
+    port: 6370, // Synchronize this with the one in docker-compose.yml
+  },
 }

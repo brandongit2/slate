@@ -43,7 +43,7 @@ const SignUpForm: FC = () => {
     commitSignUp({
       variables: data,
       onCompleted(response) {
-        setUser({isSignedIn: true, ...response})
+        setUser({isSignedIn: true, ...response.signUp})
         setIsModalVisible(false)
       },
       onError(err: any) {
