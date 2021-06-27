@@ -20,7 +20,7 @@
         "warnOnUnassignedImports": true
       }
     ],
-    "prefer-const": 0,
+    "prefer-const": 1,
     "no-console": [1, {"allow": ["warn", "error"]}],
     "no-constant-condition": [2, {"checkLoops": false}],
     "no-control-regex": 0,
@@ -45,7 +45,8 @@
           1,
           {"argsIgnorePattern": "^_", "ignoreRestSiblings": true, "args": "none"}
         ],
-        "@typescript-eslint/quotes": [1, "backtick"]
+        "@typescript-eslint/quotes": [1, "backtick"],
+        "prefer-const": 1
       }
     }
   ]

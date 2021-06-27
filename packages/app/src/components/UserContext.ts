@@ -1,7 +1,7 @@
 import {createContext} from "react"
 
 export type UserContextType = {
-  isSignedIn: boolean
+  isSignedIn: boolean | null
   id?: string
   firstName?: string
   lastName?: string
@@ -9,7 +9,7 @@ export type UserContextType = {
 }
 
 const UserContext = createContext<{user: UserContextType; setUser: (user: UserContextType) => void}>({
-  user: {isSignedIn: false},
+  user: {isSignedIn: null},
   setUser: () => {},
 })
 
