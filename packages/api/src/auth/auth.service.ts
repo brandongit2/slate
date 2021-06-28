@@ -1,20 +1,18 @@
-import {Injectable} from "@nestjs/common"
 import bcrypt from "bcrypt"
-import {RedisService} from "nestjs-redis"
+import {injectable} from "inversify"
 import {v4} from "uuid"
 
+import {User} from "@api/src/users/entities/user.entity"
 import {UsersService} from "@api/src/users/users.service"
 
-import {User} from "../users/entities/user.entity"
-
-@Injectable()
+@injectable()
 export class AuthService {
   constructor(private usersService: UsersService, private redisService: RedisService) {}
 
   async validateUser(email: string, password: string): Promise<User | null> {
     const user = await this.usersService.findOneByEmail(email)
 
-    if (user && bcrypt.compareSync(password, user.password)) {
+    if (user && bcrypt.compareSync(password, user.password!)) {
       return {
         id: user.userId,
         firstName: user.firstName,
@@ -25,6 +23,8 @@ export class AuthService {
       return null
     }
   }
+
+  async validateUserGoogle() {}
 
   async genSessionToken(userId: string, sessionId?: string) {
     const token = v4()

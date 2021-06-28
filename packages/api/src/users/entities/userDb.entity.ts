@@ -18,5 +18,8 @@ export class UserDb {
   email!: string
 
   @Column()
-  password!: string
+  password?: string
+
+  @Column()
+  googleId?: string
 }

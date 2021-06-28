@@ -1,32 +1,30 @@
-import {HttpException, UseGuards} from "@nestjs/common"
-import {Args, Context, Mutation, Resolver} from "@nestjs/graphql"
+import {UserInputError} from "apollo-server-core"
 import bcrypt from "bcrypt"
+import {Args, Ctx, Mutation, Resolver} from "type-graphql"
 
+import {AuthService} from "@api/src/auth/auth.service"
+import {SignInInput} from "@api/src/auth/dto/signIn.input"
+import {SignUpInput} from "@api/src/auth/dto/signUp.input"
+import {FastifyExecutionContext} from "@api/src/FastifyContext"
+import {CurrentUser} from "@api/src/users/decorators/user.decorator"
 import {User} from "@api/src/users/entities/user.entity"
 import {UsersService} from "@api/src/users/users.service"
-
-import {FastifyExecutionContext} from "../FastifyExecutionContext"
-import {CurrentUser} from "../users/decorators/user.decorator"
-import {AuthService} from "./auth.service"
-import {SignInInput} from "./dto/signIn.input"
-import {SignUpInput} from "./dto/signUp.input"
-import {LocalAuthGuard} from "./guards/auth.guard"
 
 @Resolver()
 export class AuthResolver {
   constructor(private authService: AuthService, private usersService: UsersService) {}
 
   @Mutation(() => User)
-  async signUp(@Args() signUpInput: SignUpInput, @Context() context: FastifyExecutionContext): Promise<User> {
-    const existingUser = await this.usersService.findOneByEmail(signUpInput.email)
-    if (existingUser) throw new HttpException(`This email is already taken.`, 409)
+  async signUp(@Args() {firstName, lastName, email, password}: SignUpInput, @Ctx() context: any): Promise<User> {
+    const existingUser = await this.usersService.findOneByEmail(email)
+    if (existingUser) throw new UserInputError(`This email is already taken.`)
 
-    const encryptedPassword = await bcrypt.hash(signUpInput.password, 10)
+    const encryptedPassword = await bcrypt.hash(password, 10)
 
-    const user = await this.usersService.create({
-      firstName: signUpInput.firstName,
-      lastName: signUpInput.lastName,
-      email: signUpInput.email,
+    const user = await this.usersService.createByLocal({
+      firstName,
+      lastName,
+      email,
       password: encryptedPassword,
     })
 
@@ -58,9 +56,9 @@ export class AuthResolver {
   }
 
   @Mutation(() => User)
-  async signIn(@Args() signInInput: SignInInput, @Context() context: FastifyExecutionContext) {
+  async signIn(@Args() signInInput: SignInInput, @Ctx() context: FastifyExecutionContext) {
     const user = await this.authService.validateUser(signInInput.email, signInInput.password)
-    if (!user) throw new HttpException(`Incorrect email or password.`, 401)
+    if (!user) throw new UserInputError(`Incorrect email or password.`)
 
     const expiryDate = new Date()
     expiryDate.setDate(expiryDate.getDate() + 30)
@@ -90,8 +88,7 @@ export class AuthResolver {
   }
 
   @Mutation(() => User)
-  @UseGuards(LocalAuthGuard)
-  async signOut(@Context() context: FastifyExecutionContext, @CurrentUser() user: User) {
+  async signOut(@Ctx() context: FastifyExecutionContext, @CurrentUser() user: User) {
     this.authService.removeToken(context.request.cookies.sessionId)
 
     context.reply.setCookie(`authToken`, ``, {

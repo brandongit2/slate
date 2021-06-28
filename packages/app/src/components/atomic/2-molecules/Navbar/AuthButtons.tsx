@@ -1,9 +1,9 @@
 import React, {FC, useContext} from "react"
 import {useMutation} from "react-relay"
 
-import SignInForm from "@app/src/components/forms/sign-in/SignInForm"
-import SignUpForm from "@app/src/components/forms/sign-up/SignUpForm"
-import ModalContext from "@app/src/components/modal/ModalContext"
+import SignInForm from "@app/src/components/atomic/3-organisms/forms/sign-in/SignInForm"
+import SignUpForm from "@app/src/components/atomic/3-organisms/forms/sign-up/SignUpForm"
+import ModalContext from "@app/src/components/atomic/4-templates/modal/ModalContext"
 import UserContext from "@app/src/components/UserContext"
 import {UserSignOutMutation as UserSignOutMutationType} from "@app/src/queries/__generated__/UserSignOutMutation.graphql"
 import {UserSignOutMutation} from "@app/src/queries/User"

@@ -1,18 +1,19 @@
-import {Injectable} from "@nestjs/common"
-import {InjectRepository} from "@nestjs/typeorm"
+import {injectable} from "inversify"
 import {MongoRepository} from "typeorm"
 import {v4} from "uuid"
+
+import type {Profile} from "passport-google-oauth20"
 
 import {CreateUserInput} from "./dto/createUser.input"
 import {UpdateUserInput} from "./dto/updateUser.input"
 import {User} from "./entities/user.entity"
 import {UserDb} from "./entities/userDb.entity"
 
-@Injectable()
+@injectable()
 export class UsersService {
   constructor(@InjectRepository(UserDb) private usersRepository: MongoRepository<UserDb>) {}
 
-  async create(createUserInput: CreateUserInput): Promise<User> {
+  async createByLocal(createUserInput: CreateUserInput): Promise<User> {
     const userId = v4()
 
     const user = this.usersRepository.create({
@@ -32,6 +33,8 @@ export class UsersService {
     }
   }
 
+  async createByGoogle(profile: Profile) {}
+
   async findOneById(userId: string): Promise<User> {
     const dbRes = await this.usersRepository.findOne({userId})
     return {
@@ -42,7 +45,7 @@ export class UsersService {
     }
   }
 
-  // Used only to validate a user by email and password. For any other use, use `findOneById`.
+  // Used only for validating users in the authentication step. For any other use, use `findOneById`.
   async findOneByEmail(email: string): Promise<UserDb> {
     const dbRes = await this.usersRepository.findOne({email})
     return dbRes!

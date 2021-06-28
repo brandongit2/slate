@@ -16,12 +16,11 @@
         "pathGroups": [{"pattern": "{@api/**,@app/**}", "group": "internal"}],
         "pathGroupsExcludedImportTypes": ["builtin"],
         "newlines-between": "always",
-        "alphabetize": {"order": "asc", "caseInsensitive": true},
-        "warnOnUnassignedImports": true
+        "alphabetize": {"order": "asc", "caseInsensitive": true}
       }
     ],
     "prefer-const": 1,
-    "no-console": [1, {"allow": ["warn", "error"]}],
+    "no-console": [1, {"allow": ["info", "warn", "error"]}],
     "no-constant-condition": [2, {"checkLoops": false}],
     "no-control-regex": 0,
     "no-empty": [1, {"allowEmptyCatch": true}],

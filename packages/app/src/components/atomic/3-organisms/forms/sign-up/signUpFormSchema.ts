@@ -2,7 +2,7 @@ import * as yup from "yup"
 import zxcvbn from "zxcvbn"
 
 import {UserSignUpMutationVariables} from "@app/src/queries/__generated__/UserSignUpMutation.graphql"
-import {YupSchemaShape} from "@app/src/utils"
+import {YupSchemaShape} from "@app/src/utils/YupSchemaShape"
 
 export const signUpFormSchema = yup.object().shape<YupSchemaShape<UserSignUpMutationVariables>>({
   firstName: yup.string().required(`Please enter your first name.`),

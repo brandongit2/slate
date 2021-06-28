@@ -1,7 +1,7 @@
 import {UseGuards, ValidationPipe} from "@nestjs/common"
 import {Args, Mutation, Query, Resolver} from "@nestjs/graphql"
 
-import {LocalAuthGuard} from "../auth/guards/auth.guard"
+import {LocalAuthGuard} from "../auth/guards/localAuth.guard"
 import {CurrentUser} from "./decorators/user.decorator"
 import {UpdateUserInput} from "./dto/updateUser.input"
 import {User} from "./entities/user.entity"

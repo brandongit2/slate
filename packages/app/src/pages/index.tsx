@@ -2,9 +2,8 @@ import {NextPage} from "next"
 import Head from "next/head"
 import React, {Suspense} from "react"
 
+import Layout from "@app/src/components/Layout"
 import SubjectList from "@app/src/components/page-specific/index/SubjectList"
-
-import Layout from "../components/Layout"
 
 const Index: NextPage = () => {
   return (
