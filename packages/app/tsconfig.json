@@ -16,7 +16,8 @@
     "noImplicitAny": true,
     "baseUrl": ".",
     "paths": {
-      "@app/*": ["./*"]
+      "@app/*": ["./*"],
+      "@api/*": ["./*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],

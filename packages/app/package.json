@@ -12,7 +12,8 @@
   "private": true,
   "scripts": {
     "dev": "NODE_CONFIG_DIR=../../config/ concurrently -n typegn,nextjs -c yellow,cyan \"nodemon -x \\\"yarn relay --customScalars.UUID=String\\\" -e ts --watch src/queries --watch ../api/schema.gql\" \"next dev\"",
-    "build": "next build",
+    "build": "NODE_CONFIG_DIR=../../config/ next build",
+    "export": "NODE_CONFIG_DIR=../../config/ next export",
     "start": "next start",
     "relay": "relay-compiler --src ./src/ --schema ../api/schema.gql --language typescript",
     "cap": "cap --",
@@ -41,6 +42,7 @@
     "classnames": "^2.3.1",
     "concurrently": "^6.2.0",
     "eslint": "^7.29.0",
+    "eslint-config-next": "^11.0.1",
     "graphql": "^15.5.0",
     "graphql-cli": "^4.1.0",
     "next": "canary",

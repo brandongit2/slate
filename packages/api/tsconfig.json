@@ -19,7 +19,8 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "@api/*": ["./*"]
+      "@api/*": ["./*"],
+      "@app/*": ["../app/*"]
     }
   }
 }
