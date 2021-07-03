@@ -1,6 +1,5 @@
-import {ExecutionContext, Injectable} from "@nestjs/common"
+import {CanActivate, ExecutionContext, Injectable} from "@nestjs/common"
 import {GqlExecutionContext} from "@nestjs/graphql"
-import {AuthGuard} from "@nestjs/passport"
 import bcrypt from "bcrypt"
 import {RedisService} from "nestjs-redis"
 
@@ -8,15 +7,8 @@ import {FastifyExecutionContext} from "@api/src/FastifyExecutionContext"
 import {UsersService} from "@api/src/users/users.service"
 
 @Injectable()
-export class LocalAuthGuard extends AuthGuard(`local`) {
-  constructor(private redisService: RedisService, private usersService: UsersService) {
-    super()
-  }
-
-  getRequest(context: ExecutionContext) {
-    const ctx = GqlExecutionContext.create(context)
-    return ctx.getContext().req
-  }
+export class AuthGuard implements CanActivate {
+  constructor(private redisService: RedisService, private usersService: UsersService) {}
 
   async canActivate(context: ExecutionContext) {
     const ctx = GqlExecutionContext.create(context).getContext() as FastifyExecutionContext

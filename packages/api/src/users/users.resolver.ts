@@ -1,7 +1,7 @@
 import {UseGuards, ValidationPipe} from "@nestjs/common"
 import {Args, Mutation, Query, Resolver} from "@nestjs/graphql"
 
-import {LocalAuthGuard} from "../auth/guards/auth.guard"
+import {AuthGuard} from "../auth/guards/auth.guard"
 import {CurrentUser} from "./decorators/user.decorator"
 import {UpdateUserInput} from "./dto/updateUser.input"
 import {User} from "./entities/user.entity"
@@ -12,7 +12,7 @@ export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
   @Query(() => User)
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(AuthGuard)
   user(@CurrentUser() user: User) {
     return user
   }

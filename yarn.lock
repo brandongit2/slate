@@ -3697,16 +3697,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nestjs/passport@npm:^7.1.5":
-  version: 7.1.5
-  resolution: "@nestjs/passport@npm:7.1.5"
-  peerDependencies:
-    "@nestjs/common": ^6.0.0 || ^7.0.0
-    passport: ^0.4.0
-  checksum: 60264d1a859d4e78cdb80353283fb8a953e13b7867545b8c3727de5136a8d19f7d9f6e2e1c3dfc8991d3b92e1a2dd7422fc73ac415e16efa0965574d7255bc98
-  languageName: node
-  linkType: hard
-
 "@nestjs/platform-fastify@npm:^7.6.18":
   version: 7.6.18
   resolution: "@nestjs/platform-fastify@npm:7.6.18"
@@ -4642,6 +4632,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/memoizee@npm:^0.4.5":
+  version: 0.4.5
+  resolution: "@types/memoizee@npm:0.4.5"
+  checksum: 8e5891a0ef7bc485751312ded849a0439c62551fb62e1440e358bcf78ea79db2f578b63591b828269bac8b34d0f5a24663ce9c58703be1bcafe9467fe8ce0483
+  languageName: node
+  linkType: hard
+
 "@types/mime@npm:^1":
   version: 1.3.2
   resolution: "@types/mime@npm:1.3.2"
@@ -4698,36 +4695,6 @@ __metadata:
   version: 4.0.0
   resolution: "@types/parse-json@npm:4.0.0"
   checksum: 4a8f720afac47b474d3f2eece312340e72bc31bc9561cda37b596ce2ed218c0099765d302625bb67d659a8452a1f93d514f4863c11c7ebaf65430428687dc426
-  languageName: node
-  linkType: hard
-
-"@types/passport-local@npm:^1.0.33":
-  version: 1.0.33
-  resolution: "@types/passport-local@npm:1.0.33"
-  dependencies:
-    "@types/express": "*"
-    "@types/passport": "*"
-    "@types/passport-strategy": "*"
-  checksum: 64ba3584de0876a9f5e42ae23cfba823e403c78a18148a46a456e3db6f8bbd0d344d84443ba7befc4d286ab9ad10d719ffdcb2bd722cdd985543a3c6723fb77e
-  languageName: node
-  linkType: hard
-
-"@types/passport-strategy@npm:*":
-  version: 0.2.35
-  resolution: "@types/passport-strategy@npm:0.2.35"
-  dependencies:
-    "@types/express": "*"
-    "@types/passport": "*"
-  checksum: dc1137f9a98af5208f88b703e09ed6e32238ff3432cd245f9cf8027db11e499691d9c05f7bd7735f5899c221ca3807fda72386dbddbfe0eaf2bee65de49f3a89
-  languageName: node
-  linkType: hard
-
-"@types/passport@npm:*":
-  version: 1.0.6
-  resolution: "@types/passport@npm:1.0.6"
-  dependencies:
-    "@types/express": "*"
-  checksum: 6d6a404e3ad0014f4724e0c48f213f3a2df6fc95d68ffabdbe619203e866e475cc0e76776a6833345bb0801dacf3ef1b6d29ef40c9da6ed1ea60a566ffbc4b2d
   languageName: node
   linkType: hard
 
@@ -15800,32 +15767,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"passport-local@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "passport-local@npm:1.0.0"
-  dependencies:
-    passport-strategy: 1.x.x
-  checksum: 2d3decab3fde758227c42c5780ffa7fac50759fcf56b49a845de05c72062e2f5b2288ab1badddba0fb6d21eb3d5b4e4bb1083b922624ac4fe90e97fcba0f3b96
-  languageName: node
-  linkType: hard
-
-"passport-strategy@npm:1.x.x":
-  version: 1.0.0
-  resolution: "passport-strategy@npm:1.0.0"
-  checksum: 4ad0b62fcb411df70484aef44a958bc545801170e27c46a8bc38776c370d9cc67df9a4a4046ac6146fbd95d6650e554468df72b282cde22e81a42369472e9cfc
-  languageName: node
-  linkType: hard
-
-"passport@npm:^0.4.1":
-  version: 0.4.1
-  resolution: "passport@npm:0.4.1"
-  dependencies:
-    passport-strategy: 1.x.x
-    pause: 0.0.1
-  checksum: f26e8debe6397c3600d0172d8c4eb2b6eb3b5081a46da8db72877d341c0c734c35aff789282e36974733485c6e192051771c2e541a1c7f59da69ccac55c937e1
-  languageName: node
-  linkType: hard
-
 "passwd-user@npm:^3.0.0":
   version: 3.0.0
   resolution: "passwd-user@npm:3.0.0"
@@ -15945,13 +15886,6 @@ __metadata:
   version: 4.0.0
   resolution: "path-type@npm:4.0.0"
   checksum: ef5835f2eb47e4d06004c7ec7bd51175c0455eaecd5ee99a9774bca5ef43242616e25b44ccc0ba86a0bf42b9f197550fcc0dfa7580e5ff9dca53c035e9bd86a9
-  languageName: node
-  linkType: hard
-
-"pause@npm:0.0.1":
-  version: 0.0.1
-  resolution: "pause@npm:0.0.1"
-  checksum: 94ff516a34a46c79f274f2747f3c5889f92542c8b82faff824d176d25ea2db4cfdbf7f6575494260357d9ab9dc22ff409849319438d4f6c08eb85a128d7db71f
   languageName: node
   linkType: hard
 
@@ -17934,15 +17868,14 @@ resolve@^2.0.0-next.3:
     "@nestjs/common": ^7.6.18
     "@nestjs/core": ^7.6.18
     "@nestjs/graphql": ^7.11.0
-    "@nestjs/passport": ^7.1.5
     "@nestjs/platform-fastify": ^7.6.18
     "@nestjs/schematics": ^7.3.1
     "@nestjs/testing": ^7.6.18
     "@nestjs/typeorm": ^7.1.5
     "@types/bcrypt": ^5.0.0
     "@types/jest": ^26.0.23
+    "@types/memoizee": ^0.4.5
     "@types/node": ^15.12.4
-    "@types/passport-local": ^1.0.33
     "@types/uuid": ^8.3.0
     apollo-server-core: ^2.25.1
     apollo-server-fastify: preview
@@ -17958,8 +17891,6 @@ resolve@^2.0.0-next.3:
     jest: ^27.0.4
     mongodb: ^3.6.9
     nestjs-redis: ^1.3.3
-    passport: ^0.4.1
-    passport-local: ^1.0.0
     prettier: ^2.3.1
     reflect-metadata: ^0.1.13
     rxjs: ^7.1.0

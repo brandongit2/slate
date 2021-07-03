@@ -1,5 +1,4 @@
 import {Module} from "@nestjs/common"
-import {PassportModule} from "@nestjs/passport"
 import config from "config"
 import {RedisModule} from "nestjs-redis"
 
@@ -7,7 +6,6 @@ import {UsersModule} from "@api/src/users/users.module"
 
 import {AuthResolver} from "./auth.resolver"
 import {AuthService} from "./auth.service"
-import {LocalStrategy} from "./local.strategy"
 
 @Module({
   imports: [
@@ -16,8 +14,7 @@ import {LocalStrategy} from "./local.strategy"
       host: `localhost`,
     }),
     UsersModule,
-    PassportModule,
   ],
-  providers: [AuthResolver, AuthService, LocalStrategy],
+  providers: [AuthResolver, AuthService],
 })
 export class AuthModule {}

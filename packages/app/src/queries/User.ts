@@ -13,7 +13,7 @@ export const UserQuery = graphql`
 
 export const UserSignInMutation = graphql`
   mutation UserSignInMutation($email: String!, $password: String!) {
-    signIn(email: $email, password: $password) {
+    signInLocal(email: $email, password: $password) {
       id
       firstName
       lastName

@@ -8,7 +8,7 @@ export type UserSignInMutationVariables = {
     password: string;
 };
 export type UserSignInMutationResponse = {
-    readonly signIn: {
+    readonly signInLocal: {
         readonly id: string;
         readonly firstName: string;
         readonly lastName: string;
@@ -27,7 +27,7 @@ mutation UserSignInMutation(
   $email: String!
   $password: String!
 ) {
-  signIn(email: $email, password: $password) {
+  signInLocal(email: $email, password: $password) {
     id
     firstName
     lastName
@@ -65,7 +65,7 @@ const node: ConcreteRequest = (function () {
             ],
             "concreteType": "User",
             "kind": "LinkedField",
-            "name": "signIn",
+            "name": "signInLocal",
             "plural": false,
             "selections": [
                 {
@@ -118,14 +118,14 @@ const node: ConcreteRequest = (function () {
             "selections": (v1 /*: any*/)
         },
         "params": {
-            "cacheID": "5c7c9ac04b34d1b08c53191d92a7ef31",
+            "cacheID": "1bfdc6867a8598f2bdcb7984856ef941",
             "id": null,
             "metadata": {},
             "name": "UserSignInMutation",
             "operationKind": "mutation",
-            "text": "mutation UserSignInMutation(\n  $email: String!\n  $password: String!\n) {\n  signIn(email: $email, password: $password) {\n    id\n    firstName\n    lastName\n    email\n  }\n}\n"
+            "text": "mutation UserSignInMutation(\n  $email: String!\n  $password: String!\n) {\n  signInLocal(email: $email, password: $password) {\n    id\n    firstName\n    lastName\n    email\n  }\n}\n"
         }
     } as any;
 })();
-(node as any).hash = 'a55b92e382d5373737ec235612ef51b4';
+(node as any).hash = '35d6d45d8ac5312febe77941eccde645';
 export default node;

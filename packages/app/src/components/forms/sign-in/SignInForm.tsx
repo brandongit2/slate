@@ -41,7 +41,7 @@ const SignInForm: FC = () => {
     commitSignIn({
       variables: data,
       onCompleted(response) {
-        setUser({isSignedIn: true, ...response.signIn})
+        setUser({isSignedIn: true, ...response.signInLocal})
         setIsModalVisible(false)
       },
       onError(err: any) {

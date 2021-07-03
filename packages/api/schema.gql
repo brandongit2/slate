@@ -32,7 +32,7 @@ type Mutation {
     """The user's new password."""
     password: String!
   ): User!
-  signIn(
+  signInLocal(
     """The user's email address."""
     email: String!
 

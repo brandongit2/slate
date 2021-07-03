@@ -1,4 +1,4 @@
-import {HttpException, UseGuards} from "@nestjs/common"
+import {HttpException, UnauthorizedException, UseGuards} from "@nestjs/common"
 import {Args, Context, Mutation, Resolver} from "@nestjs/graphql"
 import bcrypt from "bcrypt"
 
@@ -8,9 +8,9 @@ import {UsersService} from "@api/src/users/users.service"
 import {FastifyExecutionContext} from "../FastifyExecutionContext"
 import {CurrentUser} from "../users/decorators/user.decorator"
 import {AuthService} from "./auth.service"
-import {SignInInput} from "./dto/signIn.input"
+import {SignInInput as SignInLocalPayload} from "./dto/signIn.input"
 import {SignUpInput} from "./dto/signUp.input"
-import {LocalAuthGuard} from "./guards/auth.guard"
+import {AuthGuard} from "./guards/auth.guard"
 
 @Resolver()
 export class AuthResolver {
@@ -58,9 +58,9 @@ export class AuthResolver {
   }
 
   @Mutation(() => User)
-  async signIn(@Args() signInInput: SignInInput, @Context() context: FastifyExecutionContext) {
-    const user = await this.authService.validateUser(signInInput.email, signInInput.password)
-    if (!user) throw new HttpException(`Incorrect email or password.`, 401)
+  async signInLocal(@Args() {email, password}: SignInLocalPayload, @Context() context: FastifyExecutionContext) {
+    const user = await this.authService.validateUserLocal(email, password)
+    if (!user) throw new UnauthorizedException()
 
     const expiryDate = new Date()
     expiryDate.setDate(expiryDate.getDate() + 30)
@@ -90,7 +90,7 @@ export class AuthResolver {
   }
 
   @Mutation(() => User)
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(AuthGuard)
   async signOut(@Context() context: FastifyExecutionContext, @CurrentUser() user: User) {
     this.authService.removeToken(context.request.cookies.sessionId)
 
