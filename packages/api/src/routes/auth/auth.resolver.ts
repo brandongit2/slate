@@ -2,10 +2,10 @@ import {HttpException, UnauthorizedException, UseGuards} from "@nestjs/common"
 import {Args, Context, Mutation, Resolver} from "@nestjs/graphql"
 import bcrypt from "bcrypt"
 
-import {User} from "@api/src/users/entities/user.entity"
-import {UsersService} from "@api/src/users/users.service"
+import {UserEntity} from "@api/src/routes/users/entities/user.entity"
+import {UsersService} from "@api/src/routes/users/users.service"
 
-import {FastifyExecutionContext} from "../FastifyExecutionContext"
+import {FastifyExecutionContext} from "../../FastifyExecutionContext"
 import {CurrentUser} from "../users/decorators/user.decorator"
 import {AuthService} from "./auth.service"
 import {SignInInput as SignInLocalPayload} from "./dto/signIn.input"
@@ -16,8 +16,8 @@ import {AuthGuard} from "./guards/auth.guard"
 export class AuthResolver {
   constructor(private authService: AuthService, private usersService: UsersService) {}
 
-  @Mutation(() => User)
-  async signUp(@Args() signUpInput: SignUpInput, @Context() context: FastifyExecutionContext): Promise<User> {
+  @Mutation(() => UserEntity)
+  async signUp(@Args() signUpInput: SignUpInput, @Context() context: FastifyExecutionContext): Promise<UserEntity> {
     const existingUser = await this.usersService.findOneByEmail(signUpInput.email)
     if (existingUser) throw new HttpException(`This email is already taken.`, 409)
 
@@ -57,7 +57,7 @@ export class AuthResolver {
     return user
   }
 
-  @Mutation(() => User)
+  @Mutation(() => UserEntity)
   async signInLocal(@Args() {email, password}: SignInLocalPayload, @Context() context: FastifyExecutionContext) {
     const user = await this.authService.validateUserLocal(email, password)
     if (!user) throw new UnauthorizedException()
@@ -89,9 +89,9 @@ export class AuthResolver {
     return user
   }
 
-  @Mutation(() => User)
+  @Mutation(() => UserEntity)
   @UseGuards(AuthGuard)
-  async signOut(@Context() context: FastifyExecutionContext, @CurrentUser() user: User) {
+  async signOut(@Context() context: FastifyExecutionContext, @CurrentUser() user: UserEntity) {
     this.authService.removeToken(context.request.cookies.sessionId)
 
     context.reply.setCookie(`authToken`, ``, {

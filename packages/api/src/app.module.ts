@@ -1,12 +1,11 @@
 import {Module} from "@nestjs/common"
 import {GraphQLModule} from "@nestjs/graphql"
-import {TypeOrmModule} from "@nestjs/typeorm"
 import config from "config"
+import {KnexModule} from "nestjs-knex"
 import path from "path"
 
-import {AuthModule} from "./auth/auth.module"
-import {UserDb} from "./users/entities/userDb.entity"
-import {UsersModule} from "./users/users.module"
+import {AuthModule} from "./routes/auth/auth.module"
+import {UsersModule} from "./routes/users/users.module"
 import {UuidScalar} from "./uuid.scalar"
 
 @Module({
@@ -19,18 +18,16 @@ import {UuidScalar} from "./uuid.scalar"
         credentials: true,
       },
     }),
-    TypeOrmModule.forRoot({
-      type: `mongodb`,
-      host: `localhost`,
-      port: config.get(`db.port`),
-      authSource: `admin`,
-      database: `slate`,
-      username: `root`,
-      password: `password`,
-      logging: true,
-      synchronize: true,
-      useUnifiedTopology: true,
-      entities: [UserDb],
+    KnexModule.forRoot({
+      config: {
+        client: `pg`,
+        connection: {
+          user: `postgres`,
+          password: `password`,
+          database: `slate`,
+          port: config.get(`db.port`),
+        },
+      },
     }),
     UsersModule,
     AuthModule,

@@ -35,7 +35,7 @@ const node: ConcreteRequest = (function () {
         {
             "alias": null,
             "args": null,
-            "concreteType": "User",
+            "concreteType": "UserEntity",
             "kind": "LinkedField",
             "name": "user",
             "plural": false,

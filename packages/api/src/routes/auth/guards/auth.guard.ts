@@ -4,7 +4,7 @@ import bcrypt from "bcrypt"
 import {RedisService} from "nestjs-redis"
 
 import {FastifyExecutionContext} from "@api/src/FastifyExecutionContext"
-import {UsersService} from "@api/src/users/users.service"
+import {UsersService} from "@api/src/routes/users/users.service"
 
 @Injectable()
 export class AuthGuard implements CanActivate {

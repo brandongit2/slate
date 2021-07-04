@@ -1,1 +1,16 @@
-.gitignore
+node_modules
+.yarn
+yarn.lock
+out
+dist
+
+/.next
+
+/android/.gradle
+/android/.idea
+/android/app/src/main/assets/public
+/android/capacitor-cordova-android-plugins
+
+/ios/App/App/public
+/ios/App/Pods
+/ios/capacitor-cordova-android-plugins

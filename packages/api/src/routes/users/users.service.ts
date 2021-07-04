@@ -1,41 +1,41 @@
 import {Injectable} from "@nestjs/common"
-import {InjectRepository} from "@nestjs/typeorm"
-import {MongoRepository} from "typeorm"
+import {InjectKnex, Knex} from "nestjs-knex"
 import {v4} from "uuid"
+
+import {User} from "@dbTypes/User"
 
 import {CreateUserInput} from "./dto/createUser.input"
 import {UpdateUserInput} from "./dto/updateUser.input"
-import {User} from "./entities/user.entity"
-import {UserDb} from "./entities/userDb.entity"
+import {UserEntity} from "./entities/user.entity"
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectRepository(UserDb) private usersRepository: MongoRepository<UserDb>) {}
+  constructor(@InjectKnex() private knex: Knex) {}
 
-  async create(createUserInput: CreateUserInput): Promise<User> {
+  async create(createUserInput: CreateUserInput): Promise<UserEntity> {
     const userId = v4()
 
-    const user = this.usersRepository.create({
-      userId,
+    const user = {
+      id: userId,
       email: createUserInput.email,
       firstName: createUserInput.firstName,
       lastName: createUserInput.lastName,
       password: createUserInput.password,
-    })
-    this.usersRepository.save(user)
+    }
+    await this.knex.table<User>(`users`).insert(user)
 
     return {
-      id: user.userId,
+      id: user.id,
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
     }
   }
 
-  async findOneById(userId: string): Promise<User> {
-    const dbRes = await this.usersRepository.findOne({userId})
+  async findOneById(id: string): Promise<UserEntity> {
+    const dbRes = await this.knex.table<User>(`users`).first(`*`).where({id})
     return {
-      id: dbRes!.userId,
+      id: dbRes!.id,
       firstName: dbRes!.firstName,
       lastName: dbRes!.lastName,
       email: dbRes!.email,
@@ -43,8 +43,8 @@ export class UsersService {
   }
 
   // Used only to validate a user by email and password. For any other use, use `findOneById`.
-  async findOneByEmail(email: string): Promise<UserDb> {
-    const dbRes = await this.usersRepository.findOne({email})
+  async findOneByEmail(email: string): Promise<User> {
+    const dbRes = await this.knex.table<User>(`users`).first(`*`).where({email})
     return dbRes!
   }
 

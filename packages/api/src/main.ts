@@ -9,7 +9,7 @@ import {AppModule} from "./app.module"
 ;(async () => {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter())
   app.register(fastifyCookie)
-  // app.register(fastifyHelmet)
+  app.register(fastifyHelmet)
   app.useGlobalPipes(new ValidationPipe())
 
   await app.listen(4000)

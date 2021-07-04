@@ -2,7 +2,7 @@ import {Module} from "@nestjs/common"
 import config from "config"
 import {RedisModule} from "nestjs-redis"
 
-import {UsersModule} from "@api/src/users/users.module"
+import {UsersModule} from "@api/src/routes/users/users.module"
 
 import {AuthResolver} from "./auth.resolver"
 import {AuthService} from "./auth.service"

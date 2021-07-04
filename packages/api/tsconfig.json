@@ -20,7 +20,8 @@
     "baseUrl": ".",
     "paths": {
       "@api/*": ["./*"],
-      "@app/*": ["../app/*"]
+      "@routes/*": ["./src/routes/*"],
+      "@dbTypes/*": ["src/dbTypes/*"]
     }
   }
 }

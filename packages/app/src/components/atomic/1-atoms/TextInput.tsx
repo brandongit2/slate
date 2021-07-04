@@ -44,7 +44,7 @@ const TextInput = forwardRef<HTMLInputElement, Props>(function TextInput(
       </Label>
       <input
         className={classNames(
-          `border-2 border-black rounded-none w-full px-2 py-1 transition-colors duration-300`,
+          `border-2 border-black rounded-none w-full px-2 py-1 transition-colors duration-300 focus-visible:outline-none`,
           error && `border-red-700`,
           activeError && error && `bg-red-100`,
         )}

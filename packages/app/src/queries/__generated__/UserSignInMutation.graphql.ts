@@ -63,7 +63,7 @@ const node: ConcreteRequest = (function () {
                     "variableName": "password"
                 }
             ],
-            "concreteType": "User",
+            "concreteType": "UserEntity",
             "kind": "LinkedField",
             "name": "signInLocal",
             "plural": false,

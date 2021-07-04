@@ -2,7 +2,7 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
+type UserEntity {
   id: UUID!
   firstName: String!
   lastName: String!
@@ -13,12 +13,12 @@ type User {
 scalar UUID
 
 type Query {
-  user: User!
+  user: UserEntity!
 }
 
 type Mutation {
-  updateUser(updateUserInput: UpdateUserInput!): User!
-  removeUser(id: String!): User!
+  updateUser(updateUserInput: UpdateUserInput!): UserEntity!
+  removeUser(id: String!): UserEntity!
   signUp(
     """The user's first name."""
     firstName: String!
@@ -31,15 +31,15 @@ type Mutation {
 
     """The user's new password."""
     password: String!
-  ): User!
+  ): UserEntity!
   signInLocal(
     """The user's email address."""
     email: String!
 
     """The user's password."""
     password: String!
-  ): User!
-  signOut: User!
+  ): UserEntity!
+  signOut: UserEntity!
 }
 
 input UpdateUserInput {
