@@ -11,16 +11,23 @@ export class AuthGuard implements CanActivate {
   constructor(private redisService: RedisService, private usersService: UsersService) {}
 
   async canActivate(context: ExecutionContext) {
+    console.log(context)
+    // Get the execution context
     const ctx = GqlExecutionContext.create(context).getContext() as FastifyExecutionContext
-    const cookies = ctx.request.cookies
 
+    // Get `authToken` from cookies
+    const cookies = ctx.request.cookies
     if (!cookies.sessionId || !cookies.authToken) return false
 
+    // Get `token` from Redis
     const redis = this.redisService.getClient()
     const token = await redis.hget(`sess:${cookies.sessionId}`, `token`)
+
+    // Compare the tokens
     const isValidToken = bcrypt.compareSync(cookies.authToken, token!)
 
     if (isValidToken) {
+      // Get user and place it in context
       const userId = await redis.hget(`sess:${cookies.sessionId}`, `userId`)
       const user = await this.usersService.findOneById(userId!)
       ctx.request.user = user!

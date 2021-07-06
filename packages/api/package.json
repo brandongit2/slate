@@ -14,7 +14,7 @@
     "dev": "NODE_CONFIG_DIR=../../config/ nest start --watch --preserveWatchOutput",
     "build": "nest build",
     "prod": "node dist/main",
-    "test": "jest",
+    "test": "docker compose -f ../../docker-compose.test.yml up -d && NODE_CONFIG_DIR=../../config/ jest --config=jest.config.js --runInBand",
     "nest": "nest --",
     "knex": "cd knex && NODE_CONFIG_DIR=../../../config/ knex --",
     "psql": "docker exec -it slate-db psql -U postgres -d slate",
@@ -22,6 +22,7 @@
     "lint": "prettier --write . --loglevel warn && eslint --fix . && tsc"
   },
   "dependencies": {
+    "@golevelup/ts-jest": "^0.3.1",
     "@nestjs/cli": "^7.6.0",
     "@nestjs/common": "^7.6.18",
     "@nestjs/core": "^7.6.18",
@@ -45,7 +46,7 @@
     "fastify-helmet": "^5.3.1",
     "graphql": "^15.5.0",
     "graphql-tools": "^7.0.5",
-    "jest": "^27.0.4",
+    "jest": "^27.0.6",
     "knex": "^0.95.6",
     "nestjs-knex": "^2.0.0",
     "nestjs-redis": "^1.3.3",

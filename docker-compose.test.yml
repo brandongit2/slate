@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  slate-db-test:
+    image: postgres:13.3-alpine
+    container_name: slate-db-test
+    ports:
+      - "5429:5432"
+    environment:
+      POSTGRES_DB: slate
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - slate-postgres-test:/var/lib/postgresql/data
+  slate-redis-test:
+    image: redis:6.2.4-alpine3.13
+    container_name: slate-redis-test
+    ports:
+      - "6369:6379"
+    volumes:
+      - slate-redis-test:/data
+volumes:
+  slate-postgres-test:
+  slate-redis-test:

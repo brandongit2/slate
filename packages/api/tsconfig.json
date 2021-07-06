@@ -21,7 +21,7 @@
     "paths": {
       "@api/*": ["./*"],
       "@routes/*": ["./src/routes/*"],
-      "@dbTypes/*": ["src/dbTypes/*"]
+      "@dbTypes/*": ["./src/dbTypes/*"]
     }
   }
 }
