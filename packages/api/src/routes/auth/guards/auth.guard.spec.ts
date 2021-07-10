@@ -1,8 +1,9 @@
 import {createMock} from "@golevelup/ts-jest"
-import {ExecutionContext} from "@nestjs/common"
+import {ExecutionContextHost} from "@nestjs/core/helpers/execution-context-host"
 import {Test} from "@nestjs/testing"
-import config from "config"
-import {RedisModule, RedisService} from "nestjs-redis"
+import {RedisService} from "nestjs-redis"
+
+import {TestDbModule} from "@api/src/testDb.module"
 
 import {AuthGuard} from "./auth.guard"
 
@@ -12,12 +13,7 @@ describe(`AuthGuard`, () => {
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
-      imports: [
-        RedisModule.register({
-          port: config.get(`redis.port`),
-          host: `localhost`,
-        }),
-      ],
+      imports: [TestDbModule],
       providers: [AuthGuard],
     }).compile()
 
@@ -29,12 +25,15 @@ describe(`AuthGuard`, () => {
     await redis.getClient().flushall()
   })
 
+  // afterAll(() => {
+  //   redis.getClient().quit()
+  // })
+
   describe(`should return true if given a valid authToken`, () => {
     // await redis.getClient().hset(`a`, ``)
 
-    const mockContext = createMock<ExecutionContext>()
-    const a = mockContext
-    console.log(a)
+    const mockContext = createMock<ExecutionContextHost>()
+    guard.canActivate(mockContext)
 
     expect(1).toBe(1)
   })

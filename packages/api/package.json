@@ -14,7 +14,7 @@
     "dev": "NODE_CONFIG_DIR=../../config/ nest start --watch --preserveWatchOutput",
     "build": "nest build",
     "prod": "node dist/main",
-    "test": "docker compose -f ../../docker-compose.test.yml up -d && NODE_CONFIG_DIR=../../config/ jest --config=jest.config.js --runInBand",
+    "test": "docker compose -f ../../docker-compose.test.yml up -d && NODE_CONFIG_DIR=../../config/ jest --config=jest.config.js --runInBand --detectOpenHandles",
     "nest": "nest --",
     "knex": "cd knex && NODE_CONFIG_DIR=../../../config/ knex --",
     "psql": "docker exec -it slate-db psql -U postgres -d slate",

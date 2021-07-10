@@ -1,4 +1,5 @@
-import {CanActivate, ExecutionContext, Injectable} from "@nestjs/common"
+import {CanActivate, Injectable} from "@nestjs/common"
+import {ExecutionContextHost} from "@nestjs/core/helpers/execution-context-host"
 import {GqlExecutionContext} from "@nestjs/graphql"
 import bcrypt from "bcrypt"
 import {RedisService} from "nestjs-redis"
@@ -10,10 +11,10 @@ import {UsersService} from "@api/src/routes/users/users.service"
 export class AuthGuard implements CanActivate {
   constructor(private redisService: RedisService, private usersService: UsersService) {}
 
-  async canActivate(context: ExecutionContext) {
-    console.log(context)
+  async canActivate(context: ExecutionContextHost) {
     // Get the execution context
     const ctx = GqlExecutionContext.create(context).getContext() as FastifyExecutionContext
+    console.log(context.getArgs())
 
     // Get `authToken` from cookies
     const cookies = ctx.request.cookies
