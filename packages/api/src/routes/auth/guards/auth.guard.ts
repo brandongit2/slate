@@ -1,6 +1,5 @@
 import {CanActivate, Injectable} from "@nestjs/common"
 import {ExecutionContextHost} from "@nestjs/core/helpers/execution-context-host"
-import {GqlExecutionContext} from "@nestjs/graphql"
 import bcrypt from "bcrypt"
 import {RedisService} from "nestjs-redis"
 
@@ -12,12 +11,11 @@ export class AuthGuard implements CanActivate {
   constructor(private redisService: RedisService, private usersService: UsersService) {}
 
   async canActivate(context: ExecutionContextHost) {
-    // Get the execution context
-    const ctx = GqlExecutionContext.create(context).getContext() as FastifyExecutionContext
-    console.log(context.getArgs())
+    // Get the request args
+    const args = context.getArgs()[2] as FastifyExecutionContext
 
     // Get `authToken` from cookies
-    const cookies = ctx.request.cookies
+    const cookies = args.request.cookies
     if (!cookies.sessionId || !cookies.authToken) return false
 
     // Get `token` from Redis
@@ -31,7 +29,7 @@ export class AuthGuard implements CanActivate {
       // Get user and place it in context
       const userId = await redis.hget(`sess:${cookies.sessionId}`, `userId`)
       const user = await this.usersService.findOneById(userId!)
-      ctx.request.user = user!
+      args.request.user = user!
     }
 
     return isValidToken

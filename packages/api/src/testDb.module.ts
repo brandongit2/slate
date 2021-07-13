@@ -22,6 +22,6 @@ const RedisImport = RedisModule.register({
 
 @Module({
   imports: [KnexImport, RedisImport],
-  exports: [KnexImport, RedisImport],
+  exports: [RedisImport],
 })
 export class TestDbModule {}
