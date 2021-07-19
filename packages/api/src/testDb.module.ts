@@ -1,7 +1,7 @@
+import {RedisModule} from "@liaoliaots/nestjs-redis"
 import {Module} from "@nestjs/common"
 import config from "config"
 import {KnexModule} from "nestjs-knex"
-import {RedisModule} from "nestjs-redis"
 
 const KnexImport = KnexModule.forRoot({
   config: {
@@ -15,13 +15,14 @@ const KnexImport = KnexModule.forRoot({
   },
 })
 
-const RedisImport = RedisModule.register({
-  port: config.get(`redis.port`),
-  host: `localhost`,
+const RedisImport = RedisModule.forRoot({
+  defaultOptions: {
+    port: config.get(`redis.port`),
+    host: `localhost`,
+  },
 })
 
 @Module({
   imports: [KnexImport, RedisImport],
-  exports: [RedisImport],
 })
 export class TestDbModule {}

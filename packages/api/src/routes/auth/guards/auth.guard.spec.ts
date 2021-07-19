@@ -3,7 +3,7 @@ import {ExecutionContextHost} from "@nestjs/core/helpers/execution-context-host"
 import {Test} from "@nestjs/testing"
 import bcrypt from "bcrypt"
 import {KnexCoreModule} from "nestjs-knex/dist/knex.core-module"
-import {RedisService} from "nestjs-redis"
+import {RedisService} from "@liaoliaots/nestjs-redis"
 import {v4} from "uuid"
 
 import {TestDbModule} from "@api/src/testDb.module"
@@ -31,13 +31,12 @@ describe(`AuthGuard`, () => {
     Promise.all([
       redis.getClient().flushall(),
       (async () => {
-        console.log(`hello`)
-        console.log(Object.getOwnPropertyNames(Object.getPrototypeOf(knex)))
-        // console.log(`recreating databases`)
-        // await knex.raw(`drop database if exists slate`)
-        // await knex.raw(`create database slate`)
-        // await knex.migrate.latest()
-        // console.log(await knex.raw(`select * from users.columns`))
+        console.log(`recreating databases`)
+        await knex.raw(`drop database if exists slate`)
+        await knex.raw(`create database slate`)
+        await knex.migrate.latest()
+        console.log(await knex.raw(`select * from users.columns`))
+        return
       })(),
     ]),
   )

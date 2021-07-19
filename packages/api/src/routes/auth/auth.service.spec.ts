@@ -1,7 +1,4 @@
 import {Test, TestingModule} from "@nestjs/testing"
-import config from "config"
-import {KnexModule} from "nestjs-knex"
-import {RedisModule} from "nestjs-redis"
 
 import {TestDbModule} from "@api/src/testDb.module"
 
