@@ -14,10 +14,13 @@ import {AuthGuard} from "./guards/auth.guard"
 
 @Resolver()
 export class AuthResolver {
-  constructor(private authService: AuthService, private usersService: UsersService) {}
+  constructor(private readonly authService: AuthService, private readonly usersService: UsersService) {}
 
   @Mutation(() => UserEntity)
-  async signUp(@Args() signUpInput: SignUpInput, @Context() context: FastifyExecutionContext): Promise<UserEntity> {
+  async signUp(
+    @Args() signUpInput: SignUpInput,
+    @Context() context: FastifyExecutionContext,
+  ): Promise<Omit<UserEntity, `password`>> {
     const existingUser = await this.usersService.findOneByEmail(signUpInput.email)
     if (existingUser) throw new HttpException(`This email is already taken.`, 409)
 

@@ -1,5 +1,5 @@
+import {InjectKnex, Knex} from "@brandonnpm2/nestjs-knex"
 import {Injectable} from "@nestjs/common"
-import {InjectKnex, Knex} from "nestjs-knex"
 import {v4} from "uuid"
 
 import {User} from "@dbTypes/User"
@@ -10,9 +10,9 @@ import {UserEntity} from "./entities/user.entity"
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectKnex() private knex: Knex) {}
+  constructor(@InjectKnex() private readonly knex: Knex) {}
 
-  async create(createUserInput: CreateUserInput): Promise<UserEntity> {
+  async create(createUserInput: CreateUserInput): Promise<Omit<UserEntity, `password`>> {
     const userId = v4()
 
     const user = {
@@ -32,7 +32,7 @@ export class UsersService {
     }
   }
 
-  async findOneById(id: string): Promise<UserEntity> {
+  async findOneById(id: string): Promise<Omit<UserEntity, `password`>> {
     const dbRes = await this.knex.table<User>(`users`).first(`*`).where({id})
     return {
       id: dbRes!.id,

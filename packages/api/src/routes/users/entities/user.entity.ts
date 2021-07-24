@@ -4,15 +4,18 @@ import {UuidScalar} from "@api/src/uuid.scalar"
 
 @ObjectType()
 export class UserEntity {
-  @Field(() => UuidScalar)
+  @Field(() => UuidScalar, {description: `The user's ID.`})
   id!: string
 
-  @Field()
+  @Field({description: `The user's first name.`})
   firstName!: string
 
-  @Field()
+  @Field({description: `The user's last name.`})
   lastName!: string
 
-  @Field()
+  @Field({description: `The user's email.`})
   email!: string
+
+  // Not included in the GraphQL entity... for obvious reasons
+  password!: string
 }

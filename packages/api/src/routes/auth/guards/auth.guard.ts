@@ -1,4 +1,4 @@
-import {RedisService} from "@liaoliaots/nestjs-redis"
+import {InjectRedis, Redis} from "@brandonnpm2/nestjs-redis"
 import {CanActivate, Injectable} from "@nestjs/common"
 import {ExecutionContextHost} from "@nestjs/core/helpers/execution-context-host"
 import bcrypt from "bcrypt"
@@ -8,7 +8,7 @@ import {UsersService} from "@api/src/routes/users/users.service"
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private redisService: RedisService, private usersService: UsersService) {}
+  constructor(@InjectRedis() private readonly redis: Redis, private readonly usersService: UsersService) {}
 
   async canActivate(context: ExecutionContextHost) {
     // Get the request args
@@ -19,15 +19,14 @@ export class AuthGuard implements CanActivate {
     if (!cookies.sessionId || !cookies.authToken) return false
 
     // Get `token` from Redis
-    const redis = this.redisService.getClient()
-    const token = await redis.hget(`sess:${cookies.sessionId}`, `token`)
+    const token = await this.redis.hget(`sess:${cookies.sessionId}`, `token`)
 
     // Compare the tokens
     const isValidToken = bcrypt.compareSync(cookies.authToken, token!)
 
     if (isValidToken) {
       // Get user and place it in context
-      const userId = await redis.hget(`sess:${cookies.sessionId}`, `userId`)
+      const userId = await this.redis.hget(`sess:${cookies.sessionId}`, `userId`)
       const user = await this.usersService.findOneById(userId!)
       args.request.user = user!
     }

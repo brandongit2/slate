@@ -9,4 +9,5 @@ module.exports = {
   moduleNameMapper: {
     "@api/(.*)": "<rootDir>/$1",
   },
+  testMatch: ["<rootDir>/**/*.spec.ts"],
 }
