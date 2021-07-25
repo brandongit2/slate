@@ -2,12 +2,11 @@ import React, {FC, ReactNode, useEffect, useState} from "react"
 import {useRelayEnvironment} from "react-relay"
 import {fetchQuery} from "relay-runtime"
 
+import Navbar from "$components/atomic/2-molecules/Navbar"
+import Modal from "$components/modal/Modal"
+import ModalContext from "$components/modal/ModalContext"
+import {UserQuery as UserQueryType} from "$queries/__generated__/UserQuery.graphql"
 import {UserQuery} from "$queries/User"
-
-import {UserQuery as UserQueryType} from "../queries/__generated__/UserQuery.graphql"
-import Navbar from "./atomic/2-molecules/Navbar"
-import Modal from "./modal/Modal"
-import ModalContext from "./modal/ModalContext"
 import UserContext, {UserContextType} from "./UserContext"
 
 const Layout: FC = ({children}) => {

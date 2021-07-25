@@ -1,7 +1,7 @@
 const path = require("path")
 
 module.exports = {
-  stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
+  stories: ["../src/**/*.story.mdx", "../src/**/*.story.@(js|jsx|ts|tsx)"],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
@@ -30,11 +30,8 @@ module.exports = {
 
     config.resolve.alias = {
       ...config.resolve.alias,
+      $assets: path.resolve(__dirname, `../src/assets`),
       $components: path.resolve(__dirname, `../src/components`),
-      $pages: path.resolve(__dirname, `../src/pages`),
-      $public: path.resolve(__dirname, `../public`),
-      $queries: path.resolve(__dirname, `../src/queries`),
-      $relay: path.resolve(__dirname, `../src/relay`),
       $utils: path.resolve(__dirname, `../src/utils`),
     }
 
