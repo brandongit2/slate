@@ -5946,7 +5946,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:16.4.1":
+"@types/node@npm:*":
+  version: 16.4.2
+  resolution: "@types/node@npm:16.4.2"
+  checksum: cc67dcab59476bc784d6e72d36de7b380bff38d897f77308a89030bad1703bbd10050d5c4d2233ea080b940ed96990e1f167a9efccc570bdff4add1e75cc047a
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:16.4.1":
   version: 16.4.1
   resolution: "@types/node@npm:16.4.1"
   checksum: 8b9fda74322631febbf084e3c7a26b799a3a1b8f45d6bbaedfb8943c7b3eb743aa2e41c04de6f5f87f63c99451f3ed0b37822614cbd42ed55c8c9c8f9462d231
@@ -5961,9 +5968,9 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:^14.0.10":
-  version: 14.17.5
-  resolution: "@types/node@npm:14.17.5"
-  checksum: bd2c9bd617d36fea3b6380f5f7bbf56b59dbfb97ba5ff6d04fdf8ec47402ba4bb4cc902087a7f40d17c91845cc949c811a366679f3421a965e80fbce328a2750
+  version: 14.17.6
+  resolution: "@types/node@npm:14.17.6"
+  checksum: 4b2464f39d96be4fcdde7f4e8bb3c8b24e98ff908ca0cced997884d0dfbcc666b4b65a51b83dac92650508a1a2466e82eac2f926ddc3c0ae87bfff580dd324f6
   languageName: node
   linkType: hard
 
@@ -6074,7 +6081,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:17.0.14":
+"@types/react@npm:*":
+  version: 17.0.15
+  resolution: "@types/react@npm:17.0.15"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: 427cca327d7a3c46af90e13ca3e1fe5e9c0dc1142df73c9b97c010ea420eb753776a58aec2e783fd669521dc87e89932bd17135fce2b2642aaa475216ac25914
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:17.0.14":
   version: 17.0.14
   resolution: "@types/react@npm:17.0.14"
   dependencies:
@@ -8734,9 +8752,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001109, caniuse-lite@npm:^1.0.30001125, caniuse-lite@npm:^1.0.30001202, caniuse-lite@npm:^1.0.30001219, caniuse-lite@npm:^1.0.30001228, caniuse-lite@npm:^1.0.30001243":
-  version: 1.0.30001246
-  resolution: "caniuse-lite@npm:1.0.30001246"
-  checksum: 5813bdac4a7cc35d5e770e98a0326c3fe4f057c1f3706e1f16544938ebb8eaff2fabde9ae1b8ea2e0dd42592df37bc711e7898866e36c1ac4fcd104d1db7fdd9
+  version: 1.0.30001247
+  resolution: "caniuse-lite@npm:1.0.30001247"
+  checksum: a44f4b36adc5009c7f81da892c95e66f00893027ffc09975fe4b922a1688da29e542b0be15c39008209d3b7e7b457bf8c83360c18cffb1b4d86e8c747cef3a50
   languageName: node
   linkType: hard
 

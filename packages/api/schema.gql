@@ -3,9 +3,16 @@
 # ------------------------------------------------------
 
 type UserEntity {
+  """The user's ID."""
   id: UUID!
+
+  """The user's first name."""
   firstName: String!
+
+  """The user's last name."""
   lastName: String!
+
+  """The user's email."""
   email: String!
 }
 
