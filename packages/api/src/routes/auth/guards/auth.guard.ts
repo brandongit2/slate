@@ -20,9 +20,13 @@ export class AuthGuard implements CanActivate {
 
     // Get `token` from Redis
     const token = await this.redis.hget(`sess:${cookies.sessionId}`, `token`)
+    if (!token) {
+      await this.redis.hdel(`sess:${cookies.sessionId}`, `token`)
+      return false
+    }
 
     // Compare the tokens
-    const isValidToken = bcrypt.compareSync(cookies.authToken, token!)
+    const isValidToken = bcrypt.compareSync(cookies.authToken, token)
 
     if (isValidToken) {
       // Get user and place it in context
