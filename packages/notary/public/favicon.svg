@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="114" height="114">
+  <style>
+    .box {
+      fill: black;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .box {
+        fill: white;
+      }
+    }
+  </style>
+  <rect y="57" width="80" height="40" class="box"></rect>
+  <rect x="34" y="17" width="80" height="40" class="box"></rect>
+</svg>

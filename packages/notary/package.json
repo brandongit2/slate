@@ -1,6 +1,6 @@
 {
-  "name": "slate",
-  "homepage": "https://slate.cx",
+  "name": "notary",
+  "homepage": "https://notary.slate.cx",
   "bugs": "https://github.com/brandongit2/slate/issues",
   "repository": "git@github.com:brandongit2/slate.git",
   "author": {
@@ -53,6 +53,7 @@
     "babel-plugin-styled-components": "1.13.2",
     "chroma-js": "2.1.2",
     "classnames": "2.3.1",
+    "components": "workspace:slate-components",
     "concurrently": "6.2.0",
     "eslint": "7.31.0",
     "eslint-config-next": "11.0.1",
