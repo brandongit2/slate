@@ -1,10 +1,11 @@
 import Head from "next/head"
 import React from "react"
 import {RelayEnvironmentProvider} from "react-relay"
-import "tailwindcss/tailwind.css"
 
 import environment from "@app/src/relay/environment"
 import type {AppProps} from "next/app"
+
+import "tailwindcss/tailwind.css"
 
 function MyApp({Component, pageProps}: AppProps) {
   return (

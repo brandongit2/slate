@@ -20,15 +20,17 @@ const Shiny = styled.div`
 
 type Props = {
   className?: string
+  style?: React.CSSProperties
 }
 
-const LoadingShine: FC<Props> = ({className}) => {
+const LoadingShine: FC<Props> = ({className, style}) => {
   return (
     <Shiny
       className={classNames(`bg-gray-300`, className)}
       style={{
         backgroundImage: gradientEase(`easeInOutSine`, [`#ccc`, `#eee`, `#ccc`], [0.3, 0.5, 0.7], `70deg`),
         backgroundSize: `800% 100%`,
+        ...style,
       }}
     />
   )

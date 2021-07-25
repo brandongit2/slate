@@ -1,6 +1,6 @@
 import {NextPage} from "next"
 import Head from "next/head"
-import React, {Suspense} from "react"
+import React from "react"
 
 import SubjectList from "@app/src/components/page-specific/index/SubjectList"
 
@@ -20,9 +20,7 @@ const Index: NextPage = () => {
           </span>
         </div>
         <div>
-          <Suspense fallback={<p>Loading...</p>}>
-            <SubjectList />
-          </Suspense>
+          <SubjectList />
         </div>
       </div>
     </Layout>

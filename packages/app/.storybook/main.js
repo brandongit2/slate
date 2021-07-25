@@ -1,3 +1,5 @@
+const path = require("path")
+
 module.exports = {
   stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: [
@@ -8,6 +10,9 @@ module.exports = {
       options: {
         postcssLoaderOptions: {
           implementation: require(`postcss`),
+          postcssOptions: {
+            config: path.resolve(__dirname, `../postcss.config.js`),
+          },
         },
       },
     },

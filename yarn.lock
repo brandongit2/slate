@@ -5946,17 +5946,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
+"@types/node@npm:*, @types/node@npm:16.4.2":
   version: 16.4.2
   resolution: "@types/node@npm:16.4.2"
   checksum: cc67dcab59476bc784d6e72d36de7b380bff38d897f77308a89030bad1703bbd10050d5c4d2233ea080b940ed96990e1f167a9efccc570bdff4add1e75cc047a
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:16.4.1":
-  version: 16.4.1
-  resolution: "@types/node@npm:16.4.1"
-  checksum: 8b9fda74322631febbf084e3c7a26b799a3a1b8f45d6bbaedfb8943c7b3eb743aa2e41c04de6f5f87f63c99451f3ed0b37822614cbd42ed55c8c9c8f9462d231
   languageName: node
   linkType: hard
 
@@ -6081,7 +6074,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*":
+"@types/react@npm:*, @types/react@npm:17.0.15":
   version: 17.0.15
   resolution: "@types/react@npm:17.0.15"
   dependencies:
@@ -6089,17 +6082,6 @@ __metadata:
     "@types/scheduler": "*"
     csstype: ^3.0.2
   checksum: 427cca327d7a3c46af90e13ca3e1fe5e9c0dc1142df73c9b97c010ea420eb753776a58aec2e783fd669521dc87e89932bd17135fce2b2642aaa475216ac25914
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:17.0.14":
-  version: 17.0.14
-  resolution: "@types/react@npm:17.0.14"
-  dependencies:
-    "@types/prop-types": "*"
-    "@types/scheduler": "*"
-    csstype: ^3.0.2
-  checksum: 3c5373845b0869d9ce3db16917c87707cdfdb6c08d9ca7ed90a2a097cb3cbec8d037d37e81c3cf5af721d92f8fdc62431405f1874f9a02dea6ec05e5d81e77fe
   languageName: node
   linkType: hard
 
@@ -19980,16 +19962,16 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react-dom@npm:18.0.0-alpha-c76e4dbbc-20210722":
-  version: 18.0.0-alpha-c76e4dbbc-20210722
-  resolution: "react-dom@npm:18.0.0-alpha-c76e4dbbc-20210722"
+"react-dom@npm:17.0.2":
+  version: 17.0.2
+  resolution: "react-dom@npm:17.0.2"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
-    scheduler: 0.21.0-alpha-c76e4dbbc-20210722
+    scheduler: ^0.20.2
   peerDependencies:
-    react: 18.0.0-alpha-c76e4dbbc-20210722
-  checksum: f9ce1e9f795310ab3b614ff1445c2dc5c570ed151435745bef9aa113150237b14a4a218edfa8bd042535e92cbf4f4169db64d6233e3949809f76512269904d83
+    react: 17.0.2
+  checksum: 960a74ff6670766846a73097a599115963df1574833c59ca0c2fd909758ebe7a6214cd14f5e6aa63ce846d8f39fde7f3b80474ccfcfadc45dd7f3246364718c6
   languageName: node
   linkType: hard
 
@@ -20046,12 +20028,12 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:7.11.1":
-  version: 7.11.1
-  resolution: "react-hook-form@npm:7.11.1"
+"react-hook-form@npm:7.12.0":
+  version: 7.12.0
+  resolution: "react-hook-form@npm:7.12.0"
   peerDependencies:
     react: ^16.8.0 || ^17
-  checksum: 586ac414830a64bdb3dade5d8e9e44841cf186620d8605087f345b7e4887908a3971aabef2259c3af0457c7fc4e91c95970a890c64f76078ebc884c59acd79a4
+  checksum: 74cc6ec441b74cfa695b5660793d7bf1af55061eda57f712b573dda12d3cfc71631d9a962c8ce41aaebc58bb9d39f4378674be16ecc23777d4c5198571d2a69a
   languageName: node
   linkType: hard
 
@@ -20181,17 +20163,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react@npm:18.0.0-alpha-c76e4dbbc-20210722":
-  version: 18.0.0-alpha-c76e4dbbc-20210722
-  resolution: "react@npm:18.0.0-alpha-c76e4dbbc-20210722"
-  dependencies:
-    loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-  checksum: 88e2459952faa134436f9ad6ab82ffe02a670be5381fe980fbcae695acea3b172363cd84e2e585fd6e65591bcb3bba10cb7b944a40b0950deec1017e59d03569
-  languageName: node
-  linkType: hard
-
-"react@npm:^17.0.1":
+"react@npm:17.0.2, react@npm:^17.0.1":
   version: 17.0.2
   resolution: "react@npm:17.0.2"
   dependencies:
@@ -21163,13 +21135,13 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"scheduler@npm:0.21.0-alpha-c76e4dbbc-20210722":
-  version: 0.21.0-alpha-c76e4dbbc-20210722
-  resolution: "scheduler@npm:0.21.0-alpha-c76e4dbbc-20210722"
+"scheduler@npm:^0.20.2":
+  version: 0.20.2
+  resolution: "scheduler@npm:0.20.2"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
-  checksum: 160c76a832a1a8a0ef88ab56b376dfec12635aff63a7d91480a352a01f512e7674a9b0aeefcd8c8633e8fde9a2c6cd4b653f75b6c5ff6c5936691e1824017ae7
+  checksum: 2ba121e53e8a438394598612ec9a8f465b39157042f912d2dd5956af643e0d45ec6937ae4eeb0a807d1945b209515263aed12fc3bca95c7a027ec2a54e76b399
   languageName: node
   linkType: hard
 
@@ -21610,7 +21582,7 @@ resolve@^2.0.0-next.3:
     "@types/faker": ^5.5.7
     "@types/jest": 26.0.24
     "@types/memoizee": 0.4.6
-    "@types/node": 16.4.1
+    "@types/node": 16.4.2
     "@types/uuid": 8.3.1
     apollo-server-core: 3.0.2
     apollo-server-fastify: 3.0.2
@@ -21660,8 +21632,8 @@ resolve@^2.0.0-next.3:
     "@types/babel__core": 7.1.15
     "@types/chroma-js": 2.1.3
     "@types/mdx-js__react": 1.5.4
-    "@types/node": 16.4.1
-    "@types/react": 17.0.14
+    "@types/node": 16.4.2
+    "@types/react": 17.0.15
     "@types/react-dom": 17.0.9
     "@types/react-relay": 11.0.2
     "@types/relay-runtime": 11.0.1
@@ -21683,9 +21655,9 @@ resolve@^2.0.0-next.3:
     nodemon: 2.0.12
     postcss: 8.3.6
     prettier: 2.3.2
-    react: 18.0.0-alpha-c76e4dbbc-20210722
-    react-dom: 18.0.0-alpha-c76e4dbbc-20210722
-    react-hook-form: 7.11.1
+    react: 17.0.2
+    react-dom: 17.0.2
+    react-hook-form: 7.12.0
     react-relay: 11.0.2
     relay-compiler: 11.0.2
     relay-compiler-language-typescript: 14.0.0
