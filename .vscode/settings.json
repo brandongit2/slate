@@ -10,5 +10,7 @@
   "search.exclude": {
     "**/.yarn": true,
     "node_modules": true
-  }
+  },
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.importModuleSpecifier": "non-relative"
 }

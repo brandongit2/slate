@@ -1,8 +1,8 @@
 import React, {FC, useEffect} from "react"
 import colors from "tailwindcss/colors"
 
-import ChevronDown from "@app/public/icons/chevron-down.svg"
-import ChevronUp from "@app/public/icons/chevron-up.svg"
+import ChevronDown from "$public/icons/chevron-down.svg"
+import ChevronUp from "$public/icons/chevron-up.svg"
 
 type Props = {
   errors: string[]

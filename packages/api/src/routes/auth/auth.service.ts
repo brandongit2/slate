@@ -3,9 +3,8 @@ import {Injectable, UnauthorizedException} from "@nestjs/common"
 import bcrypt from "bcrypt"
 import {v4} from "uuid"
 
-import {UsersService} from "@api/src/routes/users/users.service"
-
-import {UserEntity} from "../users/entities/user.entity"
+import {UserEntity} from "$routes/users/entities/user.entity"
+import {UsersService} from "$routes/users/users.service"
 
 @Injectable()
 export class AuthService {

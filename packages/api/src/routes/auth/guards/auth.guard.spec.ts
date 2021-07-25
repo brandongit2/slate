@@ -6,10 +6,9 @@ import {Test} from "@nestjs/testing"
 import bcrypt from "bcrypt"
 import {v4} from "uuid"
 
-import {TestDbModule} from "@api/src/testDb.module"
-
-import users from "../../../../knex/seedData/users.json"
-import {UsersModule} from "../../users/users.module"
+import {TestDbModule} from "$/testDb.module"
+import {UsersModule} from "$routes/users/users.module"
+import users from "$seedData/users.json"
 import {AuthGuard} from "./auth.guard"
 
 describe(`AuthGuard`, () => {

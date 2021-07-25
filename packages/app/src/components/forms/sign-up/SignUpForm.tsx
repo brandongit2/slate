@@ -6,8 +6,8 @@ import {useMutation} from "react-relay"
 import {
   UserSignUpMutation as UserSignUpMutationType,
   UserSignUpMutationVariables,
-} from "@app/src/queries/__generated__/UserSignUpMutation.graphql"
-import {UserSignUpMutation} from "@app/src/queries/User"
+} from "$queries/__generated__/UserSignUpMutation.graphql"
+import {UserSignUpMutation} from "$queries/User"
 
 import Button from "../../atomic/1-atoms/Button"
 import H1 from "../../atomic/1-atoms/H1"

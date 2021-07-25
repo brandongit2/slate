@@ -3,8 +3,8 @@ import {CanActivate, Injectable} from "@nestjs/common"
 import {ExecutionContextHost} from "@nestjs/core/helpers/execution-context-host"
 import bcrypt from "bcrypt"
 
-import {FastifyExecutionContext} from "@api/src/FastifyExecutionContext"
-import {UsersService} from "@api/src/routes/users/users.service"
+import {FastifyExecutionContext} from "$/FastifyExecutionContext"
+import {UsersService} from "$routes/users/users.service"
 
 @Injectable()
 export class AuthGuard implements CanActivate {

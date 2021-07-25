@@ -1,15 +1,14 @@
 import React, {FC, useContext} from "react"
 import {useMutation} from "react-relay"
 
-import SignInForm from "@app/src/components/forms/sign-in/SignInForm"
-import SignUpForm from "@app/src/components/forms/sign-up/SignUpForm"
-import ModalContext from "@app/src/components/modal/ModalContext"
-import UserContext from "@app/src/components/UserContext"
-import {UserSignOutMutation as UserSignOutMutationType} from "@app/src/queries/__generated__/UserSignOutMutation.graphql"
-import {UserSignOutMutation} from "@app/src/queries/User"
-
-import Button from "../../1-atoms/Button"
-import LoadingShine from "../../1-atoms/LoadingShine"
+import Button from "$components/atomic/1-atoms/Button"
+import LoadingShine from "$components/atomic/1-atoms/LoadingShine"
+import SignInForm from "$components/forms/sign-in/SignInForm"
+import SignUpForm from "$components/forms/sign-up/SignUpForm"
+import ModalContext from "$components/modal/ModalContext"
+import UserContext from "$components/UserContext"
+import {UserSignOutMutation as UserSignOutMutationType} from "$queries/__generated__/UserSignOutMutation.graphql"
+import {UserSignOutMutation} from "$queries/User"
 
 const AuthButtons: FC = () => {
   const {user, setUser} = useContext(UserContext)

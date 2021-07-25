@@ -1,8 +1,7 @@
 import {Test, TestingModule} from "@nestjs/testing"
 
-import {TestDbModule} from "@api/src/testDb.module"
-
-import {UsersModule} from "../users/users.module"
+import {TestDbModule} from "$/testDb.module"
+import {UsersModule} from "$routes/users/users.module"
 import {AuthService} from "./auth.service"
 
 describe(`AuthService`, () => {

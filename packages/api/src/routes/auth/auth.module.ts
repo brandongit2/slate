@@ -1,7 +1,6 @@
 import {Module} from "@nestjs/common"
 
-import {UsersModule} from "@api/src/routes/users/users.module"
-
+import {UsersModule} from "$routes/users/users.module"
 import {AuthResolver} from "./auth.resolver"
 import {AuthService} from "./auth.service"
 

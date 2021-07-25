@@ -2,8 +2,9 @@ import Head from "next/head"
 import React from "react"
 import {RelayEnvironmentProvider} from "react-relay"
 
-import environment from "@app/src/relay/environment"
 import type {AppProps} from "next/app"
+
+import environment from "$relay/environment"
 
 import "tailwindcss/tailwind.css"
 

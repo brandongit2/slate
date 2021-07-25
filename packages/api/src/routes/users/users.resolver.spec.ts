@@ -1,8 +1,7 @@
 import {Test, TestingModule} from "@nestjs/testing"
 
-import {TestDbModule} from "@api/src/testDb.module"
-
-import {AuthModule} from "../auth/auth.module"
+import {TestDbModule} from "$/testDb.module"
+import {AuthModule} from "$routes/auth/auth.module"
 import {UsersResolver} from "./users.resolver"
 import {UsersService} from "./users.service"
 

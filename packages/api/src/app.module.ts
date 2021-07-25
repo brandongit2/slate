@@ -5,8 +5,8 @@ import {GraphQLModule} from "@nestjs/graphql"
 import config from "config"
 import path from "path"
 
-import {AuthModule} from "./routes/auth/auth.module"
-import {UsersModule} from "./routes/users/users.module"
+import {AuthModule} from "$routes/auth/auth.module"
+import {UsersModule} from "$routes/users/users.module"
 import {UuidScalar} from "./uuid.scalar"
 
 @Module({

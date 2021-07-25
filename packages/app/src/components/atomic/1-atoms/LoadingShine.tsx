@@ -2,7 +2,7 @@ import classNames from "classnames"
 import React, {FC} from "react"
 import styled, {keyframes} from "styled-components"
 
-import {gradientEase} from "@app/src/utils/gradientEase"
+import {gradientEase} from "$utils/gradientEase"
 
 const shine = keyframes`
   from {

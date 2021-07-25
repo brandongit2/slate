@@ -3,20 +3,20 @@ import React, {FC, useContext, useState} from "react"
 import {useForm} from "react-hook-form"
 import {useMutation} from "react-relay"
 
-import Button from "@app/src/components/atomic/1-atoms/Button"
-import H1 from "@app/src/components/atomic/1-atoms/H1"
-import Spinner from "@app/src/components/atomic/1-atoms/Spinner"
-import TextInput from "@app/src/components/atomic/1-atoms/TextInput"
-import ErrorCarousel from "@app/src/components/atomic/2-molecules/ErrorCarousel"
-import Page from "@app/src/components/atomic/4-templates/Page"
-import CloseButton from "@app/src/components/modal/CloseButton"
-import ModalContext from "@app/src/components/modal/ModalContext"
-import UserContext from "@app/src/components/UserContext"
+import Button from "$components/atomic/1-atoms/Button"
+import H1 from "$components/atomic/1-atoms/H1"
+import Spinner from "$components/atomic/1-atoms/Spinner"
+import TextInput from "$components/atomic/1-atoms/TextInput"
+import ErrorCarousel from "$components/atomic/2-molecules/ErrorCarousel"
+import Page from "$components/atomic/4-templates/Page"
+import CloseButton from "$components/modal/CloseButton"
+import ModalContext from "$components/modal/ModalContext"
+import UserContext from "$components/UserContext"
 import {
   UserSignInMutation as UserSignInMutationType,
   UserSignInMutationVariables,
-} from "@app/src/queries/__generated__/UserSignInMutation.graphql"
-import {UserSignInMutation} from "@app/src/queries/User"
+} from "$queries/__generated__/UserSignInMutation.graphql"
+import {UserSignInMutation} from "$queries/User"
 
 import {signInFormSchema} from "./signInFormSchema"
 

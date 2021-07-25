@@ -17,7 +17,7 @@ module.exports = {
           [`internal`, `index`, `object`, `unknown`, `type`],
           [`parent`, `sibling`],
         ],
-        pathGroups: [{pattern: `{@api/**,@app/**,@routes/**,@dbTypes/**}`, group: `internal`}],
+        pathGroups: [{pattern: `$*/**`, group: `parent`}],
         pathGroupsExcludedImportTypes: [`builtin`],
         "newlines-between": `always`,
         alphabetize: {order: `asc`, caseInsensitive: true},

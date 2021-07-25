@@ -1,8 +1,7 @@
 import classNames from "classnames"
 import React, {FC} from "react"
 
-import LogoType from "@app/public/slate-logo.svg"
-
+import LogoType from "$public/slate-logo.svg"
 import AuthButtons from "./AuthButtons"
 
 type Props = {

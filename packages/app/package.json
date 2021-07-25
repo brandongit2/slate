@@ -18,7 +18,7 @@
     "relay": "relay-compiler --src ./src/ --schema ../api/schema.gql --language typescript",
     "cap": "cap --",
     "lint": "prettier --write . --loglevel warn && eslint --fix . && tsc",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook --ci -p 6006",
     "build-storybook": "build-storybook"
   },
   "dependencies": {

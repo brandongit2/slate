@@ -2,8 +2,7 @@ import {InjectKnex, Knex} from "@brandonnpm2/nestjs-knex"
 import {Injectable} from "@nestjs/common"
 import {v4} from "uuid"
 
-import {User} from "@dbTypes/User"
-
+import {User} from "$dbTypes/User"
 import {CreateUserInput} from "./dto/createUser.input"
 import {UpdateUserInput} from "./dto/updateUser.input"
 import {UserEntity} from "./entities/user.entity"

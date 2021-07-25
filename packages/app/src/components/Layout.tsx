@@ -2,7 +2,7 @@ import React, {FC, ReactNode, useEffect, useState} from "react"
 import {useRelayEnvironment} from "react-relay"
 import {fetchQuery} from "relay-runtime"
 
-import {UserQuery} from "@app/src/queries/User"
+import {UserQuery} from "$queries/User"
 
 import {UserQuery as UserQueryType} from "../queries/__generated__/UserQuery.graphql"
 import Navbar from "./atomic/2-molecules/Navbar"

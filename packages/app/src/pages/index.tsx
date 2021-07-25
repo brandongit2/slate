@@ -2,9 +2,8 @@ import {NextPage} from "next"
 import Head from "next/head"
 import React from "react"
 
-import SubjectList from "@app/src/components/page-specific/index/SubjectList"
-
-import Layout from "../components/Layout"
+import Layout from "$components/Layout"
+import SubjectList from "$components/page-specific/index/SubjectList"
 
 const Index: NextPage = () => {
   return (
