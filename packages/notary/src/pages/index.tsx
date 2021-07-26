@@ -1,8 +1,9 @@
 import {NextPage} from "next"
 import Head from "next/head"
 import React from "react"
+import {H1, H4} from "slate-components"
 
-import Layout from "$components/Layout"
+import Layout from "#components/Layout"
 
 const Index: NextPage = () => {
   return (
@@ -12,10 +13,11 @@ const Index: NextPage = () => {
       </Head>
       <div className="h-full p-12 grid gap-y-8 content-center">
         <div>
-          <h1 className="text-5xl font-black">learn by doing.</h1>
-          <span className="text-xl font-black">
-            mathematics, science, and more with interactive demos and virtual labs.
-          </span>
+          <H1>note-taking at the speed of light.</H1>
+          <H4>
+            notary streamlines the note-taking process, allowing you to make professionally formatted documents without
+            even thinking about it.
+          </H4>
         </div>
       </div>
     </Layout>

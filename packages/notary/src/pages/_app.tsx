@@ -4,9 +4,10 @@ import {RelayEnvironmentProvider} from "react-relay"
 
 import type {AppProps} from "next/app"
 
-import environment from "$relay/environment"
+import environment from "#relay/environment"
 
 import "tailwindcss/tailwind.css"
+import "slate-components/dist/slate.css"
 
 function MyApp({Component, pageProps}: AppProps) {
   return (

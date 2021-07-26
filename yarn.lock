@@ -150,6 +150,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/cli@npm:7.14.8":
+  version: 7.14.8
+  resolution: "@babel/cli@npm:7.14.8"
+  dependencies:
+    "@nicolo-ribaudo/chokidar-2": 2.1.8-no-fsevents.2
+    chokidar: ^3.4.0
+    commander: ^4.0.1
+    convert-source-map: ^1.1.0
+    fs-readdir-recursive: ^1.1.0
+    glob: ^7.0.0
+    make-dir: ^2.1.0
+    slash: ^2.0.0
+    source-map: ^0.5.0
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  dependenciesMeta:
+    "@nicolo-ribaudo/chokidar-2":
+      optional: true
+    chokidar:
+      optional: true
+  bin:
+    babel: ./bin/babel.js
+    babel-external-helpers: ./bin/babel-external-helpers.js
+  checksum: 5ffdc9971668e3a3d8f13368de33286ed70d1328204c6f36e73f70662b11f549a75b913de55dfb2a692acb1a7efbada3e1bea0ac0dd71f72a1c33ad0893108ec
+  languageName: node
+  linkType: hard
+
 "@babel/code-frame@npm:7.10.4":
   version: 7.10.4
   resolution: "@babel/code-frame@npm:7.10.4"
@@ -1492,7 +1519,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-env@npm:^7.12.1, @babel/preset-env@npm:^7.12.11":
+"@babel/preset-env@npm:7.14.8, @babel/preset-env@npm:^7.12.1, @babel/preset-env@npm:^7.12.11":
   version: 7.14.8
   resolution: "@babel/preset-env@npm:7.14.8"
   dependencies:
@@ -1603,7 +1630,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-react@npm:^7.12.10, @babel/preset-react@npm:^7.12.5":
+"@babel/preset-react@npm:7.14.5, @babel/preset-react@npm:^7.12.10, @babel/preset-react@npm:^7.12.5":
   version: 7.14.5
   resolution: "@babel/preset-react@npm:7.14.5"
   dependencies:
@@ -1619,7 +1646,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-typescript@npm:^7.12.7":
+"@babel/preset-typescript@npm:7.14.5, @babel/preset-typescript@npm:^7.12.7":
   version: 7.14.5
   resolution: "@babel/preset-typescript@npm:7.14.5"
   dependencies:
@@ -3239,6 +3266,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nicolo-ribaudo/chokidar-2@npm:2.1.8-no-fsevents.2":
+  version: 2.1.8-no-fsevents.2
+  resolution: "@nicolo-ribaudo/chokidar-2@npm:2.1.8-no-fsevents.2"
+  dependencies:
+    anymatch: ^2.0.0
+    async-each: ^1.0.1
+    braces: ^2.3.2
+    glob-parent: ^5.1.2
+    inherits: ^2.0.3
+    is-binary-path: ^1.0.0
+    is-glob: ^4.0.0
+    normalize-path: ^3.0.0
+    path-is-absolute: ^1.0.0
+    readdirp: ^2.2.1
+    upath: ^1.1.1
+  checksum: a1bfb7d490846cfbaf951268b9f38277d24a3d8e737bf78e74deb9403f459cedf9f110df831828244f5f096fcaca056d939e7ae1f1451c1f371a4a0f6b85ad6a
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -4538,7 +4584,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@svgr/babel-preset@npm:^5.5.0":
+"@svgr/babel-preset@npm:5.5.0, @svgr/babel-preset@npm:^5.5.0":
   version: 5.5.0
   resolution: "@svgr/babel-preset@npm:5.5.0"
   dependencies:
@@ -4648,6 +4694,13 @@ __metadata:
   dependencies:
     "@babel/types": ^7.0.0
   checksum: 707d4b140cb71a0e77e2a6f64c7c6a8808eabfebb1e1385ea9e35bf5c0923efd6452463067108faf21825c4d633346bd8414dc88ee10416089d073ef3f31406a
+  languageName: node
+  linkType: hard
+
+"@types/babel__preset-env@npm:^7":
+  version: 7.9.2
+  resolution: "@types/babel__preset-env@npm:7.9.2"
+  checksum: 122a91555e59eb1cd19844b1941ca4add76bc4d99b94bca6e58770084687807d85b848a7f569aeb2aa12bf8e5b68862c95fd2f1a92c740c035eb2de52a015cdd
   languageName: node
   linkType: hard
 
@@ -6817,6 +6870,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"babel-plugin-module-resolver@npm:4.1.0":
+  version: 4.1.0
+  resolution: "babel-plugin-module-resolver@npm:4.1.0"
+  dependencies:
+    find-babel-config: ^1.2.0
+    glob: ^7.1.6
+    pkg-up: ^3.1.0
+    reselect: ^4.0.0
+    resolve: ^1.13.1
+  checksum: c3efeaac63b63761d253408c120469b13817ae00d05f5ba6f8d25bcb5970affe42b01aabb91db63332993796ece1f57a3680d66317523484bc57ba479e720e89
+  languageName: node
+  linkType: hard
+
 "babel-plugin-named-asset-import@npm:^0.3.1":
   version: 0.3.7
   resolution: "babel-plugin-named-asset-import@npm:0.3.7"
@@ -7784,7 +7850,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chokidar@npm:3.5.2, chokidar@npm:^3.2.2, chokidar@npm:^3.4.1, chokidar@npm:^3.4.2, chokidar@npm:^3.5.1, chokidar@npm:^3.5.2":
+"chokidar@npm:3.5.2, chokidar@npm:^3.2.2, chokidar@npm:^3.4.0, chokidar@npm:^3.4.1, chokidar@npm:^3.4.2, chokidar@npm:^3.5.1, chokidar@npm:^3.5.2":
   version: 3.5.2
   resolution: "chokidar@npm:3.5.2"
   dependencies:
@@ -8215,7 +8281,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:4.1.1, commander@npm:^4.1.1":
+"commander@npm:4.1.1, commander@npm:^4.0.1, commander@npm:^4.1.1":
   version: 4.1.1
   resolution: "commander@npm:4.1.1"
   checksum: 448585071bf8fb4c0bf9dd52abaee43dea086f801334caec2c8e8c9f456f8abc224c1614ccbbdbf7da5ac2524d230f13cf1fc86c233cf8a041ebecea7df106e9
@@ -8402,7 +8468,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"convert-source-map@npm:^1.4.0, convert-source-map@npm:^1.5.0, convert-source-map@npm:^1.6.0, convert-source-map@npm:^1.7.0":
+"convert-source-map@npm:^1.1.0, convert-source-map@npm:^1.4.0, convert-source-map@npm:^1.5.0, convert-source-map@npm:^1.6.0, convert-source-map@npm:^1.7.0":
   version: 1.8.0
   resolution: "convert-source-map@npm:1.8.0"
   dependencies:
@@ -10938,6 +11004,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"find-babel-config@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "find-babel-config@npm:1.2.0"
+  dependencies:
+    json5: ^0.5.1
+    path-exists: ^3.0.0
+  checksum: da8fdf080a8ef29e02f4f309b66f89e11406bf0f0e2a559d333903846b28e9f01121739ef8b4a02a19c79284812e10bc9284a4fb4de9b3c85981aa1071251d86
+  languageName: node
+  linkType: hard
+
 "find-cache-dir@npm:3.3.1, find-cache-dir@npm:^3.3.1":
   version: 3.3.1
   resolution: "find-cache-dir@npm:3.3.1"
@@ -11304,6 +11380,13 @@ __metadata:
   version: 1.0.3
   resolution: "fs-monkey@npm:1.0.3"
   checksum: 0b5e16f147d3e1b28e2fc7ae8f4a6bf061587a03dbee817ee869fadbb1f5f9e038062bf9646161c7576918ac084bbd0b38bd819aa7856d4fd850a440b201f83e
+  languageName: node
+  linkType: hard
+
+"fs-readdir-recursive@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "fs-readdir-recursive@npm:1.1.0"
+  checksum: dec853d7418a9a2c1295d0dbf602505655bebed76474d656d68ed3e06bc84db651325b795509221f186955791965ec0add261919d464cae76dd3b8564f462054
   languageName: node
   linkType: hard
 
@@ -14253,6 +14336,15 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"json5@npm:^0.5.1":
+  version: 0.5.1
+  resolution: "json5@npm:0.5.1"
+  bin:
+    json5: lib/cli.js
+  checksum: 002ce9e56c4159e5a62fc4891dc2fba1fdc077fba417042e9dd54f8c37da80c0274feb5fa4c0acb3efbc8906d5763b4ff292d512269e1951967d530130bd80b8
+  languageName: node
+  linkType: hard
+
 "json5@npm:^1.0.1":
   version: 1.0.1
   resolution: "json5@npm:1.0.1"
@@ -17082,7 +17174,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"pkg-up@npm:3.1.0":
+"pkg-up@npm:3.1.0, pkg-up@npm:^3.1.0":
   version: 3.1.0
   resolution: "pkg-up@npm:3.1.0"
   dependencies:
@@ -18680,6 +18772,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"reselect@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "reselect@npm:4.0.0"
+  checksum: 3480930929f673f12962cdde140dce48ea8ba171cd428bb2c7639672e41770bd6b64e935bc0400f47cfa960f617c7ac068c4309527373825d11e27262f08c0a3
+  languageName: node
+  linkType: hard
+
 "resolve-cwd@npm:^3.0.0":
   version: 3.0.0
   resolution: "resolve-cwd@npm:3.0.0"
@@ -19471,7 +19570,11 @@ resolve@^2.0.0-next.3:
   version: 0.0.0-use.local
   resolution: "slate-components@workspace:packages/components"
   dependencies:
-    "@hookform/resolvers": 2.6.1
+    "@babel/cli": 7.14.8
+    "@babel/core": 7.14.8
+    "@babel/preset-env": 7.14.8
+    "@babel/preset-react": 7.14.5
+    "@babel/preset-typescript": 7.14.5
     "@mdx-js/react": 1.6.22
     "@storybook/addon-actions": 6.3.5
     "@storybook/addon-docs": 6.3.5
@@ -19479,7 +19582,10 @@ resolve@^2.0.0-next.3:
     "@storybook/addon-links": 6.3.5
     "@storybook/addon-postcss": 2.0.0
     "@storybook/react": 6.3.5
+    "@svgr/babel-preset": 5.5.0
     "@svgr/webpack": 5.5.0
+    "@types/babel__core": 7.1.15
+    "@types/babel__preset-env": ^7
     "@types/chroma-js": 2.1.3
     "@types/mdx-js__react": 1.5.4
     "@types/node": 16.4.2
@@ -19489,21 +19595,19 @@ resolve@^2.0.0-next.3:
     "@types/tailwindcss": 2.2.1
     "@types/zxcvbn": 4.4.1
     autoprefixer: 10.3.1
+    babel-plugin-module-resolver: 4.1.0
     chroma-js: 2.1.2
-    classnames: 2.3.1
     eslint: 7.31.0
-    nodemon: 2.0.12
     postcss: 8.3.6
     prettier: 2.3.2
-    react: 17.0.2
-    react-dom: 17.0.2
-    react-hook-form: 7.12.0
     styled-components: 5.3.0
     tailwind-styled-components: 2.0.3
     tailwindcss: 2.2.7
     typescript: 4.3.5
-    yup: 0.32.9
     zxcvbn: 4.4.2
+  peerDependencies:
+    react: ^17.0.2
+    react-dom: ^17.0.2
   languageName: unknown
   linkType: soft
 

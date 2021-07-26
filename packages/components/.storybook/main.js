@@ -30,9 +30,9 @@ module.exports = {
 
     config.resolve.alias = {
       ...config.resolve.alias,
-      $assets: path.resolve(__dirname, `../src/assets`),
-      $components: path.resolve(__dirname, `../src/components`),
-      $utils: path.resolve(__dirname, `../src/utils`),
+      "#assets": path.resolve(__dirname, `../src/assets`),
+      "#components": path.resolve(__dirname, `../src/components`),
+      "#utils": path.resolve(__dirname, `../src/utils`),
     }
 
     return config

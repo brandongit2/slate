@@ -13,5 +13,5 @@ const Template: ComponentStory<typeof H4> = (args) => <H4 {...args} />
 
 export const Primary = Template.bind({})
 Primary.args = {
-  children: `This is a third-level header`,
+  children: `This is a fourth-level header`,
 }

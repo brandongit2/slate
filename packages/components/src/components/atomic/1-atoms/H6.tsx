@@ -1,3 +1,3 @@
 import tw from "tailwind-styled-components"
 
-export const H3 = tw.h3`text-3xl font-black`
+export const H6 = tw.h6`text-lg font-black`
