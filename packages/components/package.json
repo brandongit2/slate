@@ -12,7 +12,7 @@
   "private": true,
   "main": "dist/index.js",
   "scripts": {
-    "build": "rm -rf dist && yarn exec babel --config-file babel.build-config.json src --extensions \".ts,.tsx\" --out-dir dist && tsc",
+    "build": "rm -rf dist && yarn exec babel --config-file ./babel.build-config.json src --extensions \".ts,.tsx\" --out-dir dist && tsc",
     "lint": "prettier --write . --loglevel warn && eslint --fix . && tsc",
     "storybook": "start-storybook --ci -p 6006",
     "build-storybook": "build-storybook"
