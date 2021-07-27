@@ -11,6 +11,9 @@ module.exports = {
       contrast: {
         25: `.25`,
       },
+      colors: {
+        notary: `#FDDF91`,
+      },
       fontSize: {
         "2xs": `0.625rem`,
       },

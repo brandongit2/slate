@@ -21,6 +21,7 @@ module.exports = {
         pathGroupsExcludedImportTypes: [`builtin`],
         "newlines-between": `always`,
         alphabetize: {order: `asc`, caseInsensitive: true},
+        warnOnUnassignedImports: true,
       },
     ],
     "prefer-const": 1,

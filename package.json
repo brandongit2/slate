@@ -20,8 +20,8 @@
   },
   "dependencies": {
     "@types/config": "0.0.39",
-    "@typescript-eslint/eslint-plugin": "4.28.4",
-    "@typescript-eslint/parser": "4.28.4",
+    "@typescript-eslint/eslint-plugin": "4.28.5",
+    "@typescript-eslint/parser": "4.28.5",
     "config": "3.3.6",
     "eslint": "7.31.0",
     "eslint-plugin-import": "2.23.4",

@@ -3,6 +3,8 @@ import React, {CSSProperties, InputHTMLAttributes, forwardRef} from "react"
 import styled from "styled-components"
 import colors from "tailwindcss/colors"
 
+import {useTw} from "#utils/twind"
+
 const Label = styled.label<{required: boolean}>`
   ${({required}) =>
     required
@@ -34,19 +36,21 @@ export const TextInput = forwardRef<HTMLInputElement, Props>(function TextInput(
   {label, required = false, error, activeError, style, ...props},
   ref,
 ) {
+  const tw = useTw()
+
   return (
-    <fieldset className="flex flex-col items-start w-full" style={style}>
+    <fieldset className={tw`flex flex-col items-start w-full`} style={style}>
       <Label
-        className={classNames(`text-sm font-bold relative transition-colors duration-300`, error && `text-red-700`)}
+        className={classNames(tw`text-sm font-bold relative transition-colors duration-300`, error && tw`text-red-700`)}
         required={required}
       >
         {label}
       </Label>
       <input
         className={classNames(
-          `border-2 border-black rounded-none w-full px-2 py-1 transition-colors duration-300 focus-visible:outline-none`,
-          error && `border-red-700`,
-          activeError && error && `bg-red-100`,
+          tw`border-2 border-black rounded-none w-full px-2 py-1 transition-colors duration-300 focus-visible:outline-none`,
+          error && tw`border-red-700`,
+          activeError && error && tw`bg-red-100`,
         )}
         required={required}
         {...props}

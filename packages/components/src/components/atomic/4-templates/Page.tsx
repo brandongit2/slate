@@ -1,5 +1,3 @@
-import tw from "tailwind-styled-components"
+import {injectClasses} from "#utils/injectClasses"
 
-const Page = tw.div`flex flex-col gap-4`
-
-export default Page
+export const Page = injectClasses(`div`, `flex flex-col gap-4`)

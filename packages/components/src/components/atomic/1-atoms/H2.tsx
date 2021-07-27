@@ -1,3 +1,3 @@
-import tw from "tailwind-styled-components"
+import {injectClasses} from "#utils/injectClasses"
 
-export const H2 = tw.h2`text-4xl font-black`
+export const H2 = injectClasses(`h2`, `text-4xl font-black`)

@@ -1,13 +1,12 @@
 import Head from "next/head"
 import React from "react"
 import {RelayEnvironmentProvider} from "react-relay"
+import {SlateThemeProvider} from "slate-components"
+import "tailwindcss/tailwind.css"
 
 import type {AppProps} from "next/app"
 
 import environment from "#relay/environment"
-
-import "tailwindcss/tailwind.css"
-import "slate-components/dist/slate.css"
 
 function MyApp({Component, pageProps}: AppProps) {
   return (
@@ -23,9 +22,11 @@ function MyApp({Component, pageProps}: AppProps) {
           rel="stylesheet"
         />
       </Head>
-      <RelayEnvironmentProvider environment={environment}>
-        <Component {...pageProps} />
-      </RelayEnvironmentProvider>
+      <SlateThemeProvider>
+        <RelayEnvironmentProvider environment={environment}>
+          <Component {...pageProps} />
+        </RelayEnvironmentProvider>
+      </SlateThemeProvider>
     </>
   )
 }

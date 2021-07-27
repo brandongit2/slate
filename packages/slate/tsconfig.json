@@ -16,12 +16,12 @@
     "noImplicitAny": true,
     "baseUrl": ".",
     "paths": {
-      "$components/*": ["./src/components/*"],
-      "$pages/*": ["./src/pages/*"],
-      "$public/*": ["./public/*"],
-      "$queries/*": ["./src/queries/*"],
-      "$relay/*": ["./src/relay/*"],
-      "$utils/*": ["./src/utils/*"]
+      "#components/*": ["./src/components/*"],
+      "#pages/*": ["./src/pages/*"],
+      "#public/*": ["./public/*"],
+      "#queries/*": ["./src/queries/*"],
+      "#relay/*": ["./src/relay/*"],
+      "#utils/*": ["./src/utils/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],

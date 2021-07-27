@@ -1,7 +1,6 @@
 import React, {FC, useContext} from "react"
 
-import CloseIcon from "$public/icons/close.svg"
-
+import CloseIcon from "#public/icons/close.svg"
 import ModalContext from "./ModalContext"
 
 const CloseButton: FC = () => {
