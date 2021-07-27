@@ -2,7 +2,7 @@ import Head from "next/head"
 import React from "react"
 import {RelayEnvironmentProvider} from "react-relay"
 import {SlateThemeProvider} from "slate-components"
-import "tailwindcss/tailwind.css"
+import {tw} from "twind"
 
 import type {AppProps} from "next/app"
 
@@ -22,7 +22,7 @@ function MyApp({Component, pageProps}: AppProps) {
           rel="stylesheet"
         />
       </Head>
-      <SlateThemeProvider>
+      <SlateThemeProvider tw={tw}>
         <RelayEnvironmentProvider environment={environment}>
           <Component {...pageProps} />
         </RelayEnvironmentProvider>

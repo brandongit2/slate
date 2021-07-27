@@ -1,3 +1,3 @@
-import {injectClasses} from "#utils/injectClasses"
+import {injectTwClasses} from "#utils/injectClasses"
 
-export const H4 = injectClasses(`h4`, `text-2xl font-black`)
+export const H4 = injectTwClasses(`h4`, (tw) => tw`text-2xl font-black`)

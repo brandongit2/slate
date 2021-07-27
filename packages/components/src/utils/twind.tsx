@@ -1,19 +1,13 @@
 import React, {FC, createContext, useContext} from "react"
-import {Configuration, setup, tw} from "twind"
+import {TW, tw} from "twind"
 
-const SlateComponents = createContext<Configuration>({})
+const SlateComponents = createContext<TW>(tw)
 
-export const SlateThemeProvider: FC<{config?: Configuration}> = ({config, children}) => {
-  return <SlateComponents.Provider value={config || {}}>{children}</SlateComponents.Provider>
-}
-
-export function useSlateTheme() {
-  const context = useContext(SlateComponents)
-  return context
+export const SlateThemeProvider: FC<{tw: TW}> = ({tw, children}) => {
+  return <SlateComponents.Provider value={tw}>{children}</SlateComponents.Provider>
 }
 
 export function useTw() {
-  setup(useSlateTheme())
-
+  const tw = useContext(SlateComponents)
   return tw
 }

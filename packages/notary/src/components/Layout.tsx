@@ -36,7 +36,7 @@ const Layout: FC = ({children}) => {
         }
       `}</style>
       <div className={tw`min-h-screen grid`} style={{gridTemplateRows: `max-content 1fr`}}>
-        <Navbar logo={NotaryLogo} className={tw`sticky t-0 l-0`} />
+        <Navbar logo={NotaryLogo} className={tw`sticky top-0 left-0`} />
         <main>{children}</main>
       </div>
     </UserContext.Provider>

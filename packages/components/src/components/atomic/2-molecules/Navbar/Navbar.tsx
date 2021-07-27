@@ -14,7 +14,7 @@ export const Navbar: FC<Props> = ({className, logo, children}) => {
   const Logo = logo
 
   return (
-    <nav className={classNames(tw`flex justify-between px-12 py-auto h-20 items-center`, className)}>
+    <nav className={classNames(tw`flex justify-between px-12 py-6 h-20 items-center`, className)}>
       <Logo className={tw`h-8`} />
       <div className={tw`flex gap-4 items-center`}>{children}</div>
     </nav>
