@@ -17,10 +17,7 @@ function MyApp({Component, pageProps}: AppProps) {
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;700;900&display=swap"
-          rel="stylesheet"
-        />
+        <link href="https://fonts.googleapis.com/css2?family=Alegreya&display=swap" rel="stylesheet" />
       </Head>
       <SlateThemeProvider tw={tw}>
         <RelayEnvironmentProvider environment={environment}>
