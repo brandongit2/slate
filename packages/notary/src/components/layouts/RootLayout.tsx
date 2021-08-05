@@ -1,3 +1,4 @@
+import Head from "next/head"
 import React, {FC, ReactNode, useEffect, useState} from "react"
 import {useRelayEnvironment} from "react-relay"
 import {fetchQuery} from "relay-runtime"
@@ -6,7 +7,11 @@ import UserContext, {UserContextType} from "#contexts/UserContext"
 import {UserQuery as UserQueryType} from "#queries/__generated__/UserQuery.graphql"
 import {UserQuery} from "#queries/User"
 
-const RootLayout: FC = ({children}) => {
+type Props = {
+  title: string
+}
+
+const RootLayout: FC<Props> = ({children, title}) => {
   const [user, setUser] = useState<UserContextType>({isSignedIn: null})
 
   const environment = useRelayEnvironment()
@@ -25,7 +30,14 @@ const RootLayout: FC = ({children}) => {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [modalContents, setModalContents] = useState<ReactNode>()
 
-  return <UserContext.Provider value={{user, setUser}}>{children}</UserContext.Provider>
+  return (
+    <>
+      <Head>
+        <title>{title}</title>
+      </Head>
+      <UserContext.Provider value={{user, setUser}}>{children}</UserContext.Provider>
+    </>
+  )
 }
 
 export default RootLayout

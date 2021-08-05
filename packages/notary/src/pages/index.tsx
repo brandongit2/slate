@@ -1,10 +1,9 @@
 import {css, keyframes} from "@emotion/react"
 import {NextPage} from "next"
-import Head from "next/head"
 import React from "react"
 
 import LandingPageLayout from "#components/layouts/LandingPageLayout"
-import ChevronDown from "#public/icons/chevron-down.svg"
+import Chevron from "#public/icons/chevron.svg"
 import NotaryLogo from "#public/notary-logo.svg"
 import {getTailwindConfig} from "#utils/getTailwindConfig"
 
@@ -22,46 +21,41 @@ const Index: NextPage = () => {
   `
 
   return (
-    <LandingPageLayout>
-      <Head>
-        <title>Notary</title>
-      </Head>
-      <div className="h-full overflow-hidden relative">
-        <div className="h-2/3 grid place-content-center justify-items-center section">
-          <div className="border-2 border-black">
-            <NotaryLogo className="h-16" />
-          </div>
-          <h1>Note-taking at the speed of light.</h1>
-          <h2 className="max-w-2xl text-2xl text-center">
-            <em
-              className="rounded -mx-1 px-1"
-              css={css`
-                background-color: rgba(0, 255, 100, 0.2);
-              `}
-            >
-              Notary
-            </em>
-            {` `}
-            streamlines the note-taking process, allowing you to make professionally formatted documents without even
-            thinking about it.
-          </h2>
+    <LandingPageLayout title="Notary: Light-speed notes.">
+      <div className="h-2/3 grid place-content-center justify-items-center section">
+        <div className="border-2 border-black">
+          <NotaryLogo className="h-16" />
         </div>
-        <div className="h-1/3 w-full absolute bottom-0">
-          <div
-            className="max-w-4xl w-full h-full mx-auto bg-cream rounded-lg"
-            style={{boxShadow: `0px 20px 60px -10px rgba(0, 0, 0, 0.5)`}}
+        <h1>Note-taking at the speed of light.</h1>
+        <h2 className="max-w-2xl text-2xl text-center">
+          <em
+            className="rounded -mx-1 px-1"
+            css={css`
+              background-color: rgba(0, 255, 100, 0.2);
+            `}
           >
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-y-4">
-              <span className="font-header font-semibold text-2xl">Scroll down to get started</span>
-              <div className="scale-y-90">
-                <ChevronDown
-                  className="h-6"
-                  css={css`
-                    animation: ${bounce} 3s infinite;
-                  `}
-                  fill={theme.colors.black}
-                />
-              </div>
+            Notary
+          </em>
+          {` `}
+          streamlines the note-taking process, allowing you to make professionally formatted documents without even
+          thinking about it.
+        </h2>
+      </div>
+      <div className="h-screen w-full absolute top-2/3">
+        <div
+          className="max-w-4xl w-full h-full mx-auto bg-cream rounded-lg"
+          style={{boxShadow: `0px 20px 60px -10px rgba(0, 0, 0, 0.5)`}}
+        >
+          <div className="fixed bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-y-4">
+            <span className="font-header font-semibold text-2xl">Scroll down to get started</span>
+            <div className="scale-y-90">
+              <Chevron
+                className="h-6"
+                css={css`
+                  animation: ${bounce} 3s infinite;
+                `}
+                fill={theme.colors.black}
+              />
             </div>
           </div>
         </div>

@@ -7,7 +7,7 @@ body {
   --full-height: 100vh;
   --full-width: 100vw;
 
-  @apply font-body text-black;
+  @apply font-body text-black bg-sepia;
 }
 
 h1 {
