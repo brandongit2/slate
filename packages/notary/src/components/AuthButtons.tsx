@@ -1,8 +1,8 @@
 import React, {FC, useContext} from "react"
 import {useMutation} from "react-relay"
-import {Button, LoadingShine} from "slate-components"
 
-import UserContext from "#components/UserContext"
+import {LoadingShine} from "#components/1-atoms/LoadingShine"
+import UserContext from "#contexts/UserContext"
 import {UserSignOutMutation as UserSignOutMutationType} from "#queries/__generated__/UserSignOutMutation.graphql"
 import {UserSignOutMutation} from "#queries/User"
 
@@ -28,9 +28,7 @@ const AuthButtons: FC = () => {
         <span>
           Hi, <b>{user.firstName}</b>!
         </span>
-        <Button outlined onClick={signOut}>
-          Sign out
-        </Button>
+        <button onClick={signOut}>Sign out</button>
       </>
     )
   } else {

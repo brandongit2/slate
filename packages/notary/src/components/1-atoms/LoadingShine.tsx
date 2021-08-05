@@ -1,9 +1,8 @@
-import classNames from "classnames"
+import clsx from "clsx"
 import React, {FC} from "react"
 import styled, {keyframes} from "styled-components"
 
 import {gradientEase} from "#utils/gradientEase"
-import {useTw} from "#utils/twind"
 
 const shine = keyframes`
   from {
@@ -25,11 +24,9 @@ type Props = {
 }
 
 export const LoadingShine: FC<Props> = ({className, style}) => {
-  const tw = useTw()
-
   return (
     <Shiny
-      className={classNames(tw`bg-gray-300`, className)}
+      className={clsx(`bg-gray-300`, className)}
       style={{
         backgroundImage: gradientEase(`easeInOutSine`, [`#ccc`, `#eee`, `#ccc`], [0.3, 0.5, 0.7], `70deg`),
         backgroundSize: `800% 100%`,
