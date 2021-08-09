@@ -16,6 +16,7 @@ module.exports = {
     extend: {
       height: {
         screen: `var(--full-height)`,
+        max: `max-content`,
       },
       spacing: {
         128: `32rem`,

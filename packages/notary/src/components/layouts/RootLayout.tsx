@@ -9,9 +9,9 @@ import {UserQuery} from "#queries/User"
 
 type Props = {
   title: string
-}
+} & React.DetailedHTMLProps<React.HTMLProps<HTMLDivElement>, HTMLDivElement>
 
-const RootLayout: FC<Props> = ({children, title}) => {
+const RootLayout: FC<Props> = ({children, title, ...props}) => {
   const [user, setUser] = useState<UserContextType>({isSignedIn: null})
 
   const environment = useRelayEnvironment()
@@ -20,7 +20,7 @@ const RootLayout: FC<Props> = ({children, title}) => {
       error: () => {
         setUser({isSignedIn: false})
       },
-      next: ({user}) => {
+      next: ({user}: {user: any}) => {
         setUser({isSignedIn: true, ...user})
       },
     })
@@ -35,7 +35,11 @@ const RootLayout: FC<Props> = ({children, title}) => {
       <Head>
         <title>{title}</title>
       </Head>
-      <UserContext.Provider value={{user, setUser}}>{children}</UserContext.Provider>
+      <UserContext.Provider value={{user, setUser}}>
+        <div className="h-screen grid place-items-stretch">
+          <div {...props}>{children}</div>
+        </div>
+      </UserContext.Provider>
     </>
   )
 }
