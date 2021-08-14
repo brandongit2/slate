@@ -3,12 +3,12 @@ import {CanActivate, Injectable} from "@nestjs/common"
 import {ExecutionContextHost} from "@nestjs/core/helpers/execution-context-host"
 import bcrypt from "bcrypt"
 
-import {FastifyExecutionContext} from "$/FastifyExecutionContext"
-import {UsersService} from "$routes/users/users.service"
+import {FastifyExecutionContext} from "#/FastifyExecutionContext"
+import {UserService} from "#/routes/user/user.service"
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(@InjectRedis() private readonly redis: Redis, private readonly usersService: UsersService) {}
+  constructor(@InjectRedis() private readonly redis: Redis, private readonly userService: UserService) {}
 
   async canActivate(context: ExecutionContextHost) {
     // Get the request args
@@ -31,7 +31,7 @@ export class AuthGuard implements CanActivate {
     if (isValidToken) {
       // Get user and place it in context
       const userId = await this.redis.hget(`sess:${cookies.sessionId}`, `userId`)
-      const user = await this.usersService.findOneById(userId!)
+      const user = await this.userService.findOneById(userId!)
       args.request.user = user!
     }
 

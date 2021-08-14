@@ -6,9 +6,9 @@ import {Test} from "@nestjs/testing"
 import bcrypt from "bcrypt"
 import {v4} from "uuid"
 
-import {TestDbModule} from "$/testDb.module"
-import {UsersModule} from "$routes/users/users.module"
-import users from "$seedData/users.json"
+import {UserModule} from "#/routes/user/user.module"
+import {TestDbModule} from "#/testDb.module"
+import users from "#seedData/users.json"
 import {AuthGuard} from "./auth.guard"
 
 describe(`AuthGuard`, () => {
@@ -18,7 +18,7 @@ describe(`AuthGuard`, () => {
 
   beforeAll(async () => {
     const module = await Test.createTestingModule({
-      imports: [TestDbModule, UsersModule],
+      imports: [TestDbModule, UserModule],
       providers: [AuthGuard],
     }).compile()
 

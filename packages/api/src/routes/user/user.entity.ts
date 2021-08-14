@@ -1,9 +1,9 @@
 import {Field, ObjectType} from "@nestjs/graphql"
 
-import {UuidScalar} from "$/uuid.scalar"
+import {UuidScalar} from "#/uuid.scalar"
 
 @ObjectType()
-export class UserEntity {
+export class User {
   @Field(() => UuidScalar, {description: `The user's ID.`})
   id!: string
 
@@ -15,7 +15,8 @@ export class UserEntity {
 
   @Field({description: `The user's email.`})
   email!: string
+}
 
-  // Not included in the GraphQL entity... for obvious reasons
+export class UserWithPassword extends User {
   password!: string
 }

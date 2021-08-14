@@ -1,20 +1,20 @@
 import {Test, TestingModule} from "@nestjs/testing"
 
-import {TestDbModule} from "$/testDb.module"
-import {AuthModule} from "$routes/auth/auth.module"
-import {UsersResolver} from "./users.resolver"
-import {UsersService} from "./users.service"
+import {TestDbModule} from "#/testDb.module"
+import {AuthModule} from "#routes/auth/auth.module"
+import {UserResolver} from "./user.resolver"
+import {UserService} from "./user.service"
 
 describe(`UsersResolver`, () => {
-  let resolver: UsersResolver
+  let resolver: UserResolver
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [TestDbModule, AuthModule],
-      providers: [UsersResolver, UsersService],
+      providers: [UserResolver, UserService],
     }).compile()
 
-    resolver = module.get<UsersResolver>(UsersResolver)
+    resolver = module.get<UserResolver>(UserResolver)
   })
 
   it(`should be defined`, () => {

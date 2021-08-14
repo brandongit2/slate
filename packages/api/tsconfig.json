@@ -19,10 +19,10 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "$/*": ["./src/*"],
-      "$dbTypes/*": ["./src/dbTypes/*"],
-      "$routes/*": ["./src/routes/*"],
-      "$seedData/*": ["./knex/seedData/*"]
+      "#/*": ["./src/*"],
+      "#dbTypes/*": ["./src/dbTypes/*"],
+      "#routes/*": ["./src/routes/*"],
+      "#seedData/*": ["./knex/seedData/*"]
     }
   }
 }

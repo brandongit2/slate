@@ -5,14 +5,15 @@ import {GraphQLModule} from "@nestjs/graphql"
 import config from "config"
 import path from "path"
 
-import {AuthModule} from "$routes/auth/auth.module"
-import {UsersModule} from "$routes/users/users.module"
+import {UserModule} from "#/routes/user/user.module"
+import {AuthModule} from "#routes/auth/auth.module"
 import {UuidScalar} from "./uuid.scalar"
 
 @Module({
   imports: [
     GraphQLModule.forRoot({
       autoSchemaFile: path.resolve(process.cwd(), `schema.gql`),
+      sortSchema: true,
       context: ({request, reply}) => ({request, reply}),
       cors: {
         origin: [`http://localhost:3000`, `https://studio.apollographql.com`],
@@ -32,7 +33,7 @@ import {UuidScalar} from "./uuid.scalar"
       port: config.get(`redis.port`),
       host: `localhost`,
     }),
-    UsersModule,
+    UserModule,
     AuthModule,
   ],
   providers: [UuidScalar],

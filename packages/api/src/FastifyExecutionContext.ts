@@ -1,8 +1,8 @@
 import type {FastifyReply, FastifyRequest} from "fastify"
 
-import {UserEntity} from "$routes/users/entities/user.entity"
+import {User} from "#/routes/user/user.entity"
 
 export type FastifyExecutionContext = {
-  request: FastifyRequest & {user: Omit<UserEntity, `password`>}
+  request: FastifyRequest & {user: Omit<User, `password`>}
   reply: FastifyReply
 }

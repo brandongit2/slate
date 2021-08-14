@@ -2,16 +2,15 @@ import {InjectKnex, Knex} from "@brandonnpm2/nestjs-knex"
 import {Injectable} from "@nestjs/common"
 import {v4} from "uuid"
 
-import {User} from "$dbTypes/User"
 import {CreateUserInput} from "./dto/createUser.input"
 import {UpdateUserInput} from "./dto/updateUser.input"
-import {UserEntity} from "./entities/user.entity"
+import {User, UserWithPassword} from "./user.entity"
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(@InjectKnex() private readonly knex: Knex) {}
 
-  async create(createUserInput: CreateUserInput): Promise<Omit<UserEntity, `password`>> {
+  async create(createUserInput: CreateUserInput): Promise<Omit<User, `password`>> {
     const userId = v4()
 
     const user = {
@@ -31,7 +30,7 @@ export class UsersService {
     }
   }
 
-  async findOneById(id: string): Promise<Omit<UserEntity, `password`>> {
+  async findOneById(id: string): Promise<Omit<User, `password`>> {
     const dbRes = await this.knex.table<User>(`users`).first(`*`).where({id})
     return {
       id: dbRes!.id,
@@ -42,8 +41,8 @@ export class UsersService {
   }
 
   // Used only to validate a user by email and password. For any other use, use `findOneById`.
-  async findOneByEmail(email: string): Promise<User> {
-    const dbRes = await this.knex.table<User>(`users`).first(`*`).where({email})
+  async findOneByEmail(email: string): Promise<UserWithPassword> {
+    const dbRes = await this.knex.table<UserWithPassword>(`users`).first(`*`).where({email})
     return dbRes!
   }
 

@@ -3,15 +3,15 @@ import {Injectable, UnauthorizedException} from "@nestjs/common"
 import bcrypt from "bcrypt"
 import {v4} from "uuid"
 
-import {UserEntity} from "$routes/users/entities/user.entity"
-import {UsersService} from "$routes/users/users.service"
+import {User} from "#/routes/user/user.entity"
+import {UserService} from "#/routes/user/user.service"
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly usersService: UsersService, @InjectRedis() private readonly redis: Redis) {}
+  constructor(private readonly userService: UserService, @InjectRedis() private readonly redis: Redis) {}
 
-  async validateUserLocal(email: string, password: string): Promise<Omit<UserEntity, `password`> | null> {
-    const user = await this.usersService.findOneByEmail(email)
+  async validateUserLocal(email: string, password: string): Promise<User | null> {
+    const user = await this.userService.findOneByEmail(email)
 
     if (user && bcrypt.compareSync(password, user.password)) {
       return {

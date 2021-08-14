@@ -2,66 +2,66 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type UserEntity {
-  """The user's ID."""
-  id: UUID!
-
-  """The user's first name."""
-  firstName: String!
-
-  """The user's last name."""
-  lastName: String!
-
-  """The user's email."""
-  email: String!
-}
-
-"""The `UUID` scalar type represents a v4 UUID."""
-scalar UUID
-
-type Query {
-  user: UserEntity!
-}
-
 type Mutation {
-  updateUser(updateUserInput: UpdateUserInput!): UserEntity!
-  removeUser(id: String!): UserEntity!
-  signUp(
-    """The user's first name."""
-    firstName: String!
-
-    """The user's last name."""
-    lastName: String!
-
-    """The user's email address."""
-    email: String!
-
-    """The user's new password."""
-    password: String!
-  ): UserEntity!
+  removeUser(id: String!): User!
   signInLocal(
     """The user's email address."""
     email: String!
 
     """The user's password."""
     password: String!
-  ): UserEntity!
-  signOut: UserEntity!
+  ): User!
+  signOut: User!
+  signUp(
+    """The user's email address."""
+    email: String!
+
+    """The user's first name."""
+    firstName: String!
+
+    """The user's last name."""
+    lastName: String!
+
+    """The user's new password."""
+    password: String!
+  ): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
+type Query {
+  user: User!
+}
+
+"""The `UUID` scalar type represents a v4 UUID."""
+scalar UUID
+
 input UpdateUserInput {
+  """The user's email address."""
+  email: String!
+
   """The user's first name."""
   firstName: String!
+
+  """The ID of the user."""
+  id: String!
 
   """The user's last name."""
   lastName: String!
 
-  """The user's email address."""
-  email: String!
-
   """The user's password."""
   password: String
+}
 
-  """The ID of the user."""
-  id: String!
+type User {
+  """The user's email."""
+  email: String!
+
+  """The user's first name."""
+  firstName: String!
+
+  """The user's ID."""
+  id: UUID!
+
+  """The user's last name."""
+  lastName: String!
 }
