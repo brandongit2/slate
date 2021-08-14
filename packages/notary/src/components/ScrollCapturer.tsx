@@ -1,26 +1,36 @@
 import React, {FC, useEffect, useRef} from "react"
 
+import mergeRefs from "#utils/mergeRefs"
+
 export type ScrollCaptureObject = {pos: number; vel: number}
 
 type Props = {
-  onScroll: (info: ScrollCaptureObject) => void
+  onScroll: (scrollHistory: ScrollCaptureObject[]) => void
+  ref?: React.MutableRefObject<HTMLDivElement>
 }
 
-const ScrollCapturer: FC<
-  Omit<React.DetailedHTMLProps<React.HTMLProps<HTMLDivElement>, HTMLDivElement>, `ref` | `onScroll`> & Props
-> = ({children, style, onScroll: callback, ...props}) => {
-  const divRef = useRef<HTMLDivElement>(null)
+const ScrollCapturer: FC<Omit<React.AllHTMLAttributes<HTMLDivElement>, `ref` | `onScroll`> & Props> = ({
+  children,
+  style,
+  onScroll: callback,
+  ref: parentRef,
+  ...props
+}) => {
+  const divRef = useRef<HTMLDivElement | null>(null)
 
   const prevScrollTop = useRef(0)
+  const scrollHistory = useRef<ScrollCaptureObject[]>([])
   useEffect(() => {
     const div = divRef.current
     if (!div) return
 
     const onScroll = (evt: Event) => {
-      callback({
+      const scrollInfo = {
         pos: div.scrollTop,
         vel: div.scrollTop - prevScrollTop.current,
-      })
+      }
+      scrollHistory.current.push(scrollInfo)
+      callback(scrollHistory.current)
       prevScrollTop.current = div.scrollTop
     }
 
@@ -32,7 +42,7 @@ const ScrollCapturer: FC<
   }, [callback])
 
   return (
-    <div {...props} style={{height: `100%`, overflow: `auto`, ...style}} ref={divRef}>
+    <div {...props} style={{height: `100%`, overflow: `auto`, ...style}} ref={mergeRefs(divRef, parentRef)}>
       {children}
     </div>
   )

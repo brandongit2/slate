@@ -6,7 +6,7 @@ import RootLayout from "#components/layouts/RootLayout"
 import ScrollCapturer, {ScrollCaptureObject} from "#components/ScrollCapturer"
 import Chevron from "#public/icons/chevron.svg"
 import NotaryLogo from "#public/notary-logo.svg"
-import {getTailwindConfig} from "#utils/getTailwindConfig"
+import getTailwindConfig from "#utils/getTailwindConfig"
 
 const Index: NextPage = () => {
   const {theme} = getTailwindConfig()
@@ -21,7 +21,9 @@ const Index: NextPage = () => {
     }
   `
 
-  function onScroll({pos, vel}: ScrollCaptureObject) {
+  function onScroll(scrollHistory: ScrollCaptureObject[]) {
+    const {pos, vel} = scrollHistory[scrollHistory.length - 1]
+    console.log(scrollHistory.length)
     console.log({pos, vel})
   }
 
