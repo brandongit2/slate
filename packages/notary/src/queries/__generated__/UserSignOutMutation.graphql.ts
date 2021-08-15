@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 export type UserSignOutMutationVariables = {};
 export type UserSignOutMutationResponse = {
     readonly signOut: {
@@ -35,7 +36,7 @@ const node: ConcreteRequest = (function () {
         {
             "alias": null,
             "args": null,
-            "concreteType": "UserEntity",
+            "concreteType": "User",
             "kind": "LinkedField",
             "name": "signOut",
             "plural": false,

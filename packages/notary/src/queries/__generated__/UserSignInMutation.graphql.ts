@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 export type UserSignInMutationVariables = {
     email: string;
     password: string;
@@ -63,7 +64,7 @@ const node: ConcreteRequest = (function () {
                     "variableName": "password"
                 }
             ],
-            "concreteType": "UserEntity",
+            "concreteType": "User",
             "kind": "LinkedField",
             "name": "signInLocal",
             "plural": false,
