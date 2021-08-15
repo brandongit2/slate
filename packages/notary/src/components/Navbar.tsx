@@ -9,7 +9,7 @@ type Props = {
 }
 
 const Navbar: FC<Props> = ({className, noLogo = false}) => {
-  return <div className={clsx(`px-12 py-6 w-full`, className)}>{!noLogo && <NotaryLogo className="h-14" />}</div>
+  return <div className={clsx(`w-full`, className)}>{!noLogo && <NotaryLogo className="h-14" />}</div>
 }
 
 export default Navbar
