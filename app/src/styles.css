@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h1 {
+  @apply text-3xl font-black;
+}
+
+@layer utilities {
+  .button {
+    @apply px-4 py-2 rounded-none font-bold text-sm transition duration-300 bg-black text-white;
+  }
+
+  .button-disabled {
+    @apply filter contrast-25 cursor-default;
+  }
+
+  .button-outlined {
+    @apply border-black border-2;
+  }
+
+  .page {
+    @apply flex flex-col gap-4;
+  }
+}

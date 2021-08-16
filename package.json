@@ -1,5 +1,5 @@
 {
-  "name": "slate-repo",
+  "name": "slate",
   "homepage": "https://slate.cx",
   "bugs": "https://github.com/brandongit2/slate/issues",
   "repository": "git@github.com:brandongit2/slate.git",
@@ -11,11 +11,11 @@
   "license": "UNLICENSED",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "api",
+    "app"
   ],
   "scripts": {
-    "dev:slate": "docker compose up -d && yarn workspaces foreach -ip --include '{slate-api,slate}' run dev",
-    "dev:notary": "docker compose up -d && yarn workspaces foreach -ip --include '{slate-api,notary}' run dev",
+    "start:dev": "docker compose up -d && yarn workspaces foreach -ip run start:dev",
     "lint": "yarn workspaces foreach -ip run lint"
   },
   "dependencies": {
