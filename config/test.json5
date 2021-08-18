@@ -1,8 +1,0 @@
-{
-  db: {
-    port: 5429, // Synchronize this with the one in `docker-compose.test.yml`.
-  },
-  redis: {
-    port: 6369, // Synchronize this with the one in `docker-compose.test.yml`.
-  },
-}

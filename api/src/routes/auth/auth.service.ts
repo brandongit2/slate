@@ -1,6 +1,7 @@
-import {InjectRedis, Redis} from "@brandonnpm2/nestjs-redis"
+import {InjectRedis} from "@brandonnpm2/nestjs-redis"
 import {Injectable, UnauthorizedException} from "@nestjs/common"
 import bcrypt from "bcrypt"
+import {Redis} from "ioredis"
 import {v4} from "uuid"
 
 import {User} from "#/routes/user/user.entity"

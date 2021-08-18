@@ -12,5 +12,5 @@ import {AppModule} from "./app.module"
   app.register(fastifyHelmet)
   app.useGlobalPipes(new ValidationPipe())
 
-  await app.listen(4000)
+  await app.listen(process.env.API_PORT!)
 })()

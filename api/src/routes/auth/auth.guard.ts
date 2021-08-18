@@ -1,7 +1,8 @@
-import {InjectRedis, Redis} from "@brandonnpm2/nestjs-redis"
+import {InjectRedis} from "@brandonnpm2/nestjs-redis"
 import {CanActivate, Injectable} from "@nestjs/common"
 import {ExecutionContextHost} from "@nestjs/core/helpers/execution-context-host"
 import bcrypt from "bcrypt"
+import {Redis} from "ioredis"
 
 import {FastifyExecutionContext} from "#/FastifyExecutionContext"
 import {UserService} from "#/routes/user/user.service"

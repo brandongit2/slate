@@ -1,9 +1,11 @@
-import {KNEX_TOKEN, Knex} from "@brandonnpm2/nestjs-knex"
-import {REDIS_TOKEN, Redis} from "@brandonnpm2/nestjs-redis"
+import {KNEX_TOKEN} from "@brandonnpm2/nestjs-knex"
+import {REDIS_TOKEN} from "@brandonnpm2/nestjs-redis"
 import {createMock} from "@golevelup/ts-jest"
 import {ExecutionContextHost} from "@nestjs/core/helpers/execution-context-host"
 import {Test} from "@nestjs/testing"
 import bcrypt from "bcrypt"
+import {Redis} from "ioredis"
+import Knex from "knex"
 import {v4} from "uuid"
 
 import {UserModule} from "#/routes/user/user.module"

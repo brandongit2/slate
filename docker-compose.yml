@@ -4,18 +4,18 @@ services:
     image: postgres:13.4-alpine
     container_name: slate-db
     ports:
-      - "5430:5432"
+      - "${POSTGRES_PORT}:5432"
     environment:
-      POSTGRES_DB: slate
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_DB: "${POSTGRES_DB_NAME}"
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
     volumes:
       - slate-postgres:/var/lib/postgresql/data
   slate-sessions:
     image: redis:6.2.4-alpine3.13
     container_name: slate-sessions
     ports:
-      - "6370:6379"
+      - "${REDIS_PORT}:6379"
     volumes:
       - slate-redis:/data
 volumes:
