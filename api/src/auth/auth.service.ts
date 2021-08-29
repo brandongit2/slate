@@ -4,8 +4,8 @@ import bcrypt from "bcrypt"
 import {Redis} from "ioredis"
 import {v4} from "uuid"
 
-import {User} from "#/routes/user/user.entity"
-import {UserService} from "#/routes/user/user.service"
+import {User} from "src/user/user.entity"
+import {UserService} from "src/user/user.service"
 
 @Injectable()
 export class AuthService {

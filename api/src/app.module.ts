@@ -7,8 +7,8 @@ import {RedisOptions} from "ioredis"
 import Knex from "knex"
 import path from "path"
 
-import {UserModule} from "#/routes/user/user.module"
-import {AuthModule} from "#routes/auth/auth.module"
+import {UserModule} from "src/user/user.module"
+import {AuthModule} from "src/auth/auth.module"
 import {UuidScalar} from "./uuid.scalar"
 
 @Module({

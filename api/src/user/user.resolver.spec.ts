@@ -1,6 +1,6 @@
 import {Test, TestingModule} from "@nestjs/testing"
 
-import {TestDbModule} from "#/testDb.module"
+import {TestDbModule} from "src/testDb.module"
 import {AuthModule} from "#routes/auth/auth.module"
 import {UserResolver} from "./user.resolver"
 import {UserService} from "./user.service"

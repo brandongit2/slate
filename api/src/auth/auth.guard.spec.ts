@@ -8,8 +8,8 @@ import {Redis} from "ioredis"
 import Knex from "knex"
 import {v4} from "uuid"
 
-import {UserModule} from "#/routes/user/user.module"
-import {TestDbModule} from "#/testDb.module"
+import {UserModule} from "src/user/user.module"
+import {TestDbModule} from "src/testDb.module"
 import users from "#seedData/users.json"
 import {AuthGuard} from "./auth.guard"
 

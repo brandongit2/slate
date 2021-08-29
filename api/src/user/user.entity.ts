@@ -1,6 +1,6 @@
 import {Field, ObjectType} from "@nestjs/graphql"
 
-import {UuidScalar} from "#/uuid.scalar"
+import {UuidScalar} from "src/uuid.scalar"
 
 @ObjectType()
 export class User {
