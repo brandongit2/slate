@@ -1,14 +1,14 @@
-import React, {FC, useContext} from "react"
-import {useMutation} from "react-relay"
+import React, {useContext} from "react"
+
+import type {FC} from "react"
 
 import Button from "#components/Button"
 import SignInForm from "#components/forms/sign-in/SignInForm"
 import SignUpForm from "#components/forms/sign-up/SignUpForm"
 import LoadingShine from "#components/LoadingShine"
 import ModalContext from "#components/modal/ModalContext"
+import {useSignOutMutation} from "#components/Navbar/AuthButtons.generated"
 import UserContext from "#contexts/UserContext"
-import {UserSignOutMutation as UserSignOutMutationType} from "#queries/__generated__/UserSignOutMutation.graphql"
-import {UserSignOutMutation} from "#queries/User"
 
 const AuthButtons: FC = () => {
   const {user, setUser} = useContext(UserContext)
@@ -25,15 +25,17 @@ const AuthButtons: FC = () => {
     setIsModalVisible(true)
   }
 
-  const [commitSignOut] = useMutation<UserSignOutMutationType>(UserSignOutMutation)
+  const {mutate: commitSignOut} = useSignOutMutation()
 
   function signOut() {
-    commitSignOut({
-      variables: {},
-      onCompleted() {
-        setUser({isSignedIn: false})
+    commitSignOut(
+      {},
+      {
+        onSuccess: () => {
+          setUser({isSignedIn: false})
+        },
       },
-    })
+    )
   }
 
   if (user.isSignedIn === null) {

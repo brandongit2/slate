@@ -1,10 +1,12 @@
 import {css} from "@emotion/react"
 import clsx from "clsx"
-import React, {CSSProperties, InputHTMLAttributes, forwardRef} from "react"
+import React, {forwardRef} from "react"
+
+import type {CSSProperties, InputHTMLAttributes} from "react"
 
 import {getTailwindConfig} from "#utils/getTailwindConfig"
 
-type Props = {
+export type TextInputProps = {
   label: string
   required?: boolean
   error?: string
@@ -12,7 +14,7 @@ type Props = {
   style?: CSSProperties
 } & InputHTMLAttributes<HTMLInputElement>
 
-const TextInput = forwardRef<HTMLInputElement, Props>(function TextInput(
+const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function TextInput(
   {label, required = false, error, activeError, style, ...props},
   ref,
 ) {

@@ -1,33 +1,31 @@
 import {yupResolver} from "@hookform/resolvers/yup"
-import React, {FC, useContext, useState} from "react"
+import React, {useContext, useState} from "react"
 import {useForm} from "react-hook-form"
-import {useMutation} from "react-relay"
+
+import type {FC} from "react"
 
 import Button from "#components/Button"
 import ErrorCarousel from "#components/ErrorCarousel"
+import type {SignInMutationVariables} from "#components/forms/sign-in/SignInForm.generated"
+import {useSignInMutation} from "#components/forms/sign-in/SignInForm.generated"
 import CloseButton from "#components/modal/CloseButton"
 import ModalContext from "#components/modal/ModalContext"
 import Spinner from "#components/Spinner"
 import TextInput from "#components/TextInput"
 import UserContext from "#contexts/UserContext"
-import {
-  UserSignInMutation as UserSignInMutationType,
-  UserSignInMutationVariables,
-} from "#queries/__generated__/UserSignInMutation.graphql"
-import {UserSignInMutation} from "#queries/User"
 import {signInFormSchema} from "./signInFormSchema"
 
 const SignInForm: FC = () => {
   const [currentError, setCurrentError] = useState(0)
   const [submitted, setSubmitted] = useState(false)
 
-  const [commitSignIn, isInFlight] = useMutation<UserSignInMutationType>(UserSignInMutation)
+  const {mutate: commitSignIn, isLoading} = useSignInMutation()
 
   const {
     register,
     handleSubmit,
     formState: {errors: formErrors},
-  } = useForm<UserSignInMutationVariables>({
+  } = useForm<SignInMutationVariables>({
     resolver: yupResolver(signInFormSchema),
   })
 
@@ -35,13 +33,12 @@ const SignInForm: FC = () => {
   const [submitErrors, setSubmitErrors] = useState<string[]>([])
   const {setIsModalVisible} = useContext(ModalContext)
   const onSubmit = handleSubmit((data) => {
-    commitSignIn({
-      variables: data,
-      onCompleted(response) {
+    commitSignIn(data, {
+      onSuccess: (response) => {
         setUser({isSignedIn: true, ...response.signInLocal})
         setIsModalVisible(false)
       },
-      onError(err: any) {
+      onError: (err: any) => {
         if (!err.source) {
           console.error(err)
           return
@@ -83,7 +80,7 @@ const SignInForm: FC = () => {
           <div className="flex-grow">
             {(() => {
               if (submitted) {
-                if (isInFlight) {
+                if (isLoading) {
                   return <Spinner />
                 } else if (submitErrors.length) {
                   return (

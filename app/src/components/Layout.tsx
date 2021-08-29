@@ -1,28 +1,34 @@
-import React, {FC, ReactNode, useEffect, useState} from "react"
-import {useRelayEnvironment} from "react-relay"
-import {fetchQuery} from "relay-runtime"
+import React, {useState} from "react"
 
+import type {FC, ReactNode} from "react"
+
+import {useUserQuery} from "#components/Layout.generated"
 import Modal from "#components/modal/Modal"
 import ModalContext from "#components/modal/ModalContext"
 import Navbar from "#components/Navbar"
-import UserContext, {UserContextType} from "#contexts/UserContext"
-import {UserQuery as UserQueryType} from "#queries/__generated__/UserQuery.graphql"
-import {UserQuery} from "#queries/User"
+import type {UserContextType} from "#contexts/UserContext"
+import UserContext from "#contexts/UserContext"
 
 const Layout: FC = ({children}) => {
   const [user, setUser] = useState<UserContextType>({isSignedIn: null})
 
-  const environment = useRelayEnvironment()
-  useEffect(() => {
-    fetchQuery<UserQueryType>(environment, UserQuery, {}).subscribe({
-      error: () => {
-        setUser({isSignedIn: false})
+  try {
+    useUserQuery(
+      {},
+      {
+        onSuccess: ({user}) => {
+          setUser({isSignedIn: true, ...user})
+        },
+        onError: () => {
+          setUser({isSignedIn: false})
+        },
+        retry: false,
+        useErrorBoundary: true,
       },
-      next: ({user}) => {
-        setUser({isSignedIn: true, ...user})
-      },
-    })
-  }, [environment])
+    )
+  } catch (err) {
+    console.log(err)
+  }
 
   // Modal logic
   const [isModalVisible, setIsModalVisible] = useState(false)

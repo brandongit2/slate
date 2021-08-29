@@ -1,6 +1,8 @@
 import chroma from "chroma-js"
 
-import {EasingFunctions, ease} from "./easingFunctions"
+import type {EasingFunctions} from "./easingFunctions"
+
+import {ease} from "./easingFunctions"
 
 /**
  * Generate a CSS `linear-gradient()` with specified easing.

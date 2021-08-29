@@ -19,4 +19,5 @@ module.exports = {
   rules: {
     "react/prop-types": 0,
   },
+  ignorePatterns: [`**/*.generated.ts`],
 }

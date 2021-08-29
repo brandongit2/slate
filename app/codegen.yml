@@ -1,0 +1,20 @@
+overwrite: true
+schema: "../api/schema.gql"
+documents: "src/**/*.graphql"
+generates:
+  src/gql-gentypes.ts:
+    plugins:
+      - "typescript"
+  src/:
+    preset: near-operation-file
+    presetConfig:
+      baseTypesPath: gql-gentypes.ts
+    plugins:
+      - "typescript-operations"
+      - "typescript-react-query":
+          fetcher:
+            endpoint: "`${process.env.NEXT_PUBLIC_API_URL}/graphql`"
+            fetchParams:
+              credentials: "include"
+              headers:
+                Content-Type: "application/json"

@@ -1,14 +1,16 @@
 import clsx from "clsx"
-import React, {FC} from "react"
+import React from "react"
+
+import type {FC} from "react"
 
 import LogoType from "#public/slate-logo.svg"
 import AuthButtons from "./AuthButtons"
 
-type Props = {
+export type NavbarProps = {
   className: string
 }
 
-const Navbar: FC<Props> = ({className}) => {
+const Navbar: FC<NavbarProps> = ({className}) => {
   return (
     <nav className={clsx(`flex justify-between px-12 py-6 h-20 items-center`, className)}>
       <LogoType className="h-8" />

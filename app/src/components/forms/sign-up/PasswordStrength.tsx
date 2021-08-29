@@ -1,7 +1,9 @@
 import {css} from "@emotion/react"
 import chroma from "chroma-js"
-import React, {FC} from "react"
+import React from "react"
 import zxcvbn from "zxcvbn"
+
+import type {FC} from "react"
 
 type Props = {
   password: string

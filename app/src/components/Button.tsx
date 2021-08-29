@@ -1,7 +1,8 @@
 import clsx from "clsx"
-import {FC} from "react"
 
-type ButtonProps = {
+import type {FC} from "react"
+
+export type ButtonProps = {
   disabled?: boolean
   outlined?: boolean
   className?: string

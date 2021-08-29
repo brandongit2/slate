@@ -1,0 +1,8 @@
+mutation SignOut {
+  signOut {
+    id
+    firstName
+    lastName
+    email
+  }
+}

@@ -1,16 +1,18 @@
-import React, {FC, useEffect} from "react"
+import React, {useEffect} from "react"
+
+import type {FC} from "react"
 
 import ChevronDown from "#public/icons/chevron-down.svg"
 import ChevronUp from "#public/icons/chevron-up.svg"
 import {getTailwindConfig} from "#utils/getTailwindConfig"
 
-type Props = {
+export type ErrorCarouselProps = {
   errors: string[]
   currentError: number
   setCurrentError: React.Dispatch<React.SetStateAction<number>>
 }
 
-const ErrorCarousel: FC<Props> = ({errors, currentError, setCurrentError}) => {
+const ErrorCarousel: FC<ErrorCarouselProps> = ({errors, currentError, setCurrentError}) => {
   const {theme} = getTailwindConfig()
 
   function errorUp() {

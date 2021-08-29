@@ -1,6 +1,8 @@
 import {css, keyframes} from "@emotion/react"
 import clsx from "clsx"
-import React, {FC} from "react"
+import React from "react"
+
+import type {FC} from "react"
 
 import {gradientEase} from "#utils/gradientEase"
 
@@ -14,11 +16,11 @@ const shine = keyframes`
   }
 `
 
-type Props = {
+export type LoadingShineProps = {
   className?: string
 }
 
-const LoadingShine: FC<Props> = ({className}) => {
+const LoadingShine: FC<LoadingShineProps> = ({className}) => {
   return (
     <div
       className={clsx(`bg-gray-300`, className)}

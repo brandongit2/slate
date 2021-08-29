@@ -1,18 +1,17 @@
 import React from "react"
-import {RelayEnvironmentProvider} from "react-relay"
+import {QueryClient, QueryClientProvider} from "react-query"
 
 import type {AppProps} from "next/app"
 
-import environment from "#relay/environment"
 import "../styles.css"
+
+const queryClient = new QueryClient()
 
 function MyApp({Component, pageProps}: AppProps) {
   return (
-    <>
-      <RelayEnvironmentProvider environment={environment}>
-        <Component {...pageProps} />
-      </RelayEnvironmentProvider>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <Component {...pageProps} />
+    </QueryClientProvider>
   )
 }
 
