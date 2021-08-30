@@ -11,6 +11,7 @@ function MyApp({Component, pageProps}: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Component {...pageProps} />
+      <div id="modals"></div>
     </QueryClientProvider>
   )
 }
